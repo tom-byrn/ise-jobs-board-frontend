@@ -67,7 +67,7 @@ export function PcNavbar() {
                 src={ISE_UL_LOGO}
                 width={150}
                 alt="The ISE and University of Limerick logos, side-by-side."
-                className="rounded-xl bg-black p-2"
+                className="rounded-xl invert dark:invert-0"
               />
             </NavigationMenuLink>
           </Link>

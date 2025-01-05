@@ -18,7 +18,7 @@ export const MobileNavbar = () => {
           src={ISE_UL_LOGO}
           width={150}
           alt="The ISE and University of Limerick logos, side-by-side."
-          className="rounded-xl bg-black dark:bg-black/0"
+          className="rounded-xl invert dark:invert-0"
         />
         <Menu />
       </DrawerTrigger>
