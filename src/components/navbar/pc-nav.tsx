@@ -58,14 +58,14 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function PcNavbar() {
   return (
-    <NavigationMenu className="max-w-screen fixed hidden w-screen justify-start border-b-2 border-slate-900/60 p-2 backdrop-blur-sm md:flex">
+    <NavigationMenu className="max-w-screen fixed hidden w-screen justify-start border-b-2 border-slate-900/60 p-3 backdrop-blur-sm md:flex">
       <NavigationMenuList>
-        <NavigationMenuItem className="place-self-center justify-self-center">
+        <NavigationMenuItem className="place-self-center justify-self-center mr-2">
           <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink >
               <Image
                 src={ISE_UL_LOGO}
-                width={150}
+                width={200}
                 alt="The ISE and University of Limerick logos, side-by-side."
                 className="rounded-xl invert dark:invert-0"
               />

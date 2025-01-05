@@ -21,7 +21,7 @@ export const Testimonal = () => {
         <div className="flex flex-col items-center gap-y-4 sm:flex-row">
           <Image className="max-h-[200px] rounded-full" width={200} height={200} src={MIKE_MORRISSEY_PHOTO} alt="A photo of John Collison" />
           <div className="ml-4 flex flex-col font-mono">
-            <span><Quote size={24} className="inline" /> We gave them something that we thought would take them three months and they finished in three weeks. That was the incredible nature of what they were able to achieve because of the talent, because of the training they got and because of the immersement in industry</span>
+            <span><Quote size={24} className="inline" /> We gave them something that we thought would take them three months and they finished in three weeks. That was the incredible nature of what they were able to achieve because of the talent, because of the training they got and because of the immersement in industry.</span>
             <span className="mt-2 text-neutral-700 dark:text-neutral-400">Mike Morrissey</span>
             <span className="text-neutral-600 dark:text-neutral-500">Catalyst Director, Analog Devices</span>
           </div>
