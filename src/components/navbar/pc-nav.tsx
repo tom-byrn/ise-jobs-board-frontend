@@ -16,7 +16,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { ThemeDropdown } from "./theming/theme-dropdown";
+import { ThemeDropdown } from "../theming/theme-dropdown";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -56,9 +56,9 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ];
 
-export function Navbar() {
+export function PcNavbar() {
   return (
-    <NavigationMenu className="max-w-screen justify-start p-4">
+    <NavigationMenu className="hidden max-w-screen justify-start p-4 md:flex">
       <NavigationMenuList>
         <NavigationMenuItem className="justify-self-center place-self-center">
           <Link href="/" legacyBehavior passHref>

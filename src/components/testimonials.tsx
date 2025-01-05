@@ -29,8 +29,8 @@ export const Testimonal = () => {
       </div>
 
       <Button variant="secondary" className="group ml-8 mt-6 max-w-fit place-self-center font-mono mb-20">
+        <MessageSquareQuote className="transition-all duration-100 group-hover:-translate-y-0.5" />
         See more testimonials
-        <MessageSquareQuote className="transition-all duration-100 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
       </Button>
     </>
   )
