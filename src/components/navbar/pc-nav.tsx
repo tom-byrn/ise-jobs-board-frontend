@@ -16,7 +16,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { ThemeDropdown } from "../theming/theme-dropdown";
+import { ThemeSwapButton } from "../theming/theme-swap-button";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -74,7 +74,7 @@ export function PcNavbar() {
         </NavigationMenuItem>
 
         <NavigationMenuItem className="pl-2">
-          <ThemeDropdown />
+          <ThemeSwapButton />
         </NavigationMenuItem>
 
         <NavigationMenuItem>

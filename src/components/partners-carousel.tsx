@@ -25,7 +25,7 @@ import Image from "next/image"
 
 export function PartnerCarousel() {
   const plugin = React.useRef(
-    Autoplay({ delay: 2000, stopOnInteraction: false })
+    Autoplay({ delay: 2000, playOnInit: true, stopOnFocusIn: false, stopOnInteraction: false, stopOnMouseEnter: true })
   )
 
   const logos = [STRIPE_LOGO, AWS_LOGO, ANALOG_DEVICES_LOGO, BD_LOGO, BOSTON_SCIENTIFIC_LOGO, DELL_LOGO, FIDELITY_LOGO, INTERCOM_LOGO, MANNA_LOGO, PROVIZIO_LOGO, TINES_LOGO, TRANSACT_LOGO]
