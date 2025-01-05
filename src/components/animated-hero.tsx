@@ -12,7 +12,7 @@ const AnimatedHeroText = (props: Props) => {
 
   useEffect(() => {
     const indices = Array.from({ length: text.length }, (_, i) => i);
-    let timeouts: ReturnType<typeof setTimeout>[] = [];
+    const timeouts: ReturnType<typeof setTimeout>[] = [];
 
     let shuffledIndices;
     const ran = Math.random()
@@ -44,7 +44,7 @@ const AnimatedHeroText = (props: Props) => {
     });
 
     return () => timeouts.forEach(timeout => clearTimeout(timeout));
-  }, []);
+  }, [text.length]);
 
   // Split text into words including their trailing spaces
   const words = text.match(/\S+\s*/g) || [];

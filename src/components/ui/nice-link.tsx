@@ -4,13 +4,13 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
-const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+const niceLinkVariants = cva(
+  "group relative inline-flex border border-black focus:outline-none w-full sm:w-auto",
   {
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+          "bg-primary text-primary-foreground shadow hover:bg-primary/90 hover:translate-x-0.5 hover:-translate-y-0.5",
         destructive:
           "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:
@@ -35,24 +35,24 @@ const buttonVariants = cva(
   },
 );
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-  VariantProps<typeof buttonVariants> {
+export interface NiceLinkProps
+  extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
+  VariantProps<typeof niceLinkVariants> {
   asChild?: boolean;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+const NiceLink = React.forwardRef<HTMLAnchorElement, NiceLinkProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button";
+    const Comp = asChild ? Slot : "a";
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(niceLinkVariants({ variant, size, className }))}
         ref={ref}
         {...props}
       />
     );
   },
 );
-Button.displayName = "Button";
+NiceLink.displayName = "NiceLink";
 
-export { Button, buttonVariants };
+export { NiceLink, niceLinkVariants as niceLinkVariants };

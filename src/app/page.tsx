@@ -1,7 +1,7 @@
 import AnimatedHeroText from "@/components/animated-hero";
 import { PartnerCarousel } from "@/components/partners-carousel";
 import { Testimonal } from "@/components/testimonials";
-import { Button } from "@/components/ui/button";
+import { NiceLink } from "@/components/ui/nice-link";
 import { GraduationCap, Handshake } from "lucide-react";
 
 export default function Home() {
@@ -13,15 +13,15 @@ export default function Home() {
       </h2>
 
       <div className="flex flex-col gap-2 pt-4 sm:flex-row">
-        <Button size="xl" className="group font-mono">
+        <NiceLink size="xl" className="group font-mono">
           <Handshake size={32} className="min-h-5 min-w-5 transition-all duration-100 group-hover:scale-110" />
           PARTNER
-        </Button>
+        </NiceLink>
 
-        <Button size="xl" className="group font-mono">
+        <NiceLink size="xl" className="group font-mono">
           <GraduationCap size={32} className="min-h-5 min-w-5 transition-all duration-100 group-hover:scale-110" />
           STUDY
-        </Button>
+        </NiceLink>
       </div>
 
       <PartnerCarousel />
