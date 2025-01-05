@@ -14,8 +14,15 @@ export default function Home() {
       </h2>
 
       <div className="flex flex-col gap-2 pt-4 sm:flex-row">
-        <Button size="xl"><Handshake size={32} className="min-h-5 min-w-5" /> Partner</Button>
-        <Button size="xl"><GraduationCap size={32} className="min-h-5 min-w-5" /> Study</Button>
+        <Button size="xl" className="group font-mono">
+          <Handshake size={32} className="min-h-5 min-w-5 transition-all duration-100 group-hover:scale-110" />
+          PARTNER
+        </Button>
+
+        <Button size="xl" className="group font-mono">
+          <GraduationCap size={32} className="min-h-5 min-w-5 transition-all duration-100 group-hover:scale-110" />
+          STUDY
+        </Button>
       </div>
 
       <PartnerCarousel />
