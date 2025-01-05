@@ -6,7 +6,7 @@ import { useTheme } from "next-themes";
 
 import { Button } from "@/components/ui/button";
 
-const swapTheme = (theme: String, setTheme: React.Dispatch<React.SetStateAction<string>>) => {
+const swapTheme = (theme: string, setTheme: React.Dispatch<React.SetStateAction<string>>) => {
   if (theme == "dark") {
     setTheme(() => "light")
   } else if (theme == "light") {

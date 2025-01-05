@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 interface Props {
-  text: String
+  text: string
 }
 
 const AnimatedHeroText = (props: Props) => {
@@ -14,7 +14,15 @@ const AnimatedHeroText = (props: Props) => {
     const indices = Array.from({ length: text.length }, (_, i) => i);
     let timeouts: ReturnType<typeof setTimeout>[] = [];
 
-    const shuffledIndices = indices.sort(() => Math.random() - 0.5);
+    let shuffledIndices;
+    const ran = Math.random()
+    if (ran < 0.33) {
+      shuffledIndices = indices.sort(() => Math.random() - 0.5);
+    } else if (ran < 0.66) {
+      shuffledIndices = indices.sort((a, b) => a - b);
+    } else {
+      shuffledIndices = indices.sort((a, b) => b - a);
+    }
 
     shuffledIndices.forEach((index, i) => {
       const animationTimeout = setTimeout(() => {
