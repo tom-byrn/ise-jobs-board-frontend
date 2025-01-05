@@ -43,7 +43,7 @@ export function PartnerCarousel() {
             <div className="p-1">
               <Card>
                 <CardContent className="flex aspect-square items-center justify-center p-6">
-                  <Image src={logo} alt="Company logo" />
+                  <Image src={logo} alt="Company logo" className="invert dark:invert-0" />
                 </CardContent>
               </Card>
             </div>
