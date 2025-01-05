@@ -33,7 +33,7 @@ export function PartnerCarousel() {
   return (
     <Carousel
       plugins={[plugin.current]}
-      className="mt-8"
+      className="mt-8 -mx-4"
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
     >
