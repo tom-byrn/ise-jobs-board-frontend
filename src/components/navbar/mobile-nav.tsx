@@ -19,7 +19,7 @@ export const MobileNavbar = () => {
 
   return (
     <Drawer>
-      <DrawerTrigger className="fixed z-50 flex w-full flex-row items-center justify-between border-b-2 border-b-neutral-900 px-2 py-2 backdrop-blur-sm md:hidden">
+      <DrawerTrigger className="fixed z-50 flex w-full flex-row items-center justify-between border-b-2 border-b-neutral-900/60 px-2 py-2 backdrop-blur-sm md:hidden">
         <Image
           src={ISE_UL_LOGO}
           width={150}

@@ -6,7 +6,7 @@ import { GraduationCap, Handshake } from "lucide-react";
 export default function Home() {
   return (
     <div className="flex w-screen flex-col px-4 pt-8 md:pt-0">
-      <h1 className="pt-8 font-mono text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
+      <h1 className="pt-8 font-mono text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
         The next-generation <br />Computer Science course.
       </h1>
       <h2 className="w-3/4 pt-3 font-mono text-gray-800 dark:text-neutral-300 lg:pt-0">
