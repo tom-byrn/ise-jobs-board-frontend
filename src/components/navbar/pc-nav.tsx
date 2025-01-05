@@ -58,9 +58,9 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function PcNavbar() {
   return (
-    <NavigationMenu className="hidden max-w-screen justify-start p-4 md:flex">
+    <NavigationMenu className="max-w-screen fixed hidden w-screen justify-start border-b-2 border-slate-900/60 p-2 backdrop-blur-sm md:flex">
       <NavigationMenuList>
-        <NavigationMenuItem className="justify-self-center place-self-center">
+        <NavigationMenuItem className="place-self-center justify-self-center">
           <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink >
               <Image
