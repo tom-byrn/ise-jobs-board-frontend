@@ -28,14 +28,17 @@ export default function RootLayout({
     <>
       <html lang="en">
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`
+            ${geistSans.variable} 
+            ${geistMono.variable} 
+            absolute inset-0 antialiased [background-image:radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.4)_1px,transparent_0)] [background-size:30px_30px] dark:[background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.3)_1px,transparent_0)]`}
         >
           <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
             <Navbar />
             {children}
           </ThemeProvider>
         </body>
-      </html>
+      </html >
     </>
   );
 }

@@ -58,85 +58,93 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function PcNavbar() {
   return (
-    <NavigationMenu className="max-w-screen fixed hidden w-screen justify-start border-b-2 border-slate-900/60 p-3 backdrop-blur-sm md:flex">
-      <NavigationMenuList>
-        <NavigationMenuItem className="place-self-center justify-self-center mr-2">
-          <Link href="/" legacyBehavior passHref>
-            <NavigationMenuLink >
-              <Image
-                src={ISE_UL_LOGO}
-                width={200}
-                alt="The ISE and University of Limerick logos, side-by-side."
-                className="rounded-xl invert dark:invert-0"
-              />
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
+    <div className="max-w-screen fixed z-50 hidden w-screen flex-row items-center border-b-2 border-neutral-900/20 p-3 font-mono tracking-tight backdrop-blur-sm dark:border-neutral-100/10 md:flex">
+      <Link href="/">
+        <Image
+          src={ISE_UL_LOGO}
+          width={200}
+          alt="The ISE and University of Limerick logos, side-by-side."
+          className="mr-6 rounded-xl invert dark:invert-0" />
+      </Link>
+      <NavigationMenu className="">
+        <NavigationMenuList>
 
-        <NavigationMenuItem className="pl-2">
-          <ThemeSwapButton />
-        </NavigationMenuItem>
-
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Course Details</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-              <li className="row-span-3">
-                <NavigationMenuLink asChild>
-                  <Link
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    href="/"
-                  >
-                    <div className="mb-2 mt-4 text-lg font-medium">
-                      shadcn/ui
-                    </div>
-                    <p className="text-sm leading-tight text-muted-foreground">
-                      Beautifully designed components built with Radix UI and
-                      Tailwind CSS.
-                    </p>
-                  </Link>
-                </NavigationMenuLink>
-              </li>
-              <ListItem href="/docs" title="Introduction">
-                Re-usable components built using Radix UI and Tailwind CSS.
-              </ListItem>
-              <ListItem href="/docs/installation" title="Installation">
-                How to install dependencies and structure your app.
-              </ListItem>
-              <ListItem href="/docs/primitives/typography" title="Typography">
-                Styles for headings, paragraphs, lists...etc
-              </ListItem>
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Partner With Us</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {components.map((component) => (
-                <ListItem
-                  key={component.title}
-                  title={component.title}
-                  href={component.href}
-                >
-                  {component.description}
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Course Details</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid gap-3 p-4 md:w-[500px] lg:w-[650px] lg:grid-cols-3">
+                <li className="row-span-3 min-w-48">
+                  <NavigationMenuLink asChild>
+                    <Link
+                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-neutral-100 to-neutral-200/80 p-6 no-underline outline-none focus:shadow-md dark:from-neutral-800/80 dark:to-neutral-900"
+                      href="/"
+                    >
+                      <div className="mb-2 mt-4 text-lg font-medium">
+                        Why Choose ISE?
+                      </div>
+                      <p className="text-sm leading-tight text-muted-foreground">
+                        Find out more about the student journey.
+                      </p>
+                    </Link>
+                  </NavigationMenuLink>
+                </li>
+                <ListItem href="/docs" title="The Specifics">
+                  Details about Immersive Software Engineering.
                 </ListItem>
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
+                <ListItem href="/docs/installation" title="Entrance Submission">
+                  More info about our novel way of assessing candidates.
+                </ListItem>
+                <ListItem href="/docs/primitives/typography" title="Student Projects">
+                  See the some of the work that our amazing students have done.
+                </ListItem>
+                <ListItem href="/docs/primitives/typography" title="FAQ">
+                  Answers to some common questions from applicants.
+                </ListItem>
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
 
-        <NavigationMenuItem>
-          <Link href="/docs" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              News and Events
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Partner With Us</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                {components.map((component) => (
+                  <ListItem
+                    key={component.title}
+                    title={component.title}
+                    href={component.href}
+                  >
+                    {component.description}
+                  </ListItem>
+                ))}
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
 
-      </NavigationMenuList>
-    </NavigationMenu>
+
+          <NavigationMenuItem>
+            <Link href="/docs" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Meet The Team
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+
+          <NavigationMenuItem>
+            <Link href="/docs" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                News and Events
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+
+        </NavigationMenuList>
+      </NavigationMenu>
+
+      <div className="ml-auto mr-4">
+        <ThemeSwapButton />
+      </div>
+    </div>
   );
 }
 
@@ -157,7 +165,7 @@ const ListItem = React.forwardRef<
           {...props}
         >
           <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          <p className="line-clamp-3 text-sm leading-snug text-muted-foreground">
             {children}
           </p>
         </Link>

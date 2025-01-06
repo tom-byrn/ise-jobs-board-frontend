@@ -79,7 +79,7 @@ const AnimatedHeroText = (props: Props) => {
   const emphasis = [4, 5, 6, 7, 8, 9]
 
   return (
-    <h1 className="flex flex-wrap pt-10 font-mono text-5xl tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
+    <h1 className="flex flex-wrap pt-10 font-mono text-5xl tracking-tighter sm:text-6xl md:text-7xl lg:text-8xl">
       {words.map((word, wordIndex) => {
         const chars = word.split('').map((char, i) => {
           const absoluteIndex = currentIndex + i;
