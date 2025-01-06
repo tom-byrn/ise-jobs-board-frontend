@@ -50,6 +50,8 @@ const AnimatedHeroText = (props: Props) => {
   const words = text.match(/\S+\s*/g) || [];
   let currentIndex = 0;
 
+  const emphasis = [4, 5, 6, 7, 8, 9]
+
   return (
     <h1 className="flex flex-wrap pt-10 font-mono text-5xl tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
       {words.map((word, wordIndex) => {
@@ -62,14 +64,16 @@ const AnimatedHeroText = (props: Props) => {
                 className={`${animatingChars.has(absoluteIndex)
                   ? 'bg-black dark:bg-white'
                   : 'bg-transparent'
-                  } inline-block transition-all duration-300`}
+                  } inline-block transition-all duration-300
+                  `}
               >
                 {visibleChars.has(absoluteIndex) ? (
-                  <span className={
-                    animatingChars.has(absoluteIndex)
+                  <span className={`
+                    ${animatingChars.has(absoluteIndex)
                       ? "text-white dark:text-black"
-                      : "text-black dark:text-white"
-                  }>
+                      : "text-black dark:text-white"}
+                    ${emphasis.indexOf(currentIndex) > -1 ? "font-bold" : "font-normal"}
+                  `}>
                     {char === ' ' ? '\u00A0' : char}
                   </span>
                 ) : (
