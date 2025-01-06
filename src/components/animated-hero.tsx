@@ -5,6 +5,30 @@ interface Props {
   text: string
 }
 
+function alternateSort(indices: number[]) {
+  // Sort the array in ascending order
+  indices.sort((a, b) => a - b);
+
+  // Create a new array to store the alternated order
+  const alternatedIndices = [];
+  let start = 0;
+  let end = indices.length - 1;
+
+  // Alternately add the smallest and largest elements
+  while (start <= end) {
+    if (start === end) {
+      alternatedIndices.push(indices[start]);
+    } else {
+      alternatedIndices.push(indices[start]);
+      alternatedIndices.push(indices[end]);
+    }
+    start++;
+    end--;
+  }
+
+  return alternatedIndices;
+}
+
 const AnimatedHeroText = (props: Props) => {
   const text = props.text
   const [visibleChars, setVisibleChars] = useState(new Set());
@@ -16,12 +40,14 @@ const AnimatedHeroText = (props: Props) => {
 
     let shuffledIndices;
     const ran = Math.random()
-    if (ran < 0.33) {
+    if (ran < 0.25) {
       shuffledIndices = indices.sort(() => Math.random() - 0.5);
-    } else if (ran < 0.66) {
+    } else if (ran < 0.5) {
       shuffledIndices = indices.sort((a, b) => a - b);
-    } else {
+    } else if (ran < 0.75) {
       shuffledIndices = indices.sort((a, b) => b - a);
+    } else {
+      shuffledIndices = alternateSort(indices)
     }
 
     shuffledIndices.forEach((index, i) => {
