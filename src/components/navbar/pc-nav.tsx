@@ -64,7 +64,7 @@ export function PcNavbar() {
           src={ISE_UL_LOGO}
           width={200}
           alt="The ISE and University of Limerick logos, side-by-side."
-          className="mr-6 rounded-xl invert dark:invert-0" />
+          className="mr-6 invert dark:invert-0" />
       </Link>
       <NavigationMenu className="">
         <NavigationMenuList>
@@ -76,7 +76,7 @@ export function PcNavbar() {
                 <li className="row-span-3 min-w-48">
                   <NavigationMenuLink asChild>
                     <Link
-                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-neutral-100 to-neutral-200/80 p-6 no-underline outline-none focus:shadow-md dark:from-neutral-800/80 dark:to-neutral-900"
+                      className="flex h-full w-full select-none flex-col justify-end bg-gradient-to-b from-neutral-100 to-neutral-200/80 p-6 no-underline outline-none focus:shadow-md dark:from-neutral-800/80 dark:to-neutral-900"
                       href="/"
                     >
                       <div className="mb-2 mt-4 text-lg font-medium">
@@ -159,7 +159,7 @@ const ListItem = React.forwardRef<
           ref={ref}
           href=""
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            "block select-none space-y-1 p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
             className,
           )}
           {...props}
