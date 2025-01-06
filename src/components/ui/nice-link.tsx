@@ -1,30 +1,29 @@
 import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
 const niceLinkVariants = cva(
-  "group relative inline-flex border border-black focus:outline-none w-full sm:w-auto",
+  "group relative inline-flex items-center border border-black dark:border-white focus:outline-none w-fit hover:cursor-pointer",
   {
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow hover:bg-primary/90 hover:translate-x-0.5 hover:-translate-y-0.5",
+          "text-primary-foreground",
         destructive:
-          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
+          "text-destructive-foreground",
         outline:
-          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
+          "border border-input",
         secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+          "text-secondary-foregroung",
+        ghost: "",
+        link: "text-primary underline-offset-4",
       },
       size: {
-        default: "h-9 px-4 py-2",
-        sm: "h-8 px-3 text-xs",
-        lg: "h-10 px-8",
-        xl: "h-12 px-12 text-lg",
+        default: "h-fit",
+        sm: "h-8",
+        lg: "h-10",
+        xl: "h-fit",
         icon: "h-9 w-9",
       },
     },
@@ -35,6 +34,37 @@ const niceLinkVariants = cva(
   },
 );
 
+const spanVariants = cva(
+  "inline-flex w-full transform items-center justify-center gap-x-2 self-stretch px-4 py-2 text-center font-mono text-white ring-1 ring-offset-1 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 group-focus:-translate-x-1 group-focus:-translate-y-1",
+  {
+    variants: {
+      variant: {
+        default:
+          "text-primary-foreground bg-black dark:bg-white ring-0 ring-offset-0",
+        destructive:
+          "text-destructive-foreground",
+        outline:
+          "",
+        secondary:
+          "text-secondary-foreground ring-black dark:ring-white ring-offset-black dark:ring-offset-white bg-white dark:bg-black",
+        ghost: "",
+        link: "text-primary underline-offset-4",
+      },
+      size: {
+        default: "h-9",
+        sm: "h-8",
+        lg: "h-10",
+        xl: "h-12",
+        icon: "h-9 w-9",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  },
+)
+
 export interface NiceLinkProps
   extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
   VariantProps<typeof niceLinkVariants> {
@@ -42,14 +72,14 @@ export interface NiceLinkProps
 }
 
 const NiceLink = React.forwardRef<HTMLAnchorElement, NiceLinkProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "a";
+  ({ className, variant, size, ...props }, ref) => {
     return (
-      <Comp
+      <a
         className={cn(niceLinkVariants({ variant, size, className }))}
         ref={ref}
-        {...props}
-      />
+      >
+        <span className={cn(spanVariants({ variant, size, className }))} {...props} />
+      </a>
     );
   },
 );

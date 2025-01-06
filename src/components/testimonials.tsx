@@ -3,11 +3,11 @@ import Image from "next/image"
 import JOHN_COLLISON_PHOTO from "/public/john-collison.jpg"
 import MIKE_MORRISSEY_PHOTO from "/public/mike-morrissey.jpg"
 import { MessageSquareQuote, Quote } from "lucide-react"
-import { Button } from "./ui/button"
+import { NiceLink } from "./ui/nice-link"
 
 export const Testimonal = () => {
   return (
-    <>
+    <div className="flex flex-col items-center mb-20 gap-y-8">
       <div className="flex flex-col gap-16 px-4 pt-16 lg:flex-row lg:px-8">
         <div className="flex flex-col items-center gap-y-4 sm:flex-row">
           <Image className="max-h-[200px] rounded-full" width={200} height={200} src={JOHN_COLLISON_PHOTO} alt="A photo of John Collison" />
@@ -28,10 +28,10 @@ export const Testimonal = () => {
         </div>
       </div>
 
-      <Button variant="secondary" className="group mb-20 ml-8 mt-6 max-w-fit place-self-center font-mono">
+      <NiceLink variant="secondary" className="group">
         <MessageSquareQuote className="transition-all duration-100 group-hover:-translate-y-0.5" />
         See more testimonials
-      </Button>
-    </>
+      </NiceLink>
+    </div>
   )
 }
