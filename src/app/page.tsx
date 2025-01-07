@@ -1,4 +1,5 @@
 import AnimatedHeroText from "@/components/animated-hero";
+import AnimatedBarChart from "@/components/home/scroll-graph";
 import { PartnerCarousel } from "@/components/partners-carousel";
 import { Testimonal } from "@/components/testimonials";
 import { NiceLink } from "@/components/ui/nice-link";
@@ -33,6 +34,8 @@ export default function Home() {
       <PartnerCarousel />
 
       <Testimonal />
+
+      <AnimatedBarChart />
     </div>
   );
 }

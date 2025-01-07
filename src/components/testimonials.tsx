@@ -7,7 +7,7 @@ import { NiceLink } from "./ui/nice-link"
 
 export const Testimonal = () => {
   return (
-    <div className="flex flex-col items-center mb-20 gap-y-8">
+    <div className="mb-8 flex flex-col items-center gap-y-8">
       <div className="flex flex-col gap-16 px-4 pt-16 lg:flex-row lg:px-8">
         <div className="flex flex-col items-center gap-y-4 sm:flex-row">
           <Image className="max-h-[200px] rounded-full" width={200} height={200} src={JOHN_COLLISON_PHOTO} alt="A photo of John Collison" />

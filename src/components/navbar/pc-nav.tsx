@@ -56,8 +56,8 @@ export function PcNavbar() {
                 <ListItem href="/docs/installation" title="Entrance Submission">
                   More info about our novel way of assessing candidates.
                 </ListItem>
-                <ListItem href="/docs/primitives/typography" title="Student Projects">
-                  See the some of the work that our amazing students have done.
+                <ListItem href="/docs/primitives/typography" title="Residencies">
+                  Get more insight into our ground-breaking residency system.
                 </ListItem>
                 <ListItem href="/docs/primitives/typography" title="FAQ">
                   Answers to some common questions from applicants.
