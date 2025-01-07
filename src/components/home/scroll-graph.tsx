@@ -24,12 +24,13 @@ const AnimatedBarChart = () => {
   }, []);
 
   return (
-    <div className="grid w-full grid-cols-5 gap-4 p-5" ref={chartRef}>
-      <div className="col-span-3 w-full space-y-4 border-2 border-neutral-800/70 bg-background/70 p-8">
+    <div className="grid w-full grid-cols-1 lg:grid-cols-5 gap-4 lg:p-5" ref={chartRef}>
+      <div className="lg:col-span-3 w-full space-y-4 border-2 border-neutral-800/70 bg-background/70 p-8">
         <h2 className="mb-6 text-2xl font-bold">Course Length</h2>
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
-            <span className="font-medium">Immersive Software Engineering</span>
+            <span className="font-medium lg:hidden">ISE</span>
+            <span className="font-medium hidden lg:block">Immersive Software Engineering</span>
             <span>4 year masters</span>
           </div>
           <div className="h-4 overflow-hidden drop-shadow-[0_0px_15px_rgba(74,222,128,1)]">
@@ -58,8 +59,11 @@ const AnimatedBarChart = () => {
             </div>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="font-medium">Traditional CS Course</span>
-            <span>4 year bachelor&apos;s + 2 year masters</span>
+            <span className="font-medium hidden lg:block">Traditional CS Course</span>
+            <span className="font-medium lg:hidden">CS Course</span>
+
+            <span className="lg:block hidden">4 year bachelor&apos;s + 2 year masters</span>
+            <span className="lg:hidden">6 year masters</span>
           </div>
           <div className="h-4 overflow-hidden rounded-sm">
             <div
@@ -72,7 +76,7 @@ const AnimatedBarChart = () => {
         </div>
       </div>
 
-      <div className="col-span-2 w-full space-y-4 border-2 border-neutral-800/70 bg-background/70 p-8">
+      <div className="lg:col-span-2 w-full space-y-4 border-2 border-neutral-800/70 bg-background/70 p-8">
         <h2 className="mb-6 text-2xl font-bold">Teaching Methodology</h2>
         <div>
           <h3 className="bg-gradient-to-r from-green-600 to-white bg-clip-text font-sans text-2xl font-bold text-transparent">[ISE]</h3>
@@ -94,14 +98,15 @@ const AnimatedBarChart = () => {
         </div>
       </div>
 
-      <div className="col-span-2 w-full space-y-4 border-2 border-neutral-800/70 bg-background/70 p-8">
+      <div className="lg:col-span-2 w-full space-y-4 border-2 border-neutral-800/70 bg-background/70 p-8">
       </div>
 
-      <div className="col-span-3 w-full space-y-4 border-2 border-neutral-800/70 bg-background/70 p-8">
+      <div className="lg:col-span-3 w-full space-y-4 border-2 border-neutral-800/70 bg-background/70 p-8">
         <h2 className="mb-6 text-2xl font-bold">Real-World Placements</h2>
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
-            <span className="font-medium">Immersive Software Engineering</span>
+            <span className="font-medium lg:hidden">ISE</span>
+            <span className="font-medium hidden lg:block">Immersive Software Engineering</span>
             <span>5 residencies</span>
           </div>
           <div className="h-4 overflow-hidden drop-shadow-[0_0px_15px_rgba(74,222,128,1)]">
