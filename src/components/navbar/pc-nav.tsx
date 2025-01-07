@@ -18,44 +18,6 @@ import {
 } from "@/components/ui/navigation-menu";
 import { ThemeSwapButton } from "../theming/theme-swap-button";
 
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "Alert Dialog",
-    href: "/docs/primitives/alert-dialog",
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
-  },
-  {
-    title: "Hover Card",
-    href: "/docs/primitives/hover-card",
-    description:
-      "For sighted users to preview content available behind a link.",
-  },
-  {
-    title: "Progress",
-    href: "/docs/primitives/progress",
-    description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-  },
-  {
-    title: "Scroll-area",
-    href: "/docs/primitives/scroll-area",
-    description: "Visually or semantically separates content.",
-  },
-  {
-    title: "Tabs",
-    href: "/docs/primitives/tabs",
-    description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-  },
-  {
-    title: "Tooltip",
-    href: "/docs/primitives/tooltip",
-    description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-  },
-];
-
 export function PcNavbar() {
   return (
     <div className="max-w-screen fixed z-50 hidden w-screen flex-row items-center border-b-2 border-neutral-900/20 p-3 font-mono tracking-tight backdrop-blur-sm dark:border-neutral-100/10 md:flex">
@@ -76,8 +38,8 @@ export function PcNavbar() {
                 <li className="row-span-3 min-w-48">
                   <NavigationMenuLink asChild>
                     <Link
-                      className="flex h-full w-full select-none flex-col justify-end bg-gradient-to-b from-neutral-100 to-neutral-200/80 p-6 no-underline outline-none focus:shadow-md dark:from-neutral-800/80 dark:to-neutral-900"
-                      href="/"
+                      className="flex h-full rounded-md w-full select-none flex-col justify-end bg-gradient-to-b from-neutral-100 to-neutral-200/80 p-6 no-underline outline-none focus:shadow-md dark:from-neutral-800/80 dark:to-neutral-900"
+                      href="/course-details/why-choose-ise"
                     >
                       <div className="mb-2 mt-4 text-lg font-medium">
                         Why Choose ISE?
@@ -108,15 +70,6 @@ export function PcNavbar() {
             <NavigationMenuTrigger>Partner With Us</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                {components.map((component) => (
-                  <ListItem
-                    key={component.title}
-                    title={component.title}
-                    href={component.href}
-                  >
-                    {component.description}
-                  </ListItem>
-                ))}
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>

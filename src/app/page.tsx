@@ -7,7 +7,7 @@ import { GraduationCap, Handshake } from "lucide-react";
 export default function Home() {
   return (
     <div className="flex w-screen flex-col px-8 pt-12 md:pt-16">
-      <AnimatedHeroText text="The next generation computer science course." />
+      <AnimatedHeroText text="The next generation computer science course." emphasis={[4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]} />
 
       {/*
       <h1 className="flex flex-wrap pt-10 font-mono text-5xl tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">

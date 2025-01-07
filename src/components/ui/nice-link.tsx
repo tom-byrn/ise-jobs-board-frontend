@@ -24,7 +24,7 @@ const niceLinkVariants = cva(
         sm: "h-8",
         lg: "h-10",
         xl: "h-fit",
-        icon: "h-9 w-9",
+        icon: "h-fit",
       },
     },
     defaultVariants: {
@@ -55,7 +55,7 @@ const spanVariants = cva(
         sm: "h-8",
         lg: "h-10",
         xl: "h-12",
-        icon: "h-9 w-9",
+        icon: "h-9 w-9 p-2",
       },
     },
     defaultVariants: {
@@ -72,11 +72,12 @@ export interface NiceLinkProps
 }
 
 const NiceLink = React.forwardRef<HTMLAnchorElement, NiceLinkProps>(
-  ({ className, variant, size, ...props }, ref) => {
+  ({ className, variant, size, href, ...props }, ref) => {
     return (
       <a
         className={cn(niceLinkVariants({ variant, size, className }))}
         ref={ref}
+        href={href}
       >
         <span className={cn(spanVariants({ variant, size, className }))} {...props} />
       </a>
