@@ -32,8 +32,10 @@ const AnimatedHeroText = (props: Props) => {
   useEffect(() => {
     const indices = Array.from({ length: text.length }, (_, i) => i);
     const timeouts: ReturnType<typeof setTimeout>[] = [];
-    let shuffledIndices;
+
     const ran = Math.random()
+
+    let shuffledIndices;
     if (ran < 0.25) {
       shuffledIndices = indices.sort(() => Math.random() - 0.5);
     } else if (ran < 0.5) {
@@ -86,7 +88,7 @@ const AnimatedHeroText = (props: Props) => {
                     ${animatingChars.has(absoluteIndex)
                       ? "text-white dark:text-black"
                       : "text-black dark:text-white"}
-                    ${emphasis.includes(absoluteIndex) ? "font-bold text-transparent dark:text-transparent" : "font-normal"} 
+                    ${emphasis.includes(absoluteIndex) ? "font-bold !text-transparent dark:!text-transparent!" : "font-normal"} 
                   `}>
                     {char === ' ' ? '\u00A0' : char}
                   </span>
