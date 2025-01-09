@@ -101,7 +101,7 @@ const AnimatedBarChart = () => {
 
         <div>
           <h3 className="text-xl">Traditional CS</h3>
-          <h3 className="text-white/80">Sit in impersonal lecture halls scattered across campus.</h3>
+          <h3 className="text-neutral-600 dark:text-white/80">Sit in impersonal lecture halls scattered across campus.</h3>
         </div>
       </div>
 
