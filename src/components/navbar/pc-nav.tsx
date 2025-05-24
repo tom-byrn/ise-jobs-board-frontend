@@ -30,55 +30,10 @@ export function PcNavbar() {
       </Link>
       <NavigationMenu className="">
         <NavigationMenuList>
-
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>Course Details</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid gap-3 p-4 md:w-[500px] lg:w-[650px] lg:grid-cols-3">
-                <li className="row-span-3 min-w-48">
-                  <NavigationMenuLink asChild>
-                    <Link
-                      className="flex h-full rounded-md w-full select-none flex-col justify-end bg-gradient-to-b from-neutral-100 to-neutral-200/80 p-6 no-underline outline-none focus:shadow-md dark:from-neutral-800/80 dark:to-neutral-900"
-                      href="/course-details/why-choose-ise"
-                    >
-                      <div className="mb-2 mt-4 text-lg font-medium">
-                        Why Choose ISE?
-                      </div>
-                      <p className="text-sm leading-tight text-muted-foreground">
-                        Find out more about the student journey.
-                      </p>
-                    </Link>
-                  </NavigationMenuLink>
-                </li>
-                <ListItem href="/docs" title="The Specifics">
-                  Details about Immersive Software Engineering.
-                </ListItem>
-                <ListItem href="/docs/installation" title="Entrance Submission">
-                  More info about our novel way of assessing candidates.
-                </ListItem>
-                <ListItem href="/docs/primitives/typography" title="Residencies">
-                  Get more insight into our ground-breaking residency system.
-                </ListItem>
-                <ListItem href="/docs/primitives/typography" title="FAQ">
-                  Answers to some common questions from applicants.
-                </ListItem>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>Partner With Us</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-
-
           <NavigationMenuItem>
             <Link href="/docs" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Meet The Team
+                Job Postings
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
@@ -86,11 +41,18 @@ export function PcNavbar() {
           <NavigationMenuItem>
             <Link href="/docs" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                News and Events
+                Student Dashboard
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
 
+          <NavigationMenuItem>
+            <Link href="/docs" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                RP Dashboard
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
 

@@ -11,8 +11,8 @@ export default function Home() {
         Immersive Software Engineering is a radical leap forward; a highly-competitive program that is producing some of the best software engineers in the world.
       </h2>
 
-      <div className="flex h-full w-full flex-col gap-8 pt-8 lg:flex-row">
-        <div className="min-h-full flex flex-col justify-between w-full bg-black/85 p-6 text-white dark:bg-white dark:text-black">
+      <div className="flex h-full w-full flex-col gap-8 pt-10 lg:flex-row">
+        <div className="min-h-full flex flex-col justify-between w-full bg-black p-6 text-white dark:bg-white dark:text-black">
           <h2 className="pb-3 text-3xl">residency partners</h2>
 
           <p className="text-neutral-300 dark:text-neutral-700">
@@ -38,7 +38,7 @@ export default function Home() {
 
         </div>
 
-        <div className="min-h-full flex flex-col justify-between w-full bg-black/85 p-6 text-white dark:bg-white dark:text-black">
+        <div className="min-h-full flex flex-col justify-between w-full bg-black p-6 text-white dark:bg-white dark:text-black">
           <h2 className="pb-3 text-3xl">students</h2>
 
           <p className="text-neutral-300 dark:text-neutral-700">
