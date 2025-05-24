@@ -1,41 +1,68 @@
 import AnimatedHeroText from "@/components/animated-hero";
-import AnimatedBarChart from "@/components/home/scroll-graph";
-import { PartnerCarousel } from "@/components/partners-carousel";
-import { Testimonal } from "@/components/testimonials";
-import { NiceLink } from "@/components/ui/nice-link";
-import { GraduationCap, Handshake } from "lucide-react";
+import { FloatingLink } from "@/components/home/floating-link";
+import { BriefcaseBusiness, LayoutDashboard, LayoutList, ListOrdered, UserPen, Users } from "lucide-react";
 
 export default function Home() {
   return (
     <div className="flex w-screen flex-col px-8 pt-12 md:pt-16">
       <AnimatedHeroText text="The next generation computer science course." emphasis={[4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]} />
 
-      {/*
-      <h1 className="flex flex-wrap pt-10 font-mono text-5xl tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
-        The computer science course for the <span className="font-bold">Next Generation</span>.
-      </h1>
-      */}
-
-      <h2 className="w-3/4 pt-3 font-mono text-gray-800 dark:text-neutral-300 lg:pt-0">
+      <h2 className="w-3/4 mt-3 font-mono text-gray-800 lg:pt-0 dark:text-neutral-300">
         Immersive Software Engineering is a radical leap forward; a highly-competitive program that is producing some of the best software engineers in the world.
       </h2>
-      <div className="flex gap-4 pt-4 sm:flex-row">
-        <NiceLink size="xl" className="group font-mono">
-          <Handshake size={24} className="min-h-5 min-w-5 transition-all duration-100 group-hover:scale-110" />
-          PARTNER
-        </NiceLink>
 
-        <NiceLink size="xl" className="group font-mono">
-          <GraduationCap size={24} className="min-h-5 min-w-5 transition-all duration-100 group-hover:scale-110" />
-          STUDY
-        </NiceLink>
+      <div className="flex h-full w-full flex-col gap-8 pt-8 lg:flex-row">
+        <div className="min-h-full flex flex-col justify-between w-full bg-black/85 p-6 text-white dark:bg-white dark:text-black">
+          <h2 className="pb-3 text-3xl">residency partners</h2>
+
+          <p className="text-neutral-300 dark:text-neutral-700">
+            Add new job postings, edit your company page, view candidates, and more.
+          </p>
+
+          <div className="flex flex-row gap-x-3">
+            <FloatingLink>
+              <LayoutDashboard size={18} className="min-h-5 min-w-5 text-sm transition-all duration-100 group-hover:scale-110" />
+              Dashboard
+            </FloatingLink>
+
+            <FloatingLink>
+              <Users size={18} className="min-h-5 min-w-5 text-sm transition-all duration-100 group-hover:scale-110" />
+              Candidates
+            </FloatingLink>
+
+            <FloatingLink>
+              <BriefcaseBusiness size={18} className="min-h-5 min-w-5 text-sm transition-all duration-100 group-hover:scale-110" />
+              Add Job
+            </FloatingLink>
+          </div>
+
+        </div>
+
+        <div className="min-h-full flex flex-col justify-between w-full bg-black/85 p-6 text-white dark:bg-white dark:text-black">
+          <h2 className="pb-3 text-3xl">students</h2>
+
+          <p className="text-neutral-300 dark:text-neutral-700">
+            View residency partners, job postings, and submit choices.
+          </p>
+
+          <div className="flex flex-row gap-x-3">
+            <FloatingLink>
+              <LayoutList size={18} className="min-h-5 min-w-5 text-sm transition-all duration-100 group-hover:scale-110" />
+              Job Postings
+            </FloatingLink>
+
+            <FloatingLink>
+              <ListOrdered size={22} className="min-h-5 min-w-5 text-sm transition-all duration-100 group-hover:scale-110" />
+              Rank Your Choices
+            </FloatingLink>
+
+            <FloatingLink>
+              <UserPen size={18} className="min-h-5 min-w-5 text-sm transition-all duration-100 group-hover:scale-110" />
+              Edit Profile
+            </FloatingLink>
+          </div>
+        </div>
       </div>
-
-      <PartnerCarousel />
-
-      <Testimonal />
-
-      <AnimatedBarChart />
     </div>
   );
 }
