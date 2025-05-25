@@ -70,7 +70,7 @@ const AnimatedHeroText = (props: Props) => {
   const emphasis = props.emphasis
 
   return (
-    <h1 className="flex flex-wrap bg-gradient-to-r from-green-700 to-green-500 bg-clip-text pt-10 font-mono text-5xl tracking-tighter dark:to-green-400 sm:text-6xl md:text-7xl lg:text-8xl">
+    <h1 className="flex max-w-7xl flex-wrap bg-gradient-to-r from-green-700 to-green-500 bg-clip-text pt-10 font-mono text-5xl tracking-tighter dark:to-green-400 sm:text-6xl md:text-7xl lg:text-8xl">
       {words.map((word, wordIndex) => {
         const chars = word.split('').map((char, i) => {
           const absoluteIndex = currentIndex + i;
