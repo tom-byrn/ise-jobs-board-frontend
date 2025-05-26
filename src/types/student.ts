@@ -16,6 +16,7 @@ export const StudentProfileSchema = z.object({
 	cv_url: z.string(),
 	github_link: z.string(),
 	linkedin_link: z.string(),
+	personal_site_link: z.string(),
 });
 
 export const StudentJoinedProfileSchema = z.object({

@@ -2,7 +2,7 @@ import { WickedLink } from "@/components/student-profile/link";
 import { SuspensedImage } from "@/components/student-profile/suspensed-image";
 import { env } from "@/env"
 import { StudentJoinedWithProfile } from "@/types/student";
-import { FileText, Github, Linkedin } from "lucide-react";
+import { FileText, Github, Globe, Linkedin } from "lucide-react";
 import { Suspense } from 'react';
 
 
@@ -55,6 +55,7 @@ async function StudentDetails({ slug }: { slug: string }) {
 						<WickedLink text="CV.pdf" url={studentData.student_profile.cv_url} icon={<FileText size={20} />} />
 						<WickedLink text="GitHub" url={studentData.student_profile.github_link} icon={<Github size={20} />} />
 						<WickedLink text="LinkedIn" url={studentData.student_profile.linkedin_link} icon={<Linkedin size={20} />} />
+						<WickedLink text="Personal Site" url={studentData.student_profile.personal_site_link} icon={<Globe size={20} />} />
 					</div>
 				</div>
 			</div>
