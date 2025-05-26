@@ -3,6 +3,7 @@ import { z } from 'zod';
 export const StudentSchema = z.object({
 	id: z.string(),
 	name: z.string(),
+	year: z.string(),
 	student_profile_id: z.string(),
 });
 
@@ -15,9 +16,7 @@ export const StudentProfileSchema = z.object({
 });
 
 export const StudentJoinedProfileSchema = z.object({
-	id: z.string(),
-	name: z.string(),
-	student_profile_id: z.string(),
+	...StudentSchema.shape,
 	student_profile: StudentProfileSchema
 });
 
