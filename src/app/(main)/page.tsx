@@ -20,7 +20,7 @@ export default function Home() {
           </p>
 
           <div className="flex flex-row gap-x-3">
-            <FloatingLink href='/dashboard'>
+            <FloatingLink href='/rp-dashboard'>
               <LayoutDashboard size={18} className="min-h-5 min-w-5 text-sm transition-all duration-100 group-hover:scale-110" />
               Dashboard
             </FloatingLink>
