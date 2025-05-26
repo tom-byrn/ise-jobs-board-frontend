@@ -14,5 +14,13 @@ export const StudentProfileSchema = z.object({
 	avatar_url: z.string(),
 });
 
+export const StudentJoinedProfileSchema = z.object({
+	id: z.string(),
+	name: z.string(),
+	student_profile_id: z.string(),
+	student_profile: StudentProfileSchema
+});
+
 export type Student = z.infer<typeof StudentSchema>;
 export type StudentProfile = z.infer<typeof StudentProfileSchema>;
+export type StudentJoinedWithProfile = z.infer<typeof StudentJoinedProfileSchema>;

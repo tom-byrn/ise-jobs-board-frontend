@@ -1,9 +1,9 @@
 import { env } from "@/env"
-import { Student, StudentProfile } from "@/types/student";
+import { StudentJoinedWithProfile } from "@/types/student";
 import { Suspense } from 'react';
 
 async function StudentDetails({ slug }: { slug: string }) {
-	const fetchStudentURL = env.API_URL + "/students/" + slug
+	const fetchStudentURL = env.API_URL + "/students/profile/" + slug
 
 	const resStudent = await fetch(fetchStudentURL);
 
@@ -14,19 +14,15 @@ async function StudentDetails({ slug }: { slug: string }) {
 	}
 
 	// Parse the JSON response
-	const studentData: Student = await resStudent.json();
-
-	const fetchStudentProfileURL = env.API_URL + "/students/profile/" + studentData.student_profile_id
-	const resStudentProfile = await fetch(fetchStudentProfileURL);
-
-	const studentProfileData: StudentProfile = await resStudentProfile.json();
+	const studentData: StudentJoinedWithProfile = await resStudent.json();
+	console.log(studentData)
 
 	return (
 		<div className="bg-white w-fit p-4 border-2 border-black">
 			<h1>Slug: {slug}</h1>
 			<h1>Student name: {studentData.name}</h1>
 			<h1>Student profile ID: {studentData.student_profile_id}</h1>
-			<h1>Student QCA: {studentProfileData.qca}</h1>
+			<h1>Student QCA: {studentData.student_profile.qca}</h1>
 		</div>
 	)
 }
