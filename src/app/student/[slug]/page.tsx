@@ -1,5 +1,6 @@
 import { env } from "@/env"
 import { StudentJoinedWithProfile } from "@/types/student";
+import Image from "next/image";
 import { Suspense } from 'react';
 
 async function StudentDetails({ slug }: { slug: string }) {
@@ -15,7 +16,6 @@ async function StudentDetails({ slug }: { slug: string }) {
 
 	// Parse the JSON response
 	const studentData: StudentJoinedWithProfile = await resStudent.json();
-	console.log(studentData)
 
 	return (
 		<div className="bg-white w-fit p-4 border-2 border-black">
@@ -23,6 +23,9 @@ async function StudentDetails({ slug }: { slug: string }) {
 			<h1>Student name: {studentData.name}</h1>
 			<h1>Student profile ID: {studentData.student_profile_id}</h1>
 			<h1>Student QCA: {studentData.student_profile.qca}</h1>
+			<h1>Student Pronouns: {studentData.student_profile.pronouns}</h1>
+			<h1>Student Description: {studentData.student_profile.description}</h1>
+			<Image src={studentData.student_profile.avatar_url} alt="Photo of the student" width={128} height={128} />
 		</div>
 	)
 }
