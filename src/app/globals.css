@@ -65,6 +65,13 @@ body {
 @layer base {
   * {
     @apply border-border;
+    
+    .fc-day-today {
+      @apply bg-green-900 border !important;
+    }
+    .fc-button {
+      @apply bg-green-700 border !important;
+    }
   }
   body {
     @apply bg-background text-foreground;
