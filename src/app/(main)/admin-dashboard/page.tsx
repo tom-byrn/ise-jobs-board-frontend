@@ -35,10 +35,6 @@ export default function Home() {
             Manage residency partners, reminders, and dashboards.
           </p>
           <div className="flex flex-wrap gap-3 pt-4">
-            <FloatingLink href="/send-reminder-rps">
-              <BellRing size={18} />
-              Send Reminder to RPs
-            </FloatingLink>
             <FloatingLink href="/onboard-rp">
               <UserPlus size={18} />
               Onboard New RP
@@ -57,10 +53,6 @@ export default function Home() {
             Manage student profiles, dashboards, and reminders.
           </p>
           <div className="flex flex-wrap gap-3 pt-4">
-            <FloatingLink href="/send-reminder-students">
-              <BellRing size={18} />
-              Send Reminder to Students
-            </FloatingLink>
             <FloatingLink href="/add-student">
               <UserPlus size={18} />
               Add New Students

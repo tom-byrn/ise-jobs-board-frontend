@@ -13,8 +13,8 @@ export function AdminCalendar() {
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
-        events={[{ title: 'Demo Event', date: '2025-06-01' }]}
-        height={500}
+        events={[{ title: 'R1 Placements Finalised', date: '2025-06-01' }]}
+        height={600}
         eventColor="#43A047"
         customButtons={{
           createDeadline: {
