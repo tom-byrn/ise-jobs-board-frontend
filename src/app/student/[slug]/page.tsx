@@ -35,7 +35,7 @@ async function StudentDetails({ slug }: { slug: string }) {
 	if (!resStudent.ok) {
 		console.log(resStudent)
 		return (
-			<h1>FUCKING ERROR!! :(</h1>
+			<h1>ERROR!! :(</h1>
 		)
 	}
 
@@ -46,12 +46,12 @@ async function StudentDetails({ slug }: { slug: string }) {
 
 	return (
 		<div className="flex flex-col">
-			<div className="flex flex-row items-end gap-x-8">
+			<div className="flex flex-col items-center lg:flex-row lg:items-end gap-x-8">
 				<SuspensedImage imageURL={studentData.student_profile.avatar_url} />
 				<div className="flex flex-col bg-white py-2">
-					<h1 className="text-7xl">{studentData.name}</h1>
+					<h1 className="text-6xl md:text-7xl">{studentData.name}</h1>
 					<h2 className="-mt-2 text-xl">{studentData.year} | {studentData.student_profile.pronouns}</h2>
-					<div className="mt-3 flex flex-row gap-x-4">
+					<div className="mt-3 flex flex-col sm:flex-row gap-x-4 gap-y-2">
 						<WickedLink text="CV.pdf" url={studentData.student_profile.cv_url} icon={<FileText size={20} />} />
 						<WickedLink text="GitHub" url={studentData.student_profile.github_link} icon={<Github size={20} />} />
 						<WickedLink text="LinkedIn" url={studentData.student_profile.linkedin_link} icon={<Linkedin size={20} />} />
@@ -60,10 +60,12 @@ async function StudentDetails({ slug }: { slug: string }) {
 				</div>
 			</div>
 
-			<h2 className="mt-8 bg-white text-2xl font-bold">Overview</h2>
-			<p className="whitespace-pre-line bg-white p-2">
-				{studentData.student_profile.description}
-			</p>
+			<div className="mt-8 border-2 border-black bg-white p-2">
+				<h2 className="text-2xl font-bold">Overview</h2>
+				<p className="whitespace-pre-line text-sm md:text-base">
+					{studentData.student_profile.description}
+				</p>
+			</div>
 
 			<h2 className="mt-8 bg-white text-2xl font-bold">Projects</h2>
 		</div>
@@ -78,7 +80,7 @@ export default async function Page({
 	const { slug } = await params
 
 	return (
-		<div className="flex w-screen flex-col pl-20 pr-64 pt-16 md:pt-32">
+		<div className="flex w-screen flex-col pt-16 md:pt-32 px-8 md:px-16 xl:pr-40 xl:pl-20 2xl:pr-64">
 			<Suspense fallback={<FallbackPage />}>
 				<StudentDetails slug={slug} />
 			</Suspense>
