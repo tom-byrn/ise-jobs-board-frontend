@@ -20,17 +20,17 @@ export default function Home() {
           </p>
 
           <div className="flex flex-row gap-x-3">
-            <FloatingLink>
+            <FloatingLink href='/rp-dashboard'>
               <LayoutDashboard size={18} className="min-h-5 min-w-5 text-sm transition-all duration-100 group-hover:scale-110" />
               Dashboard
             </FloatingLink>
 
-            <FloatingLink>
+            <FloatingLink href="/cadidadates">
               <Users size={18} className="min-h-5 min-w-5 text-sm transition-all duration-100 group-hover:scale-110" />
               Candidates
             </FloatingLink>
 
-            <FloatingLink>
+            <FloatingLink href="/add-job">
               <BriefcaseBusiness size={18} className="min-h-5 min-w-5 text-sm transition-all duration-100 group-hover:scale-110" />
               Add Job
             </FloatingLink>
@@ -46,17 +46,17 @@ export default function Home() {
           </p>
 
           <div className="flex flex-row gap-x-3">
-            <FloatingLink>
+            <FloatingLink href="job-postings">
               <LayoutList size={18} className="min-h-5 min-w-5 text-sm transition-all duration-100 group-hover:scale-110" />
               Job Postings
             </FloatingLink>
 
-            <FloatingLink>
+            <FloatingLink href="rankings">
               <ListOrdered size={22} className="min-h-5 min-w-5 text-sm transition-all duration-100 group-hover:scale-110" />
               Rank Your Choices
             </FloatingLink>
 
-            <FloatingLink>
+            <FloatingLink href="edit-profile">
               <UserPen size={18} className="min-h-5 min-w-5 text-sm transition-all duration-100 group-hover:scale-110" />
               Edit Profile
             </FloatingLink>
