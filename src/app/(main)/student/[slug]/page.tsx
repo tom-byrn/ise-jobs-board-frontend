@@ -1,12 +1,43 @@
-import { FloatingLink } from "@/components/home/floating-link";
 import { WickedLink } from "@/components/student-profile/link";
 import { SuspensedImage } from "@/components/student-profile/suspensed-image";
 import { env } from "@/env"
+import { createClient } from "@/lib/server";
 import { StudentJoinedWithProfile } from "@/types/student";
-import { FileText, Github, Globe, Linkedin, ListOrdered } from "lucide-react";
+import { FileText, Github, Globe, Linkedin } from "lucide-react";
+import { Metadata } from "next";
 import { Suspense } from 'react';
 
+export async function generateMetadata({
+	params,
+}: {
+	params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+	const { slug } = await params;
 
+	try {
+		const supabase = await createClient();
+		const studentReq = await supabase
+			.from("student")
+			.select("*, student_profile:student_profile_id(*)")
+			.eq("id", slug);
+
+		if (studentReq.status === 200 && studentReq.data && studentReq.data[0]) {
+			const studentData: StudentJoinedWithProfile = studentReq.data[0];
+			return {
+				title: `${studentData.name} - Student Profile`,
+				description: `View ${studentData.name}'s profile, projects, and information.`,
+			};
+		}
+	} catch (error) {
+		console.error("Error fetching student data for metadata:", error);
+	}
+
+	// Fallback metadata if student not found or error occurs
+	return {
+		title: "Student Profile",
+		description: "Student profile page",
+	};
+}
 
 const FallbackPage = () => {
 	return (
@@ -33,9 +64,15 @@ const FallbackPage = () => {
 async function StudentDetails({ slug }: { slug: string }) {
 	const fetchStudentURL = env.API_URL + "/students/profile/" + slug
 
-	const resStudent = await fetch(fetchStudentURL);
+	const supabase = await createClient()
+	const studentReq = await supabase
+		.from("student")
+		.select("*, student_profile:student_profile_id(*)")
+		.eq("id", slug)
 
-	if (resStudent.status == 404) {
+	console.log(studentReq)
+
+	if (studentReq.status != 200) {
 		return (
 			<div className="flex h-screen w-screen items-center justify-center">
 				<div className="bg-white flex flex-col items-center p-8">
@@ -48,15 +85,8 @@ async function StudentDetails({ slug }: { slug: string }) {
 		)
 	}
 
-	if (!resStudent.ok) {
-		console.log(resStudent)
-		return (
-			<h1>ERROR!! :(</h1>
-		)
-	}
-
 	// Parse the JSON response
-	const studentData: StudentJoinedWithProfile = await resStudent.json();
+	const studentData: StudentJoinedWithProfile = studentReq.data![0];
 
 	console.log(studentData)
 
