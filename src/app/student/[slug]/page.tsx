@@ -1,28 +1,31 @@
+import { FloatingLink } from "@/components/home/floating-link";
 import { WickedLink } from "@/components/student-profile/link";
 import { SuspensedImage } from "@/components/student-profile/suspensed-image";
 import { env } from "@/env"
 import { StudentJoinedWithProfile } from "@/types/student";
-import { FileText, Github, Globe, Linkedin } from "lucide-react";
+import { FileText, Github, Globe, Linkedin, ListOrdered } from "lucide-react";
 import { Suspense } from 'react';
 
 
 
 const FallbackPage = () => {
 	return (
-		<div className="flex flex-col">
-			<div className="flex flex-row items-end gap-x-8">
-				<div className="h-64 w-64 animate-pulse rounded-full bg-muted">
+		<div className="flex w-screen flex-col px-8 pt-16 md:px-16 md:pt-32 xl:pl-20 xl:pr-40 2xl:pr-64">
+			<div className="flex flex-col">
+				<div className="flex flex-row items-end gap-x-8">
+					<div className="h-64 w-64 animate-pulse rounded-full bg-muted">
+					</div>
+					<div className="mb-8 flex flex-col py-2">
+						<div className="mb-1 h-16 w-96 animate-pulse rounded-xl bg-muted" />
+						<div className="h-6 w-40 animate-pulse rounded-xl bg-muted" />
+					</div>
 				</div>
-				<div className="mb-8 flex flex-col py-2">
-					<div className="mb-1 h-16 w-96 animate-pulse rounded-xl bg-muted" />
-					<div className="h-6 w-40 animate-pulse rounded-xl bg-muted" />
-				</div>
+
+				<h2 className="mt-8 bg-white text-2xl font-bold">Overview</h2>
+				<div className="h-32 w-full animate-pulse rounded-xl bg-muted" />
+
+				<h2 className="mt-8 bg-white text-2xl font-bold">Projects</h2>
 			</div>
-
-			<h2 className="mt-8 bg-white text-2xl font-bold">Overview</h2>
-			<div className="h-32 w-full animate-pulse rounded-xl bg-muted" />
-
-			<h2 className="mt-8 bg-white text-2xl font-bold">Projects</h2>
 		</div>
 	)
 }
@@ -31,6 +34,19 @@ async function StudentDetails({ slug }: { slug: string }) {
 	const fetchStudentURL = env.API_URL + "/students/profile/" + slug
 
 	const resStudent = await fetch(fetchStudentURL);
+
+	if (resStudent.status == 404) {
+		return (
+			<div className="flex h-screen w-screen items-center justify-center">
+				<div className="bg-white flex flex-col items-center p-8">
+					student not found
+					<a className="p-2 mt-4 bg-black text-white dark:bg-white dark:text-black" href="/">
+						return home
+					</a>
+				</div>
+			</div>
+		)
+	}
 
 	if (!resStudent.ok) {
 		console.log(resStudent)
@@ -45,13 +61,13 @@ async function StudentDetails({ slug }: { slug: string }) {
 	console.log(studentData)
 
 	return (
-		<div className="flex flex-col">
-			<div className="flex flex-col items-center lg:flex-row lg:items-end gap-x-8">
+		<div className="flex w-screen flex-col px-8 pt-16 md:px-16 md:pt-32 xl:pl-20 xl:pr-40 2xl:pr-64">
+			<div className="flex flex-col items-center gap-x-8 lg:flex-row lg:items-end">
 				<SuspensedImage imageURL={studentData.student_profile.avatar_url} />
 				<div className="flex flex-col bg-white py-2">
 					<h1 className="text-6xl md:text-7xl">{studentData.name}</h1>
 					<h2 className="-mt-2 text-xl">{studentData.year} | {studentData.student_profile.pronouns}</h2>
-					<div className="mt-3 flex flex-col sm:flex-row gap-x-4 gap-y-2">
+					<div className="mt-3 flex flex-col gap-x-4 gap-y-2 sm:flex-row">
 						<WickedLink text="CV.pdf" url={studentData.student_profile.cv_url} icon={<FileText size={20} />} />
 						<WickedLink text="GitHub" url={studentData.student_profile.github_link} icon={<Github size={20} />} />
 						<WickedLink text="LinkedIn" url={studentData.student_profile.linkedin_link} icon={<Linkedin size={20} />} />
@@ -80,10 +96,8 @@ export default async function Page({
 	const { slug } = await params
 
 	return (
-		<div className="flex w-screen flex-col pt-16 md:pt-32 px-8 md:px-16 xl:pr-40 xl:pl-20 2xl:pr-64">
-			<Suspense fallback={<FallbackPage />}>
-				<StudentDetails slug={slug} />
-			</Suspense>
-		</div>
+		<Suspense fallback={<FallbackPage />}>
+			<StudentDetails slug={slug} />
+		</Suspense>
 	)
 }
