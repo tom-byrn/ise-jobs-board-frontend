@@ -35,7 +35,7 @@ export default function Home() {
             Manage residency partners, reminders, and dashboards.
           </p>
           <div className="flex flex-wrap gap-3 pt-4">
-            <FloatingLink href="/onboard-rp">
+            <FloatingLink href="/admin-dashboard/new-rp">
               <UserPlus size={18} />
               Onboard New RP
             </FloatingLink>
