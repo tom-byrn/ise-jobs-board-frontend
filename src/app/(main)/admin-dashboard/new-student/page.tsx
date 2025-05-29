@@ -5,27 +5,27 @@ import { useRouter } from 'next/navigation';
 
 export default function NewResidencyPartnerPage() {
   const router = useRouter();
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted with name:", name);
+    console.log("Form submitted with email:", email);
 
     try {
-      const res = await fetch('http://localhost:8080/api/v1/company', {
+      const res = await fetch('http://localhost:8080/api/v1/accepted-student-emails', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ email }),
       });
       console.log("RES: ", res)
 
       if (res.ok) {
-        alert('Successfully added new Residency Partner')
+        alert('Successfully added new student email')
         router.push('/admin-dashboard')
       } else {
         const data = await res.json()
-        console.log("Failed to create residency partner")
-        alert('Failed to create residency partner')
+        console.log("Failed to add new student email")
+        alert('Failed to add new student email')
       }
     } catch (err) {
       alert('Request failed: ' + err);
@@ -34,15 +34,15 @@ export default function NewResidencyPartnerPage() {
 
   return (
     <main className="pt-24 px-6 max-w-xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Add New Residency Partner</h1>
+      <h1 className="text-2xl font-bold mb-4">Add New Student</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block mb-1 font-medium">Company Name</label>
+          <label className="block mb-1 font-medium">Student Email</label>
           <input
             type="text"
             className="w-full p-2 border"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
