@@ -9,11 +9,9 @@ import ISE_UL_LOGO from "/public/ise-ul-logo.png";
 import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { ThemeSwapButton } from "../theming/theme-swap-button";
@@ -56,7 +54,7 @@ export function PcNavbar() {
         </NavigationMenuList>
       </NavigationMenu>
 
-      <div className="ml-auto mr-4">
+      <div className="ml-auto mr-4" suppressHydrationWarning>
         <ThemeSwapButton />
       </div>
     </div>

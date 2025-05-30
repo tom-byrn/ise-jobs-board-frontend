@@ -9,7 +9,7 @@ export const StudentSchema = z.object({
 
 export const StudentProfileSchema = z.object({
 	id: z.string(),
-	qca: z.number(),
+	qca: z.string(),
 	pronouns: z.string(),
 	description: z.string(),
 	avatar_url: z.string(),
