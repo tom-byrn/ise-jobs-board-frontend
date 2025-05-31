@@ -15,7 +15,7 @@ export const SuspensedImage = ({ imageURL }: { imageURL: string }) => {
           )
         }
         <Image
-          className={`rounded-full border-2 border-black transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"}`}
+          className={`${loaded ? "opacity-100" : "opacity-0"} rounded-full border-2 border-black transition-opacity duration-500 dark:border-white`}
           src={"https://skzqkbzsakzybrclflnm.supabase.co/storage/v1/object/sign/avatars/placeholder.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFmMDBmOTRlLWQ1MzMtNDE4MS04ZmVhLTUxMWNkZmY1MjU0NSJ9.eyJ1cmwiOiJhdmF0YXJzL3BsYWNlaG9sZGVyLnBuZyIsImlhdCI6MTc0ODM2NDgzNiwiZXhwIjoxNzc5OTAwODM2fQ.DSdFpnWuy0ha-wlSnkbXbDb1YTSq7lu3-GMCP3EnkJE"}
           alt="Placeholder image"
           fill={true}
@@ -30,7 +30,7 @@ export const SuspensedImage = ({ imageURL }: { imageURL: string }) => {
           <div className="absolute inset-0 animate-pulse rounded-full bg-muted" />
         )}
         <Image
-          className={`rounded-full border-2 border-black transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"}`}
+          className={`${loaded ? "opacity-100" : "opacity-0"} rounded-full border-2 border-black transition-opacity duration-500 dark:border-white`}
           src={imageURL}
           alt="Image of the student"
           fill={true}

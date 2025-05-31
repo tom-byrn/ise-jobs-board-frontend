@@ -12,7 +12,6 @@ export default function LoginLogoutButton() {
     const [session, setSession] = useState<Session | null>(null);
     const router = useRouter();
     const supabaseBrowser = createClient();
-    let text = " Log in "
 
     useEffect(() => {
         supabaseBrowser.auth.getSession().then(({ data: { session } }) => {

@@ -1,6 +1,3 @@
-"use client";
-
-import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -16,6 +13,9 @@ import {
 } from "@/components/ui/navigation-menu";
 import { ThemeSwapButton } from "../theming/theme-swap-button";
 import LoginLogoutButton from "./login-logout-button";
+import { forwardRef } from "react";
+import { DashboardLink } from "./dashboard-link";
+
 
 export function PcNavbar() {
   return (
@@ -37,42 +37,21 @@ export function PcNavbar() {
             </Link>
           </NavigationMenuItem>
 
-          <NavigationMenuItem>
-            <Link href="/student-dashobard" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Student Dashboard
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
+          <DashboardLink />
 
-          <NavigationMenuItem>
-            <Link href="/rp-dashboard" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                RP Dashboard
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-
-          <NavigationMenuItem>
-            <Link href="/admin-dashboard" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Admin Dashboard
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      
 
-      <div className="ml-auto mr-4" suppressHydrationWarning>
-        {/* Messes up navbar style with the button currently}<ThemeSwapButton />{*/}
+
+      <div className="ml-auto mr-4 flex items-center" suppressHydrationWarning>
+        <ThemeSwapButton />
         <LoginLogoutButton />
       </div>
     </div>
   );
 }
 
-const ListItem = React.forwardRef<
+const ListItem = forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a">
 >(({ className, title, children, ...props }, ref) => {

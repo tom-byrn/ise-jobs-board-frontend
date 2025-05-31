@@ -5,8 +5,8 @@ export const WickedLink = ({ url, text, icon }: { url: string, text: string, ico
       target="_blank"
       className={`
                   ${(url == null || url.trim() == "") ? "hidden" : "block"}
-                  flex flex-row text-sm items-center px-4 gap-x-2 cursor-pointer rounded-sm border-2 border-black p-2
-                  hover:bg-black hover:text-white transition-all duration-200
+                  flex cursor-pointer flex-row items-center gap-x-2 rounded-sm border-2 border-black p-2 px-4 text-sm transition-all
+                  duration-200 hover:bg-black hover:text-white dark:border-white dark:hover:text-black dark:hover:bg-white
 		`}
     >
       {icon} {text}
