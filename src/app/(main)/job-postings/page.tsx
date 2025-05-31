@@ -3,7 +3,7 @@
 import React from "react";
 import { useState } from "react"
 import { useEffect } from "react";
-import getJobPostings from "../api/utils";
+import { getJobPostings } from "../../api/utils";
 import JobPostings from "@/components/ui/JobPostings";
 
 
@@ -32,7 +32,7 @@ export default function JobsBoard() {
     (async () => {
       console.log('⏳ Starting fetchJobPostings…')
       try {
-        const jobPostings: JobPosting[] = await getJobPostings()
+        const jobPostings= [] = await getJobPostings()
         console.log('🎉 Fetched jobs', jobPostings)
         setJobPostings(jobPostings.map(job => ({
           ...job,

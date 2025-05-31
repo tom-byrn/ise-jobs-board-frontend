@@ -67,10 +67,10 @@ body {
     @apply border-border;
     
     .fc-day-today {
-      @apply bg-green-900 border !important;
+      @apply bg-black border !important;
     }
     .fc-button {
-      @apply bg-green-700 border !important;
+      @apply bg-black border !important;
       border-radius: 0px !important;
     }
   }

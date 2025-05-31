@@ -13,11 +13,12 @@ import {
   GitCompare
 } from "lucide-react";
 import { AdminCalendar } from "@/components/admin/admin-calendar";
+import UpcomingDeadlines from "@/components/admin/upcoming-deadlines";
 
 
 export default function Home() {
   return (
-    <div className="flex w-screen flex-col px-8 pt-12 md:pt-16">
+    <div className="flex w-full flex-col px-8 pt-12 md:pt-16">
       <AnimatedHeroText text="Admin Dashboard" emphasis={[0, 1, 2, 3, 4]} />
 
       <h2 className="w-3/4 mt-3 font-mono text-gray-800 lg:pt-0 dark:text-neutral-300">
@@ -92,9 +93,9 @@ export default function Home() {
           </div>
         </div>
 
-        {/*}<div className="mx-15 my-10">
-          <AdminCalendar />
-        </div>{*/}
+        <div className="w-full">
+          <UpcomingDeadlines />
+        </div>
 
     </div>
   );

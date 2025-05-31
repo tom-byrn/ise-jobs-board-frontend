@@ -25,7 +25,7 @@ export async function DashboardLink() {
 
         if (!res.ok) {
             console.warn("metadata fetch failed:", res.status, await res.text());
-            throw new Error("Student not found");
+            throw new Error("Account not found, account should be setup as RP, Student, or Admin");
         }
 
         const roleBody = await res.json()
