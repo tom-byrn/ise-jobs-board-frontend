@@ -3,6 +3,8 @@ import { FloatingLink } from "@/components/home/floating-link";
 import { BriefcaseBusiness, LayoutDashboard, LayoutList, ListOrdered, UserPen, Users } from "lucide-react";
 
 export default function Home() {
+
+
   return (
     <div className="flex w-screen flex-col px-8 pt-12 md:pt-16">
       <AnimatedHeroText text="The next generation computer science course." emphasis={[4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]} />

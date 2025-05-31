@@ -5,16 +5,19 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 
 interface JobPosting {
-  id: string
-  company: string
-  logo: string
-  position: string
-  location: string
-  salary: string
-  accommodationSupport: boolean
-  positions: number
-  isFavorited: boolean
-  type: string
+  id: string;
+  job_title: string;
+  salary: string;
+  accommodation_support: string;
+  position_count: number;
+  location: string;
+  company: {
+    name: string;
+    company_profile: {
+      avatar: string;
+    };
+  };
+  isFavourited: boolean;
 }
 
 interface JobCardProps {
@@ -29,21 +32,20 @@ export function JobCard({ job, onToggleFavorite, onInfoClick }: JobCardProps) {
       <CardContent className="p-6">
         {/* Favorite Button */}
         <button onClick={() => onToggleFavorite(job.id)} className="absolute top-4 right-4 p-1">
-          <Heart
-            className={`w-5 h-5 ${job.isFavorited ? "fill-red-500 text-red-500" : "text-gray-400 hover:text-red-500"}`}
+          <Heart className={`w-5 h-5 ${job.isFavourited ? "fill-red-500 text-red-500" : "text-gray-400 hover:text-red-500"}`}
           />
         </button>
 
         {/* Company Logo and Info */}
         <div className="flex items-start space-x-3 mb-4">
           <img
-            src={job.logo || "/placeholder.svg"}
-            alt={`${job.company} logo`}
+            src={job.company.company_profile.avatar || "/placeholder.svg"}
+            alt={`${job.company.name} logo`}
             className="w-10 h-10 rounded-lg object-cover"
           />
           <div className="flex-1">
-            <h3 className="font-semibold text-white dark:text-gray-900  ">{job.company}</h3>
-            <p className="text-sm text-white dark:text-gray-600">{job.position}</p>
+            <h3 className="font-semibold text-white dark:text-gray-900  ">{job.company.name}</h3>
+            <p className="text-sm text-white dark:text-gray-600">{job.job_title}</p>
           </div>
         </div>
 
@@ -57,8 +59,8 @@ export function JobCard({ job, onToggleFavorite, onInfoClick }: JobCardProps) {
           </p>
           <div className="flex items-center space-x-2">
             <span className="text-sm  text-white font-medium dark:text-gray-600">Accommodation Support:</span>
-            <span className={`text-sm font-bold ${job.accommodationSupport ? "text-green-600" : "text-red-600"}`}>
-              {job.accommodationSupport ? "✓" : "✗"}
+            <span className={`text-sm font-bold ${job.accommodation_support ? "text-green-600" : "text-red-600"}`}>
+              {job.accommodation_support ? "✓" : "✗"}
             </span>
           </div>
         </div>
@@ -67,7 +69,7 @@ export function JobCard({ job, onToggleFavorite, onInfoClick }: JobCardProps) {
         <div className="flex space-x-2">
           <Button size="sm" className="flex items-center space-x-1 bg-green-600 hover:bg-green-700">
             <Users className="w-4 h-4" />
-            <span>{job.positions} positions</span>
+            <span>{job.position_count} positions</span>
           </Button>
           <Button
             size="sm"

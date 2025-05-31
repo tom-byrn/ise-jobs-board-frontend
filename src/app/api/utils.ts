@@ -1,34 +1,64 @@
 
 interface JobPosting {
-  id: string
-  company: string
-  logo: string
-  position: string
-  location: string
-  salary: string
-  accommodationSupport: boolean
-  positions: number
-  isFavorited: boolean
-  type: string
+  id: string;
+  job_title: string;
+  salary: string;
+  accommodation_support: string;
+  position_count: number;
+  location: string;
+  company: {
+    name: string;
+    company_profile: {
+      avatar: string;
+    };
+  };
 }
 
-export default async function getJobPostings(): Promise<JobPosting[]> {
-  try {
-    const url: string = "http://0.0.0.0:8080/api/v1/job-postings"
-    const res = await fetch(url,
-      {
-        method: "GET",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      }
-    )
-    const data: JobPosting[] = await res.json();
+export interface NewCompanyProfileDTO {
+  subtitle: string
+  avatar: string
+  banner_image: string
+  description: string
+}
 
-    return data;
+export interface NewCompanyDTO {
+  name: string
+  profile: NewCompanyProfileDTO
+}
 
-  } catch (err) {
-    console.error("Get Job Postings failed", err)
-    throw err;
+// the shape your backend returns
+export interface Company {
+  id: string
+  name: string
+  company_profile: string
+}
+
+export async function getJobPostings(): Promise<JobPosting[]> {
+  const res = await fetch('http://localhost:8080/api/v1/job-postings', {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  })
+
+  if (!res.ok) {
+    throw new Error(`HTTP ${res.status}: ${res.statusText}`)
   }
+
+  return (await res.json()) as JobPosting[]
+}
+
+export async function createCompany(
+  dto: NewCompanyDTO
+): Promise<Company> {
+  const res = await fetch('http://localhost:8080/api/v1/residency', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(dto),
+  })
+
+  if (!res.ok) {
+    const text = await res.text()
+    throw new Error(`HTTP ${res.status}: ${res.statusText} — ${text}`)
+  }
+
+  return (await res.json()) as Company
 }
