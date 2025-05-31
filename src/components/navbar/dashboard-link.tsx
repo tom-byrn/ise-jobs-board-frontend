@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/server";
 import { NavigationMenuItem, NavigationMenuLink, navigationMenuTriggerStyle } from "../ui/navigation-menu";
 import Link from "next/link";
+import { env } from "@/env";
 
 export async function DashboardLink() {
     let role = ""
@@ -10,7 +11,7 @@ export async function DashboardLink() {
 
     const session = await supabase.auth.getSession()
 
-    const url = process.env.NEXT_PUBLIC_API_URL
+    const url = env.NEXT_PUBLIC_API_URL
 
     if (session.data.session) {
         userID = session.data.session.user.id

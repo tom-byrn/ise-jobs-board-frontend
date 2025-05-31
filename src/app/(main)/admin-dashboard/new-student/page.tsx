@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/client";
-import type { Session, AuthChangeEvent } from "@supabase/supabase-js";
 import LoadingSpinner from "@/components/loading-spinner";
+import { env } from "@/env";
 
 export default function NewStudentsPage() {
     const router = useRouter();
@@ -49,7 +49,11 @@ export default function NewStudentsPage() {
         }
 
         try {
+<<<<<<< HEAD
             const url = process.env.NEXT_PUBLIC_API_URL;
+=======
+            const url = env.NEXT_PUBLIC_API_URL;
+>>>>>>> 99538d98902bfe79b878fa377a122c49f021aea7
             const res = await fetch(`${url}/accepted-student-emails`,
                 {
                     method: "POST",
@@ -76,7 +80,7 @@ export default function NewStudentsPage() {
                         const data = JSON.parse(text);
                         errorMessage = data.message || res.statusText;
                     } catch (e) {
-                        errorMessage = text; 
+                        errorMessage = text;
                     }
                 }
 

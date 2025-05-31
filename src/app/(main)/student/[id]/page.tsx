@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { env } from "@/env";
 import { createClient } from "@/lib/server";
 import { StudentJoinedWithProfile } from "@/types/student";
 import { FileText, Github, Globe, Linkedin, Pencil } from "lucide-react";
@@ -29,7 +30,7 @@ export async function generateMetadata({
       data: { session },
     } = await supabase.auth.getSession();
     const token = session?.access_token;
-    const url = process.env.NEXT_PUBLIC_API_URL;
+    const url = env.NEXT_PUBLIC_API_URL;
 
     const res = await fetch(`${url}/students/${id}`, {
       method: "GET",
@@ -87,7 +88,7 @@ async function StudentDetails({ id }: { id: string }) {
     data: { session },
   } = await supabase.auth.getSession();
   const token = session?.access_token;
-  const url = process.env.NEXT_PUBLIC_API_URL;
+  const url = env.NEXT_PUBLIC_API_URL;
 
   const res = await fetch(`${url}/students/profile/${id}`, {
     headers: {
