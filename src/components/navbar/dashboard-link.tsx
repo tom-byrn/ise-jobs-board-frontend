@@ -10,7 +10,7 @@ export async function DashboardLink() {
 
     const session = await supabase.auth.getSession()
 
-    const url = process.env.API_URL
+    const url = process.env.NEXT_PUBLIC_API_URL
 
     if (session.data.session) {
         userID = session.data.session.user.id
@@ -31,6 +31,18 @@ export async function DashboardLink() {
         const roleBody = await res.json()
 
         role = roleBody.role
+    }
+
+    if (role == "admin") {
+        return (
+            <NavigationMenuItem>
+                <Link href={"/admin-dashboard"} legacyBehavior passHref>
+                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                        Admin Dashboard
+                    </NavigationMenuLink>
+                </Link>
+            </NavigationMenuItem>
+        )
     }
 
     if (role == "company") {

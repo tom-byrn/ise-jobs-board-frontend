@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/client";
 import type { Session, AuthChangeEvent } from "@supabase/supabase-js";
+import LoadingSpinner from "@/components/loading-spinner";
 
 export default function NewStudentsPage() {
     const router = useRouter();
@@ -89,7 +90,7 @@ export default function NewStudentsPage() {
     if (loading) {
         return (
             <main className="pt-24 px-6 max-w-xl mx-auto">
-                <div>Loading...</div>
+                <LoadingSpinner />
             </main>
         );
     }
