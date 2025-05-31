@@ -1,4 +1,5 @@
 
+import { env } from "@/env"
 import { createClient } from "@/lib/server"
 import { redirect } from "next/navigation"
 
@@ -13,7 +14,7 @@ export default async function MyProfile() {
         redirect(`/auth/login`)
     }
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/account/${user.id}`)
+    const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/account/${user.id}`)
 
     if (!res.ok) {
         redirect('/auth/login')

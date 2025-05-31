@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { env } from '@/env';
 
 export default function NewResidencyPartnerPage() {
   const router = useRouter();
@@ -12,7 +13,7 @@ export default function NewResidencyPartnerPage() {
     console.log("Form submitted with name:", name);
 
     try {
-      const url = process.env.NEXT_PUBLIC_API_URL
+      const url = env.NEXT_PUBLIC_API_URL
       const res = await fetch(`${url}/company`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
