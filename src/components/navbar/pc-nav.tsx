@@ -15,6 +15,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { ThemeSwapButton } from "../theming/theme-swap-button";
+import LoginLogoutButton from "./login-logout-button";
 
 export function PcNavbar() {
   return (
@@ -29,7 +30,7 @@ export function PcNavbar() {
       <NavigationMenu className="">
         <NavigationMenuList>
           <NavigationMenuItem>
-            <Link href="/docs" legacyBehavior passHref>
+            <Link href="/job-postings" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                 Job Postings
               </NavigationMenuLink>
@@ -37,7 +38,7 @@ export function PcNavbar() {
           </NavigationMenuItem>
 
           <NavigationMenuItem>
-            <Link href="/docs" legacyBehavior passHref>
+            <Link href="/student-dashobard" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                 Student Dashboard
               </NavigationMenuLink>
@@ -45,17 +46,27 @@ export function PcNavbar() {
           </NavigationMenuItem>
 
           <NavigationMenuItem>
-            <Link href="/docs" legacyBehavior passHref>
+            <Link href="/rp-dashboard" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                 RP Dashboard
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
+
+          <NavigationMenuItem>
+            <Link href="/admin-dashboard" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Admin Dashboard
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
+      
 
       <div className="ml-auto mr-4" suppressHydrationWarning>
-        <ThemeSwapButton />
+        {/* Messes up navbar style with the button currently}<ThemeSwapButton />{*/}
+        <LoginLogoutButton />
       </div>
     </div>
   );

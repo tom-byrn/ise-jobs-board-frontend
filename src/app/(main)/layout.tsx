@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { ThemeProvider } from "@/components/theming/theme-provider";
 import { Navbar } from "@/components/navbar/navbar";
+import { createClient } from "@/lib/server";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,11 +19,19 @@ export const metadata: Metadata = {
   title: "ISE Jobs Board",
 };
 
-export default function MainLayout({
+export default async function MainLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const supabase = createClient();
+
+  const {
+    data: { session },
+    error,
+  } = await (await supabase).auth.getSession()
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body

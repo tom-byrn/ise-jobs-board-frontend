@@ -24,10 +24,6 @@ export function ThemeSwapButton() {
     setMounted(true)
   }, [])
 
-  if (!mounted) {
-    return null
-  }
-
   return (
     <Button suppressHydrationWarning variant="outline" size="icon" onClick={() => swapTheme(theme ?? "", setTheme)}>
       {
