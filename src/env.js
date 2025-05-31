@@ -8,13 +8,10 @@ export const env = createEnv({
         NEXT_PUBLIC_API_URL: z.string(),
     },
 
-    /**
-     * The prefix that client-side variables must have. This is enforced both at
-     * a type-level and at runtime.
-     */
-    clientPrefix: "PUBLIC_",
-
-    client: {},
+    client: {
+        NEXT_PUBLIC_SUPABASE_URL: z.string().url(),
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
+    },
 
     /**
      * What object holds the environment variables at runtime. This is usually

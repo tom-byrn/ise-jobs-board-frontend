@@ -1,5 +1,3 @@
-// app/(main)/student/[id]/page.tsx
-
 import { EditProfileForm } from "@/components/student-profile/edit-profile";
 import { WickedLink } from "@/components/student-profile/link";
 import { SuspensedImage } from "@/components/student-profile/suspensed-image";
@@ -16,7 +14,6 @@ import { StudentJoinedWithProfile } from "@/types/student";
 import { FileText, Github, Globe, Linkedin, Pencil } from "lucide-react";
 import { Metadata } from "next";
 import { Suspense } from "react";
-import type { ParsedUrlQuery } from "querystring";
 
 export async function generateMetadata({
   params,
@@ -30,7 +27,6 @@ export async function generateMetadata({
     const supabase = await createClient();
     const {
       data: { session },
-      error,
     } = await supabase.auth.getSession();
     const token = session?.access_token;
     const url = process.env.NEXT_PUBLIC_API_URL;
@@ -89,7 +85,6 @@ async function StudentDetails({ id }: { id: string }) {
   const supabase = await createClient();
   const {
     data: { session },
-    error,
   } = await supabase.auth.getSession();
   const token = session?.access_token;
   const url = process.env.NEXT_PUBLIC_API_URL;
@@ -118,7 +113,7 @@ async function StudentDetails({ id }: { id: string }) {
     <div className="flex w-screen flex-col px-8 pt-16 md:px-16 md:pt-32 xl:pl-20 xl:pr-40 2xl:pr-64">
       <div className="flex flex-col items-center gap-x-8 lg:flex-row lg:items-end">
         <SuspensedImage imageURL={student.student_profile.avatar_url} />
-        <div className="flex flex-col bg-white py-2">
+        <div className="flex flex-col bg-white dark:bg-black py-2">
           <h1 className="text-6xl md:text-7xl">{student.name}</h1>
           <span className="flex flex-row -mt-2 text-xl">
             <h2 className="">
@@ -167,24 +162,20 @@ async function StudentDetails({ id }: { id: string }) {
         </div>
       </div>
 
-      <div className="mt-8 border-2 border-black bg-white p-2 rounded-sm">
+      <div className="mt-8 border-2 border-black bg-white dark:bg-black dark:border-white p-2 rounded-sm">
         <h2 className="text-2xl font-bold">Overview</h2>
         <p className="whitespace-pre-line text-sm md:text-base">
           {student.student_profile.description}
         </p>
       </div>
-
-      <h2 className="mt-8 bg-white text-2xl font-bold">Projects</h2>
     </div>
   );
 }
 
 export default async function Page({
   params,
-  searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<ParsedUrlQuery>;
 }) {
 
   const { id } = await params;
