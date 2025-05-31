@@ -33,7 +33,7 @@ export async function generateMetadata({
       error,
     } = await supabase.auth.getSession();
     const token = session?.access_token;
-    const url = process.env.API_URL;
+    const url = process.env.NEXT_PUBLIC_API_URL;
 
     const res = await fetch(`${url}/students/${id}`, {
       method: "GET",
@@ -92,7 +92,7 @@ async function StudentDetails({ id }: { id: string }) {
     error,
   } = await supabase.auth.getSession();
   const token = session?.access_token;
-  const url = process.env.API_URL;
+  const url = process.env.NEXT_PUBLIC_API_URL;
 
   const res = await fetch(`${url}/students/profile/${id}`, {
     headers: {

@@ -1,113 +1,132 @@
-'use client'
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { createClient } from '@/lib/client';
-import { User } from '@supabase/supabase-js'
+"use client";
 
-export default function NewStudentPage() {
-  const router = useRouter();
-  const supabase = createClient()
-  const [email, setEmail] = useState('');
-  const [token, setToken] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/client";
+import type { Session, AuthChangeEvent } from "@supabase/supabase-js";
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const {
-          data: { session },
-          error
-        } = await supabase.auth.getSession()
-        
-        if (error || !session) {
-          alert('Not authenticated')
-          router.push('/login'); // Redirect to login page
-          return;
+export default function NewStudentsPage() {
+    const router = useRouter();
+    const supabase = createClient();
+    const [rawEmails, setRawEmails] = useState("");
+    const [token, setToken] = useState<string | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const checkAuth = async () => {
+            const {
+                data: { session },
+                error,
+            } = await supabase.auth.getSession();
+            if (error || !session) {
+                alert("Not authenticated");
+                router.push("/login");
+                return;
+            }
+            setToken(session.access_token);
+            setLoading(false);
+        };
+        checkAuth();
+    }, [router, supabase]);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!token) {
+            alert("Not authenticated");
+            return;
         }
-        
-        setToken(session.access_token);
-      } catch (err) {
-        console.error('Auth check failed:', err);
-        alert('Authentication failed');
-        router.push('/login');
-      } finally {
-        setLoading(false);
-      }
+
+        // Parse textarea: split on commas/newlines
+        const listOfEmails = rawEmails
+            .split(/[\n,]+/)
+            .map((x) => x.trim())
+            .filter((x) => x.length > 0);
+
+        if (listOfEmails.length === 0) {
+            alert("Please enter at least one email.");
+            return;
+        }
+
+        try {
+            const url = process.env.NEXT_PUBLIC_NEXT_PUBLIC_API_URL;
+            const res = await fetch(`${url}/accepted-student-emails`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({ emails: listOfEmails }),
+                },
+            );
+
+            if (res.ok) {
+                alert("All students added successfully!");
+                router.push("/admin-dashboard");
+            } else {
+                console.error("HTTP Status:", res.status, res.statusText);
+
+                const text = await res.text();
+                console.error("Response body:", text);
+
+                let errorMessage = res.statusText;
+                if (text) {
+                    try {
+                        const data = JSON.parse(text);
+                        errorMessage = data.message || res.statusText;
+                    } catch (e) {
+                        errorMessage = text; 
+                    }
+                }
+
+                alert("Failed to add students: " + errorMessage);
+            }
+        } catch (err) {
+            alert("Request failed: " + err);
+        }
     };
 
-    checkAuth();
-  }, [router, supabase]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!token) {
-      alert('Not authenticated');
-      return;
+    if (loading) {
+        return (
+            <main className="pt-24 px-6 max-w-xl mx-auto">
+                <div>Loading...</div>
+            </main>
+        );
     }
 
-    console.log("Form submitted with email:", email);
-
-    try {
-      const res = await fetch('http://localhost:8080/api/v1/accepted-student-emails', {
-        method: 'POST',
-        headers: {
-             'Content-Type': 'application/json',
-             'Authorization' : `Bearer ${token}`
-            },
-        body: JSON.stringify({ email }),
-      });
-      console.log("RES: ", res)
-
-      if (res.ok) {
-        alert('Successfully added new student email')
-        router.push('/admin-dashboard')
-      } else {
-        const data = await res.json()
-        console.log("Failed to add new student email")
-        alert('Failed to add new student email')
-      }
-    } catch (err) {
-      alert('Request failed: ' + err);
-    }
-  };
-
-  if (loading) {
     return (
-      <main className="pt-24 px-6 max-w-xl mx-auto">
-        <div>Loading...</div>
-      </main>
+        <main className="pt-24 px-6 max-w-xl mx-auto">
+            <h1 className="text-2xl font-bold mb-4">Add New Student Emails</h1>
+            <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                    <label className="block mb-1 font-medium">
+                        Student Emails (one per line or comma separated)
+                    </label>
+                    <textarea
+                        rows={6}
+                        className="w-full p-2 border"
+                        placeholder="Enter emails here"
+                        value={rawEmails}
+                        onChange={(e) => setRawEmails(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="flex gap-4 pt-2">
+                    <button
+                        type="submit"
+                        className="bg-green-600 text-white px-4 py-2 hover:bg-green-700"
+                    >
+                        Submit All
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => router.push("/admin-dashboard")}
+                        className="bg-gray-600 text-white px-4 py-2 hover:bg-gray-700"
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </main>
     );
-  }
-
-  return (
-    <main className="pt-24 px-6 max-w-xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Add New Student</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block mb-1 font-medium">Student Email</label>
-          <input
-            type="text"
-            className="w-full p-2 border"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-
-        <div className="flex gap-4 pt-2">
-          <button type="submit" className="bg-green-600 text-white px-4 py-2 hover:bg-green-700">
-            Submit
-          </button>
-          <button
-            type="button"
-            onClick={() => router.push('/admin-dashboard')}
-            className="bg-gray-600 text-white px-4 py-2 hover:bg-gray-700"
-          >
-            Cancel
-          </button>
-        </div>
-      </form>
-    </main>
-  );
 }

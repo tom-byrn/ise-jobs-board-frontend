@@ -25,13 +25,6 @@ export default async function MainLayout({
   children: React.ReactNode;
 }>) {
 
-  const supabase = createClient();
-
-  const {
-    data: { session },
-    error,
-  } = await (await supabase).auth.getSession()
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body

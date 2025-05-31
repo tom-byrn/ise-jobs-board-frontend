@@ -12,7 +12,8 @@ export default function NewResidencyPartnerPage() {
     console.log("Form submitted with name:", name);
 
     try {
-      const res = await fetch('http://localhost:8080/api/v1/company', {
+      const url = process.env.NEXT_PUBLIC_API_URL
+      const res = await fetch(`${url}/company`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name }),

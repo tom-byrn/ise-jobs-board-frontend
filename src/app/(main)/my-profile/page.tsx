@@ -13,7 +13,7 @@ export default async function MyProfile() {
         redirect(`/auth/login`)
     }
 
-    const res = await fetch(`${process.env.API_URL}/account/${user.id}`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/account/${user.id}`)
 
     if (!res.ok) {
         redirect('/auth/login')
