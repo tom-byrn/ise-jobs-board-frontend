@@ -118,7 +118,11 @@ async function StudentDetails({ id }: { id: string }) {
           <h1 className="text-6xl md:text-7xl">{student.name}</h1>
           <span className="flex flex-row -mt-2 text-xl">
             <h2 className="">
-              {student.year} | {student.student_profile.pronouns} |{" "}
+              {[student.year, student.student_profile.pronouns]
+                .filter(Boolean)
+                .join(" | ")}
+              {[student.year, student.student_profile.pronouns].filter(Boolean)
+                .length > 0 && " | "}
             </h2>
             <Dialog>
               <DialogTrigger asChild>
@@ -130,8 +134,7 @@ async function StudentDetails({ id }: { id: string }) {
                 <DialogHeader>
                   <DialogTitle>Edit profile</DialogTitle>
                   <DialogDescription>
-                    Make changes to your profile here. Click save when you’re
-                    done.
+                    Make changes to your profile here. Click save when you're done.
                   </DialogDescription>
                 </DialogHeader>
                 <EditProfileForm currentValues={student} />

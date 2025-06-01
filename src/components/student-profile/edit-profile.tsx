@@ -42,13 +42,13 @@ export function EditProfileForm({ currentValues }: { currentValues: StudentJoine
   const form = useForm<z.infer<typeof studentProfileSchema>>({
     resolver: zodResolver(studentProfileSchema),
     defaultValues: {
-      name: currentValues.name,
-      qca: currentValues.student_profile.qca,
-      pronouns: currentValues.student_profile.pronouns,
-      description: currentValues.student_profile.description,
-      github_link: currentValues.student_profile.github_link,
-      linkedin_link: currentValues.student_profile.linkedin_link,
-      personal_site_link: currentValues.student_profile.personal_site_link,
+      name: currentValues.name || "",
+      qca: currentValues.student_profile.qca || "",
+      pronouns: currentValues.student_profile.pronouns || "",
+      description: currentValues.student_profile.description || "",
+      github_link: currentValues.student_profile.github_link || "",
+      linkedin_link: currentValues.student_profile.linkedin_link || "",
+      personal_site_link: currentValues.student_profile.personal_site_link || "",
     },
   })
 
