@@ -1,3 +1,4 @@
+import { createClient } from "@/lib/client";
 
 interface JobPosting {
   id: string;
@@ -34,9 +35,19 @@ export interface Company {
 }
 
 export async function getJobPostings(): Promise<JobPosting[]> {
+  const supabase = await createClient()
+  const {
+    data: { session },
+    error
+  } = await supabase.auth.getSession()
+  const token = session?.access_token
+
   const res = await fetch('http://localhost:8080/api/v1/job-postings', {
     method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+     },
   })
 
   if (!res.ok) {
