@@ -49,11 +49,7 @@ export default function NewStudentsPage() {
         }
 
         try {
-<<<<<<< HEAD
-            const url = process.env.NEXT_PUBLIC_API_URL;
-=======
             const url = env.NEXT_PUBLIC_API_URL;
->>>>>>> 99538d98902bfe79b878fa377a122c49f021aea7
             const res = await fetch(`${url}/accepted-student-emails`,
                 {
                     method: "POST",

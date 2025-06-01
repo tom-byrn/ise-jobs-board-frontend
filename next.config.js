@@ -1,4 +1,4 @@
-await import("./src/env.js");
+import("./src/env.js");
 
 const nextConfig = {
     images: {
