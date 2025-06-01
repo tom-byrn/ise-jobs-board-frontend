@@ -1,56 +1,45 @@
 "use client"
 
 import { Heart, Users, Info } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-
-interface JobPosting {
-  id: string;
-  job_title: string;
-  salary: string;
-  accommodation_support: string;
-  position_count: number;
-  location: string;
-  company: {
-    name: string;
-    company_profile: {
-      avatar: string;
-    };
-  };
-  isFavourited: boolean;
-}
+import { Badge } from "./badge";
+import { Sheet, SheetTrigger } from "./sheet";
+import { JobPosting } from "@/types/job-posting";
+import { JobPostingSheetContents } from "../job-posting/job-posting-sheet";
+import Image from "next/image";
 
 interface JobCardProps {
   job: JobPosting
-  onToggleFavorite: (id: string) => void
+  onToggleFavourite: (id: string) => void
   onInfoClick?: (job: JobPosting) => void
 }
 
-export function JobCard({ job, onToggleFavorite, onInfoClick }: JobCardProps) {
+export function JobCard({ job, onToggleFavourite, onInfoClick }: JobCardProps) {
+  console.log(job)
   return (
-    <Card className="relative bg-black border border-gray-200 hover:shadow-lg transition-shadow dark:bg-white">
+    <Card className="relative border border-gray-200 bg-black transition-shadow hover:shadow-lg dark:bg-white">
       <CardContent className="p-6">
-        {/* Favorite Button */}
-        <button onClick={() => onToggleFavorite(job.id)} className="absolute top-4 right-4 p-1">
-          <Heart className={`w-5 h-5 ${job.isFavourited ? "fill-red-500 text-red-500" : "text-gray-400 hover:text-red-500"}`}
-          />
-        </button>
 
-        {/* Company Logo and Info */}
-        <div className="flex items-start space-x-3 mb-4">
-          <img
+        <div className="mb-4 flex items-start space-x-3">
+          <Image
             src={job.company.company_profile.avatar || "/placeholder.svg"}
             alt={`${job.company.name} logo`}
             className="w-10 h-10 rounded-lg object-cover"
+            width={40}
+            height={40}
           />
           <div className="flex-1">
             <h3 className="font-semibold text-white dark:text-gray-900  ">{job.company.name}</h3>
             <p className="text-sm text-white dark:text-gray-600">{job.job_title}</p>
           </div>
+
+          <Badge className="flex h-8 items-center space-x-1 bg-green-600 hover:bg-green-600  dark:bg-green-500 hover:dark:bg-green-500">
+            <Users className="h-4 w-4" />
+            <span>{job.position_count} <span className="hidden sm:inline">positions</span></span>
+          </Badge>
         </div>
 
-        {/* Job Details */}
-        <div className="space-y-2 mb-4">
+        <div className="mb-4 space-y-1">
           <p className="text-sm text-white dark:text-gray-600">
             <span className="font-medium">Location:</span> {job.location}
           </p>
@@ -58,28 +47,30 @@ export function JobCard({ job, onToggleFavorite, onInfoClick }: JobCardProps) {
             <span className="font-medium">Salary:</span> {job.salary}
           </p>
           <div className="flex items-center space-x-2">
-            <span className="text-sm  text-white font-medium dark:text-gray-600">Accommodation Support:</span>
-            <span className={`text-sm font-bold ${job.accommodation_support ? "text-green-600" : "text-red-600"}`}>
-              {job.accommodation_support ? "✓" : "✗"}
+            <span className="text-sm  font-medium text-white dark:text-gray-600">Accommodation Support:</span>
+            <span className={`${job.accommodation_support ? "text-green-600" : "text-red-600"} text-sm font-bold`}>
+              {job.accommodation_support ? "Yes" : "No"}
             </span>
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex space-x-2">
-          <Button size="sm" className="flex items-center space-x-1 bg-green-600 hover:bg-green-700">
-            <Users className="w-4 h-4" />
-            <span>{job.position_count} positions</span>
-          </Button>
-          <Button
-            size="sm"
-            variant="outline"
-            className="flex items-center space-x-1"
-            onClick={() => onInfoClick?.(job)}
-          >
-            <Info className="w-4 h-4" />
-            <span>Info</span>
-          </Button>
+        <div className="flex justify-between space-x-2">
+          <Sheet>
+            <SheetTrigger
+              className="flex text-sm px-3 items-center space-x-1 bg-white p-2 hover:bg-white/80 dark:bg-black dark:hover:bg-black/80"
+              onClick={() => onInfoClick?.(job)}
+            >
+              <Info className="h-4 w-4" />
+              <span>More Info</span>
+            </SheetTrigger>
+
+            <JobPostingSheetContents job={job} onToggleFavourite={onToggleFavourite} />
+          </Sheet>
+
+          <button onClick={() => onToggleFavourite(job.id)}>
+            <Heart className={`${job.isFavourited ? "fill-red-500 text-red-500" : "text-gray-400 hover:text-red-500"} h-5 w-5`}
+            />
+          </button>
         </div>
       </CardContent>
     </Card>
