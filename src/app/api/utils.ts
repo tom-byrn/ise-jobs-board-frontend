@@ -40,6 +40,7 @@ export async function getJobPostings(): Promise<JobPosting[]> {
   })
 
   if (!res.ok) {
+    console.log("RES: ", res)
     throw new Error(`HTTP ${res.status}: ${res.statusText}`)
   }
 
