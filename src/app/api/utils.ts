@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/client";
+import { env } from "@/env";
 
 interface JobPosting {
   id: string;
@@ -41,8 +42,9 @@ export async function getJobPostings(): Promise<JobPosting[]> {
     error
   } = await supabase.auth.getSession()
   const token = session?.access_token
+  const url = env.NEXT_PUBLIC_API_URL
 
-  const res = await fetch('http://localhost:8080/api/v1/job-postings', {
+  const res = await fetch(`${url}/job-postings`, {
     method: 'GET',
     headers: { 
       'Content-Type': 'application/json',
