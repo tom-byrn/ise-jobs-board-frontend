@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { getJobPostings } from "@/app/api/utils";
+import { getJobPostings, submitJobRankings } from "@/app/api/utils";
 import { JobPosting } from "@/types/jobs";
 
 export default function PreInterviewRankingsPage() {
