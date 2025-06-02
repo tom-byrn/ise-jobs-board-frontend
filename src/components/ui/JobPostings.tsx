@@ -1,19 +1,23 @@
 import { JobPosting } from "@/types/job-posting";
 import { JobCard } from "./job-card";
 
-interface JobCardProps {
-  onToggleFavourite: (id: string) => void
-}
-
-type JobPostingsProps = JobCardProps & {
+type JobPostingsProps = {
   jobPostings: JobPosting[]
 }
 
-export default function JobPostings(props: JobPostingsProps) {
+export default function JobPostings({ jobPostings }: JobPostingsProps) {
+  if (jobPostings.length == 0) {
+    return (
+      <div className="w-full flex p-8 justify-center bg-white">
+        no postings found
+      </div>
+    )
+  }
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {props.jobPostings.map((job) => (
-        <JobCard key={job.id} job={job} onToggleFavourite={props.onToggleFavourite} />
+      {jobPostings.map((job) => (
+        <JobCard key={job.id} job={job} />
       ))}
     </div>
   )

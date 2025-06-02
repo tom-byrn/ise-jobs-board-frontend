@@ -5,10 +5,9 @@ import Image from "next/image";
 
 interface JobSheetProps {
   job: JobPosting
-  onToggleFavourite: (id: string) => void
 }
 
-export const JobPostingSheetContents = ({ job, onToggleFavourite }: JobSheetProps) => {
+export const JobPostingSheetContents = ({ job }: JobSheetProps) => {
   return (
     <SheetContent className="w-[9999px] max-w-full sm:!max-w-[600px]" side="right">
       <SheetHeader>
@@ -48,7 +47,6 @@ export const JobPostingSheetContents = ({ job, onToggleFavourite }: JobSheetProp
                     absolute right-4
                     flex-row items-center gap-x-2 rounded-sm p-2 text-xs font-bold text-red-500 outline outline-2
                     `}
-                onClick={() => onToggleFavourite(job.id)}
               >
                 <Heart className={`${job.isFavourited ? "fill-white" : "text-gray-400 group-hover:text-red-500"} h-4 w-4`} />
                 Favourite
@@ -67,7 +65,7 @@ export const JobPostingSheetContents = ({ job, onToggleFavourite }: JobSheetProp
             </span>
 
             <span className="flex flex-row text-sm">
-              <HandCoins size={18} className="mr-2" /> {job.salary} per month
+              <HandCoins size={18} className="mr-2" /> €{job.salary} per month
             </span>
 
             <span className="flex flex-row text-sm">
