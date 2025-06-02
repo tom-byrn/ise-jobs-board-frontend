@@ -10,15 +10,12 @@ import Image from "next/image";
 
 interface JobCardProps {
   job: JobPosting
-  onToggleFavourite: (id: string) => void
 }
 
-export function JobCard({ job, onToggleFavourite }: JobCardProps) {
-  console.log(job)
+export function JobCard({ job }: JobCardProps) {
   return (
     <Card className="relative border border-gray-200 bg-black transition-shadow hover:shadow-lg dark:bg-white">
       <CardContent className="p-6">
-
         <div className="mb-4 flex items-start space-x-3">
           <Image
             src={job.company.company_profile.avatar || "/placeholder.svg"}
@@ -46,10 +43,13 @@ export function JobCard({ job, onToggleFavourite }: JobCardProps) {
 
         <div className="mb-4 space-y-1">
           <p className="text-sm text-white dark:text-gray-600">
+            <span className="font-medium">Residency:</span> {job.residency}
+          </p>
+          <p className="text-sm text-white dark:text-gray-600">
             <span className="font-medium">Location:</span> {job.location}
           </p>
           <p className="text-sm text-white dark:text-gray-600">
-            <span className="font-medium">Salary:</span> {job.salary}
+            <span className="font-medium">Salary:</span> €{job.salary}
           </p>
           <div className="flex items-center space-x-2">
             <span className="text-sm  font-medium text-white dark:text-gray-600">Accommodation Support:</span>
@@ -68,10 +68,10 @@ export function JobCard({ job, onToggleFavourite }: JobCardProps) {
               <span>More Info</span>
             </SheetTrigger>
 
-            <JobPostingSheetContents job={job} onToggleFavourite={onToggleFavourite} />
+            <JobPostingSheetContents job={job} />
           </Sheet>
 
-          <button onClick={() => onToggleFavourite(job.id)}>
+          <button>
             <Heart className={`${job.isFavourited ? "fill-red-500 text-red-500" : "text-gray-400 hover:text-red-500"} h-5 w-5`}
             />
           </button>

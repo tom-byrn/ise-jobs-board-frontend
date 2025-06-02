@@ -1,15 +1,9 @@
+import { getJobPostings } from "@/app/api/utils";
 import LoadingSpinner from "@/components/loading-spinner";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { JobCard } from "@/components/ui/job-card";
 import { createClient } from "@/lib/server";
 import { CompanyJoinedWithProfile } from "@/types/company";
-import { Pencil } from "lucide-react";
+import { JobPosting } from "@/types/job-posting";
 import { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -61,6 +55,24 @@ export async function generateMetadata({
   }
 }
 
+function JobPostings({ jobPostings }: { jobPostings: JobPosting[] }) {
+  if (jobPostings.length == 0) {
+    return (
+      <div className="w-full flex p-8 justify-center bg-white">
+        no postings found
+      </div>
+    )
+  }
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {jobPostings.map((job) => (
+        <JobCard key={job.id} job={job} />
+      ))}
+    </div>
+  )
+}
+
 const FallbackPage = () => {
   return (
     <LoadingSpinner />
@@ -75,6 +87,7 @@ async function CompanyDetails({ id }: { id: string }) {
   } = await supabase.auth.getSession();
   const token = session?.access_token;
   const url = process.env.NEXT_PUBLIC_API_URL;
+  const jobPostings = await getJobPostings()
 
   const res = await fetch(`${url}/company/profile/${id}`, {
     headers: {
@@ -88,7 +101,7 @@ async function CompanyDetails({ id }: { id: string }) {
       <div className="flex h-screen items-center justify-center">
         <div className="flex flex-col items-center bg-white p-8">
           <p>company not found</p>
-          <Link className="bg-black p-3 text-white hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-white/90 mt-2" href="/">
+          <Link className="mt-2 bg-black p-3 text-white hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-white/90" href="/">
             return home
           </Link>
         </div>
@@ -102,17 +115,17 @@ async function CompanyDetails({ id }: { id: string }) {
     <div className="flex w-screen flex-col px-8 pt-16 md:px-16 md:pt-32 xl:pl-20 xl:pr-40 2xl:pr-64">
       <div className="relative">
         <img
-          className="w-full h-56"
+          className="h-56 w-full"
           src={company.company_profile.banner_image}
         />
         <img
-          className="max-w-32 max-h-32 -bottom-12 left-12 outline outline-white dark:outline-black outline-8 absolute"
+          className="absolute -bottom-12 left-12 max-h-32 max-w-32 outline outline-8 outline-white dark:outline-black"
           src={company.company_profile.avatar}
         />
-        <h1 className="absolute text-6xl bg-white md:text-7xl left-[11.5rem] -bottom-10 pt-10 px-6 dark:bg-black p-4">{company.name}</h1>
+        <h1 className="absolute -bottom-10 left-[11.5rem] bg-white p-4 px-6 pt-10 text-6xl dark:bg-black md:text-7xl">{company.name}</h1>
       </div>
 
-      <div className="flex px-12 w-fit flex-col bg-white py-2 dark:bg-black mt-16">
+      <div className="mt-16 flex w-fit flex-col bg-white px-12 py-2 dark:bg-black">
         <span className="-mt-2 flex flex-row text-xl">
           <h2 className="">
             {company.company_profile.subtitle}
@@ -120,11 +133,18 @@ async function CompanyDetails({ id }: { id: string }) {
         </span>
       </div>
 
-      <div className="mt-8 mx-12 border-2 border-black bg-neutral-100/90 p-2 dark:border-white dark:bg-black">
+      <div className="mx-12 mt-8 border-2 border-black bg-white p-2 dark:border-white dark:bg-black">
         <h2 className="text-2xl font-bold">Overview</h2>
         <p className="whitespace-pre-line font-sans text-sm md:text-base">
           {company.company_profile.description}
         </p>
+      </div>
+
+      <div className="mx-12 mt-8 border-2 border-black bg-white p-2 dark:border-white dark:bg-black">
+        <h2 className="text-2xl font-bold">Job Postings</h2>
+        <div className="px-8 py-4">
+          <JobPostings jobPostings={jobPostings.filter(jp => jp.company.id == company.id)} />
+        </div>
       </div>
     </div>
   );
