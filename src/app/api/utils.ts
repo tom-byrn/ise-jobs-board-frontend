@@ -60,6 +60,11 @@ export async function getJobPostings(): Promise<JobPosting[]> {
   return (await res.json()) as JobPosting[]
 }
 
+//Send a user's pre-interview rankings via POST
+export async function submitJobRankings() {
+  
+}
+
 export async function createCompany(
   dto: NewCompanyDTO
 ): Promise<Company> {

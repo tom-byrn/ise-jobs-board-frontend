@@ -5,28 +5,12 @@ import { useState } from "react"
 import { useEffect } from "react";
 import { getJobPostings } from "../../api/utils";
 import JobPostings from "@/components/ui/JobPostings";
+import { JobPosting } from "@/types/jobs";
 
 
 export default function JobsBoard() {
 
-
-  interface JobPosting {
-    id: string;
-    job_title: string;
-    salary: string;
-    accommodation_support: string;
-    position_count: number;
-    location: string;
-    company: {
-      name: string;
-      company_profile: {
-        avatar: string;
-      };
-    };
-    isFavourited: boolean;
-  }
   const [jobPostings, setJobPostings] = useState<JobPosting[]>([])
-
 
   useEffect(() => {
     (async () => {
