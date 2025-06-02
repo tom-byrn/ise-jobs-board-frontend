@@ -5,17 +5,9 @@ import { useState } from "react"
 import { useEffect } from "react";
 import { getJobPostings } from "../../api/utils";
 import JobPostings from "@/components/ui/JobPostings";
-<<<<<<< HEAD
-import { JobPosting } from "@/types/jobs";
-
-
-export default function JobsBoard() {
-
-=======
 import { JobPosting } from "@/types/job-posting";
 
 export default function JobsBoard() {
->>>>>>> c500c6a893dafb43c651c48186ae1fe07cbdcb0c
   const [jobPostings, setJobPostings] = useState<JobPosting[]>([])
 
   useEffect(() => {
