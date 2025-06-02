@@ -1,20 +1,6 @@
 import { createClient } from "@/lib/client";
 import { env } from "@/env";
-
-interface JobPosting {
-  id: string;
-  job_title: string;
-  salary: string;
-  accommodation_support: string;
-  position_count: number;
-  location: string;
-  company: {
-    name: string;
-    company_profile: {
-      avatar: string;
-    };
-  };
-}
+import { JobPosting } from "@/types/job-posting";
 
 export interface NewCompanyProfileDTO {
   subtitle: string
@@ -36,20 +22,19 @@ export interface Company {
 }
 
 export async function getJobPostings(): Promise<JobPosting[]> {
-  const supabase = await createClient()
+  const supabase = createClient()
   const {
     data: { session },
-    error
   } = await supabase.auth.getSession()
   const token = session?.access_token
   const url = env.NEXT_PUBLIC_API_URL
 
   const res = await fetch(`${url}/job-postings`, {
     method: 'GET',
-    headers: { 
+    headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
-     },
+    },
   })
 
   if (!res.ok) {
