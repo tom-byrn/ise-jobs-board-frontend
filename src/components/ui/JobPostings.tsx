@@ -3,7 +3,6 @@ import { JobCard } from "./job-card";
 
 interface JobCardProps {
   onToggleFavourite: (id: string) => void
-  onInfoClick?: (job: JobPosting) => void
 }
 
 type JobPostingsProps = JobCardProps & {
@@ -14,7 +13,7 @@ export default function JobPostings(props: JobPostingsProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {props.jobPostings.map((job) => (
-        <JobCard key={job.id} job={job} onToggleFavourite={props.onToggleFavourite} onInfoClick={props.onInfoClick} />
+        <JobCard key={job.id} job={job} onToggleFavourite={props.onToggleFavourite} />
       ))}
     </div>
   )

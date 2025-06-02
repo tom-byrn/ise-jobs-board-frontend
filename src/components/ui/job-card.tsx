@@ -11,10 +11,9 @@ import Image from "next/image";
 interface JobCardProps {
   job: JobPosting
   onToggleFavourite: (id: string) => void
-  onInfoClick?: (job: JobPosting) => void
 }
 
-export function JobCard({ job, onToggleFavourite, onInfoClick }: JobCardProps) {
+export function JobCard({ job, onToggleFavourite }: JobCardProps) {
   console.log(job)
   return (
     <Card className="relative border border-gray-200 bg-black transition-shadow hover:shadow-lg dark:bg-white">
@@ -64,7 +63,6 @@ export function JobCard({ job, onToggleFavourite, onInfoClick }: JobCardProps) {
           <Sheet>
             <SheetTrigger
               className="flex items-center space-x-2 bg-white p-2 px-3 text-sm hover:bg-white/80 dark:bg-black dark:hover:bg-black/80"
-              onClick={() => onInfoClick?.(job)}
             >
               <Info size={20} />
               <span>More Info</span>
