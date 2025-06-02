@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/client";
+import { createClient } from "@/lib/server";
 import { env } from "@/env";
 import { JobPosting } from "@/types/job-posting";
 import { getUserId } from "./user";
@@ -28,7 +28,7 @@ export interface JobRanking {
 }
 
 export async function getJobPostings(): Promise<JobPosting[]> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const {
     data: { session },
   } = await supabase.auth.getSession()
@@ -52,8 +52,8 @@ export async function getJobPostings(): Promise<JobPosting[]> {
 }
 
 //Send a user's pre-interview rankings via POST
-export async function submitJobRankings( rankings: JobRanking[] ) {
-  const supabase = createClient()
+export async function submitJobRankings(rankings: JobRanking[]) {
+  const supabase = await createClient()
   const {
     data: { session },
   } = await supabase.auth.getSession()
@@ -61,8 +61,8 @@ export async function submitJobRankings( rankings: JobRanking[] ) {
   const url = env.NEXT_PUBLIC_API_URL
   const studentId = getUserId()
 
-  if(!token){ throw new Error("No Access token found") }
-  if(!studentId){ throw new Error("No student id found") }
+  if (!token) { throw new Error("No Access token found") }
+  if (!studentId) { throw new Error("No student id found") }
 
   const res = await fetch(`${url}/pre-interview-rankings/${studentId}`, {
     method: 'POST',
@@ -70,12 +70,12 @@ export async function submitJobRankings( rankings: JobRanking[] ) {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     },
-    body: JSON.stringify( rankings ),
+    body: JSON.stringify(rankings),
   })
 
-  if(!res.ok){ 
+  if (!res.ok) {
     const errorText = await res.text();
-    throw new Error(`HTTP ${res.status}: ${res.statusText} — ${errorText}`) 
+    throw new Error(`HTTP ${res.status}: ${res.statusText} — ${errorText}`)
   }
 }
 
