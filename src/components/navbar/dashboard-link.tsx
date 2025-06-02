@@ -2,7 +2,7 @@ import { createClient } from "@/lib/server";
 import { NavigationMenuItem, NavigationMenuLink, navigationMenuTriggerStyle } from "../ui/navigation-menu";
 import Link from "next/link";
 import { env } from "@/env";
-import { getRole } from "@/app/api/user";
+import { getCompanyIdFromUserId, getRole } from "@/app/api/user";
 
 export async function DashboardLink() {
     let role = await getRole()
@@ -31,9 +31,11 @@ export async function DashboardLink() {
     }
 
     if (role == "company") {
+        //Get company from userID
+        let companyId = await getCompanyIdFromUserId(userID)
         return (
             <NavigationMenuItem>
-                <Link href={"/company/" + userID} legacyBehavior passHref>
+                <Link href={"/company/" + companyId} legacyBehavior passHref>
                     <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                         Your Company Profile
                     </NavigationMenuLink>
@@ -52,5 +54,7 @@ export async function DashboardLink() {
                 </Link>
             </NavigationMenuItem>
         )
+    } else {
+        return null
     }
 }
