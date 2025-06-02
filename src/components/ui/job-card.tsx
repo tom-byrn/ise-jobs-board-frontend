@@ -1,6 +1,6 @@
 "use client"
 
-import { Heart, Users, Info } from "lucide-react"
+import { Heart, Users, Info, Link, ExternalLink } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "./badge";
 import { Sheet, SheetTrigger } from "./sheet";
@@ -24,17 +24,23 @@ export function JobCard({ job, onToggleFavourite, onInfoClick }: JobCardProps) {
           <Image
             src={job.company.company_profile.avatar || "/placeholder.svg"}
             alt={`${job.company.name} logo`}
-            className="w-10 h-10 rounded-lg object-cover"
+            className="h-10 w-10 rounded-lg object-cover"
             width={40}
             height={40}
           />
           <div className="flex-1">
-            <h3 className="font-semibold text-white dark:text-gray-900  ">{job.company.name}</h3>
+            <a
+              className="flex items-center gap-x-2 font-semibold text-white hover:underline dark:text-gray-900"
+              href={`/company/` + job.company.id}
+            >
+              <span>{job.company.name}</span>
+              <ExternalLink size={16} className="mb-1" />
+            </a>
             <p className="text-sm text-white dark:text-gray-600">{job.job_title}</p>
           </div>
 
-          <Badge className="flex h-8 items-center space-x-1 bg-green-600 hover:bg-green-600  dark:bg-green-500 hover:dark:bg-green-500">
-            <Users className="h-4 w-4" />
+          <Badge className="flex h-8 items-center space-x-1 bg-green-600 text-[0.7rem] hover:bg-green-600  dark:bg-green-500 hover:dark:bg-green-500">
+            <Users className="h-3 w-3" />
             <span>{job.position_count} <span className="hidden sm:inline">positions</span></span>
           </Badge>
         </div>
@@ -57,10 +63,10 @@ export function JobCard({ job, onToggleFavourite, onInfoClick }: JobCardProps) {
         <div className="flex justify-between space-x-2">
           <Sheet>
             <SheetTrigger
-              className="flex text-sm px-3 items-center space-x-1 bg-white p-2 hover:bg-white/80 dark:bg-black dark:hover:bg-black/80"
+              className="flex items-center space-x-2 bg-white p-2 px-3 text-sm hover:bg-white/80 dark:bg-black dark:hover:bg-black/80"
               onClick={() => onInfoClick?.(job)}
             >
-              <Info className="h-4 w-4" />
+              <Info size={20} />
               <span>More Info</span>
             </SheetTrigger>
 

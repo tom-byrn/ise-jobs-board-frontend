@@ -19,7 +19,7 @@ import { DashboardLink } from "./dashboard-link";
 
 export function PcNavbar() {
   return (
-    <div className="max-w-screen fixed z-50 hidden w-screen flex-row items-center border-b-2 border-neutral-900/20 p-3 font-mono tracking-tight backdrop-blur-sm dark:border-neutral-100/10 md:flex">
+    <div className="max-w-screen bg-white dark:bg-black fixed z-50 hidden w-screen flex-row items-center border-b-2 border-neutral-900/20 p-3 font-mono tracking-tight backdrop-blur-sm dark:border-neutral-100/10 md:flex">
       <Link href="/">
         <Image
           src={ISE_UL_LOGO}

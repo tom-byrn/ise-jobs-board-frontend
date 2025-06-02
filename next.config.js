@@ -5,6 +5,11 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: "https",
+                hostname: "cdn.brandfetch.io",
+                pathname: "/**",
+            },
+            {
+                protocol: "https",
                 hostname: "skzqkbzsakzybrclflnm.supabase.co",
                 pathname: "/**",
             },
@@ -13,3 +18,4 @@ const nextConfig = {
 };
 
 export default nextConfig;
+

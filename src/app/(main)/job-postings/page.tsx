@@ -24,6 +24,8 @@ export default function JobsBoard() {
       try {
         const jobPostings = [] = await getJobPostings()
 
+        jobPostings.sort((postingA, postingB) => postingA.company.name.localeCompare(postingB.company.name))
+
         console.log("Fetched jobs", jobPostings)
 
         setJobPostings(jobPostings.map(job => ({

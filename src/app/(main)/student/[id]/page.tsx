@@ -12,7 +12,7 @@ import {
 import { env } from "@/env";
 import { createClient } from "@/lib/server";
 import { StudentJoinedWithProfile } from "@/types/student";
-import { FileText, Github, Globe, Linkedin, Pencil } from "lucide-react";
+import { FileQuestion, FileText, Github, Globe, Linkedin, Pencil } from "lucide-react";
 import { Metadata } from "next";
 import { Suspense } from "react";
 
@@ -42,13 +42,16 @@ export async function generateMetadata({
 
     if (!res.ok) {
       console.warn("metadata fetch failed:", res.status, await res.text());
-      throw new Error("Student not found");
+      return {
+        title: "404 - ISE Jobs Board",
+        description: "Student not found!",
+      }
     }
 
     const studentData: StudentJoinedWithProfile = await res.json();
 
     return {
-      title: `${studentData.name} - Student Profile`,
+      title: `${studentData.name} - ISE Jobs Board`,
       description: `View ${studentData.name}'s profile, projects, and information.`,
     };
   } catch (e) {
@@ -100,7 +103,8 @@ async function StudentDetails({ id }: { id: string }) {
   if (res.status === 404) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <p>Student not found</p>
+        <p>student not found</p>
+        <WickedLink url="/" text="return home" icon={<FileQuestion />} />
       </div>
     );
   }
@@ -118,7 +122,7 @@ async function StudentDetails({ id }: { id: string }) {
           <h1 className="text-6xl md:text-7xl">{student.name}</h1>
           <span className="flex flex-row -mt-2 text-xl">
             <h2 className="">
-              {[student.year, student.student_profile.pronouns]
+              {["Year " + student.year, student.student_profile.pronouns]
                 .filter(Boolean)
                 .join(" | ")}
               {[student.year, student.student_profile.pronouns].filter(Boolean)

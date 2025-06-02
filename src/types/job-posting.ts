@@ -9,6 +9,7 @@ export interface JobPosting {
 	position_count: number;
 	residency: number;
 	company: {
+		id: string;
 		name: string;
 		company_profile: {
 			avatar: string;

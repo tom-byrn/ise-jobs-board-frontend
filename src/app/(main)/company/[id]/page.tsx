@@ -1,7 +1,4 @@
 import LoadingSpinner from "@/components/loading-spinner";
-import { EditProfileForm } from "@/components/student-profile/edit-profile";
-import { WickedLink } from "@/components/student-profile/link";
-import { SuspensedImage } from "@/components/student-profile/suspensed-image";
 import {
   Dialog,
   DialogContent,
@@ -12,8 +9,9 @@ import {
 } from "@/components/ui/dialog";
 import { createClient } from "@/lib/server";
 import { CompanyJoinedWithProfile } from "@/types/company";
-import { FileText, Github, Globe, Linkedin, Pencil } from "lucide-react";
+import { Pencil } from "lucide-react";
 import { Metadata } from "next";
+import Link from "next/link";
 import { Suspense } from "react";
 
 export async function generateMetadata({
@@ -42,13 +40,16 @@ export async function generateMetadata({
 
     if (!res.ok) {
       console.warn("metadata fetch failed:", res.status, await res.text());
-      throw new Error("Company not found");
+      return {
+        title: "404 - ISE Jobs Board",
+        description: "Company not found!",
+      }
     }
 
     const company: CompanyJoinedWithProfile = await res.json();
 
     return {
-      title: `${company.name}`,
+      title: `${company.name} - ISE Jobs Board`,
       description: `View ${company.name}'s company information.`,
     };
   } catch (e) {
@@ -82,53 +83,46 @@ async function CompanyDetails({ id }: { id: string }) {
     },
   });
 
-  if (res.status === 404) {
+  if (!res.ok) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <p>Company not found</p>
+      <div className="flex h-screen items-center justify-center">
+        <div className="flex flex-col items-center bg-white p-8">
+          <p>company not found</p>
+          <Link className="bg-black p-3 text-white hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-white/90 mt-2" href="/">
+            return home
+          </Link>
+        </div>
       </div>
     );
   }
-  if (!res.ok) {
-    throw new Error(`Unexpected error: ${res.status}`);
-  }
 
-  const company: CompanyJoinedWithProfile =  await res.json();
+  const company: CompanyJoinedWithProfile = await res.json();
 
   return (
     <div className="flex w-screen flex-col px-8 pt-16 md:px-16 md:pt-32 xl:pl-20 xl:pr-40 2xl:pr-64">
-      <div className="flex flex-col items-center gap-x-8 lg:flex-row lg:items-end">
-        <SuspensedImage imageURL={company.company_profile.avatar} />
-        <div className="flex flex-col bg-white dark:bg-black py-2">
-          <h1 className="text-6xl md:text-7xl">{company.name}</h1>
-          <span className="flex flex-row -mt-2 text-xl">
-            <h2 className="">
-              {company.company_profile.subtitle} | {company.company_profile.description} |{" "}
-            </h2>
-            <Dialog>
-              <DialogTrigger asChild>
-                <button className="flex flex-row items-center gap-x-1 ml-3">
-                  Edit <Pencil size={18} className="mb-1" />
-                </button>
-              </DialogTrigger>
-              <DialogContent className="overflow-scroll h-3/4">
-                <DialogHeader>
-                  <DialogTitle>Edit profile</DialogTitle>
-                  <DialogDescription>
-                    Make changes to your profile here. Click save when you’re
-                    done.
-                  </DialogDescription>
-                </DialogHeader>
-                {/*}<EditProfileForm currentValues={company} />{*/}
-              </DialogContent>
-            </Dialog>
-          </span>
-        </div>
+      <div className="relative">
+        <img
+          className="w-full h-56"
+          src={company.company_profile.banner_image}
+        />
+        <img
+          className="max-w-32 max-h-32 -bottom-12 left-12 outline outline-white dark:outline-black outline-8 absolute"
+          src={company.company_profile.avatar}
+        />
+        <h1 className="absolute text-6xl bg-white md:text-7xl left-[11.5rem] -bottom-10 pt-10 px-6 dark:bg-black p-4">{company.name}</h1>
       </div>
 
-      <div className="mt-8 border-2 border-black bg-white dark:bg-black dark:border-white p-2 rounded-sm">
+      <div className="flex px-12 w-fit flex-col bg-white py-2 dark:bg-black mt-16">
+        <span className="-mt-2 flex flex-row text-xl">
+          <h2 className="">
+            {company.company_profile.subtitle}
+          </h2>
+        </span>
+      </div>
+
+      <div className="mt-8 mx-12 border-2 border-black bg-neutral-100/90 p-2 dark:border-white dark:bg-black">
         <h2 className="text-2xl font-bold">Overview</h2>
-        <p className="whitespace-pre-line text-sm md:text-base">
+        <p className="whitespace-pre-line font-sans text-sm md:text-base">
           {company.company_profile.description}
         </p>
       </div>
