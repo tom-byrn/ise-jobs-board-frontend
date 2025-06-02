@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/client";
 import { env } from "@/env";
 import { JobPosting } from "@/types/job-posting";
+import { getUserId } from "./user";
 
 export interface NewCompanyProfileDTO {
   subtitle: string
@@ -19,6 +20,11 @@ export interface Company {
   id: string
   name: string
   company_profile: string
+}
+
+export interface JobRanking {
+  jobId: string,
+  ranking: number
 }
 
 export async function getJobPostings(): Promise<JobPosting[]> {
@@ -46,14 +52,38 @@ export async function getJobPostings(): Promise<JobPosting[]> {
 }
 
 //Send a user's pre-interview rankings via POST
-export async function submitJobRankings() {
-  
+export async function submitJobRankings( rankings: JobRanking[] ) {
+  const supabase = createClient()
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
+  const token = session?.access_token
+  const url = env.NEXT_PUBLIC_API_URL
+  const studentId = getUserId()
+
+  if(!token){ throw new Error("No Access token found") }
+  if(!studentId){ throw new Error("No student id found") }
+
+  const res = await fetch(`${url}/pre-interview-rankings/${studentId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify( rankings ),
+  })
+
+  if(!res.ok){ 
+    const errorText = await res.text();
+    throw new Error(`HTTP ${res.status}: ${res.statusText} — ${errorText}`) 
+  }
 }
 
 export async function createCompany(
   dto: NewCompanyDTO
 ): Promise<Company> {
-  const res = await fetch('http://localhost:8080/api/v1/residency', {
+  const url = env.NEXT_PUBLIC_API_URL
+  const res = await fetch(`${url}/residency`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(dto),
