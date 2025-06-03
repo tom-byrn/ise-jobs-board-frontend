@@ -7,12 +7,15 @@ import { Sheet, SheetTrigger } from "./sheet";
 import { JobPosting } from "@/types/job-posting";
 import { JobPostingSheetContents } from "../job-posting/job-posting-sheet";
 import Image from "next/image";
+import { useState } from "react";
 
 interface JobCardProps {
   job: JobPosting
 }
 
 export function JobCard({ job }: JobCardProps) {
+  const [isFavourited, setIsFavourited] = useState<boolean>(false)
+
   return (
     <Card className="relative border border-gray-200 bg-black transition-shadow hover:shadow-lg dark:bg-white">
       <CardContent className="p-6">
@@ -72,7 +75,9 @@ export function JobCard({ job }: JobCardProps) {
           </Sheet>
 
           <button>
-            <Heart className={`${job.isFavourited ? "fill-red-500 text-red-500" : "text-gray-400 hover:text-red-500"} h-5 w-5`}
+            <Heart
+              className={`${isFavourited ? "fill-red-500 hover:text-red-700" : "text-gray-400 hover:text-red-500"} h-5 w-5 text-red-500`}
+              onClick={() => setIsFavourited((cur) => !cur)}
             />
           </button>
         </div>

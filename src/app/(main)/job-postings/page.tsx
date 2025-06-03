@@ -1,22 +1,37 @@
-import React from "react"
-import { getJobPostings } from "../../api/utils"
-import ClientJobPostings from "@/components/job-posting/client-job-postings"
-import { JobPosting } from "@/types/job-posting"
+import ServerJobPosting from "@/components/job-posting/server-job-postings"
+import React, { Suspense } from "react"
+
+const FallbackPage = () => (
+  <div className="flex w-screen flex-col px-8 pt-16 md:pt-20">
+    <div className="pt-28">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="h-64 bg-neutral-200 animate-pulse" />
+        <div className="h-64 bg-neutral-200 animate-pulse" />
+        <div className="h-64 bg-neutral-200 animate-pulse" />
+        <div className="h-64 bg-neutral-200 animate-pulse" />
+        <div className="h-64 bg-neutral-200 animate-pulse" />
+        <div className="h-64 bg-neutral-200 animate-pulse" />
+        <div className="h-64 bg-neutral-200 animate-pulse" />
+        <div className="h-64 bg-neutral-200 animate-pulse" />
+        <div className="h-64 bg-neutral-200 animate-pulse" />
+        <div className="h-64 bg-neutral-200 animate-pulse" />
+        <div className="h-64 bg-neutral-200 animate-pulse" />
+        <div className="h-64 bg-neutral-200 animate-pulse" />
+        <div className="h-64 bg-neutral-200 animate-pulse" />
+        <div className="h-64 bg-neutral-200 animate-pulse" />
+        <div className="h-64 bg-neutral-200 animate-pulse" />
+        <div className="h-64 bg-neutral-200 animate-pulse" />
+        <div className="h-64 bg-neutral-200 animate-pulse" />
+        <div className="h-64 bg-neutral-200 animate-pulse" />
+      </div>
+    </div>
+  </div>
+)
 
 export default async function JobsBoard() {
-  let jobPostings: JobPosting[] = []
-  let error = null
-
-  try {
-    jobPostings = await getJobPostings()
-    jobPostings.sort((a, b) => a.company.name.localeCompare(b.company.name))
-  } catch (err) {
-    error = err instanceof Error ? err.message : 'Failed to load job postings'
-  }
-
   return (
-    <div>
-      <ClientJobPostings initialJobPostings={jobPostings} error={error} />
-    </div>
+    <Suspense fallback={<FallbackPage />}>
+      <ServerJobPosting />
+    </Suspense>
   )
 }
