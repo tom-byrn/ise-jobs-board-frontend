@@ -37,7 +37,7 @@ export default function Home() {
               <UserPlus size={18} />
               Onboard New RP
             </FloatingLink>
-            <FloatingLink href="/rp-dashboard">
+            <FloatingLink href="/admin-dashboard/rp-dashboard">
               <LayoutDashboard size={18} />
               RP Dashboard
             </FloatingLink>

@@ -3,7 +3,7 @@
 
 import React, { useEffect, useState } from "react";
 import { getJobPostings, submitJobRankings } from "@/app/api/utils";
-import { JobPosting } from "@/types/jobs";
+import { JobPosting } from "@/types/job-posting";
 
 export default function PreInterviewRankingsPage() {
   const [jobPostings, setJobPostings] = useState<JobPosting[]>([]);

@@ -96,3 +96,23 @@ export async function createCompany(
 
   return (await res.json()) as Company
 }
+
+export async function getCompanies() {
+  const url = env.NEXT_PUBLIC_API_URL
+  const supabase = await createClient()
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
+  const token = session?.access_token
+  const res = await fetch(`${url}/companies`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+  })
+  if (!res.ok) {
+    const text = await res.text()
+    throw new Error(`HTTP ${res.status}: ${res.statusText} — ${text}`)
+  }
+}
