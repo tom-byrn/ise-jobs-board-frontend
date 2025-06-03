@@ -7,14 +7,14 @@ import { Sheet, SheetTrigger } from "./sheet";
 import { JobPosting } from "@/types/job-posting";
 import { JobPostingSheetContents } from "../job-posting/job-posting-sheet";
 import Image from "next/image";
-import { useState } from "react";
 
 interface JobCardProps {
   job: JobPosting
+  isFavourited: boolean,
+  onToggleFavourite: (id: string) => void
 }
 
-export function JobCard({ job }: JobCardProps) {
-  const [isFavourited, setIsFavourited] = useState<boolean>(false)
+export function JobCard({ job, isFavourited, onToggleFavourite }: JobCardProps) {
 
   return (
     <Card className="relative rounded-md border border-gray-200 bg-black transition-shadow hover:shadow-lg dark:bg-white">
@@ -77,13 +77,14 @@ export function JobCard({ job }: JobCardProps) {
               <span>More Info</span>
             </SheetTrigger>
 
-            <JobPostingSheetContents job={job} isFavourited={isFavourited} setIsFavourited={setIsFavourited} />
+            <JobPostingSheetContents job={job} isFavourited={isFavourited} setIsFavourited={onToggleFavourite} />
           </Sheet>
 
-          <Heart
-            className={`${isFavourited ? "fill-red-500 hover:text-red-700" : "text-gray-400 hover:text-red-500"} h-5 w-5 cursor-pointer text-red-500`}
-            onClick={() => setIsFavourited((cur) => !cur)}
-          />
+          <button onClick={() => onToggleFavourite(job.id)}>
+            <Heart
+              className={`${isFavourited ? "fill-red-500 hover:text-red-700" : "text-gray-400 hover:text-red-500"} h-5 w-5 text-red-500`}
+            />
+          </button>
         </div>
       </CardContent>
     </Card>

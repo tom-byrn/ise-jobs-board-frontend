@@ -13,10 +13,36 @@ interface Props {
   error: string | null
 }
 
+const FAVOURITES_KEY = "favouritedJobPostings"
+
 export default function ClientJobPostings({ initialJobPostings, error }: Props) {
   const [jobPostings, setJobPostings] = useState<JobPosting[]>(
     initialJobPostings.map(job => ({ ...job, isFavourited: false }))
   )
+
+  useEffect(() => {
+    const savedFaves = JSON.parse(localStorage.getItem(FAVOURITES_KEY) || "[]")
+    setJobPostings(
+      initialJobPostings.map(job => ({
+        ...job,
+        isFavourited: savedFaves.includes(job.id),
+      }))
+    )
+  }, [initialJobPostings])
+
+  useEffect(() => {
+    const faves = jobPostings.filter(j => j.isFavourited).map(j => j.id)
+    localStorage.setItem(FAVOURITES_KEY, JSON.stringify(faves))
+  }, [jobPostings])
+
+  const toggleFavourite = (id: string) => {
+    setJobPostings(jobs =>
+      jobs.map(job =>
+        job.id === id ? { ...job, isFavourited: !job.isFavourited } : job
+      )
+    )
+  }
+
 
   const [selectedLocation, setSelectedLocation] = useState<string>("any")
   const [selectedResidency, setSelectedResidency] = useState<string>("any")
@@ -117,7 +143,7 @@ export default function ClientJobPostings({ initialJobPostings, error }: Props) 
         </div>
       </div>
 
-      <JobPostings jobPostings={filteredJobPostings} />
+      <JobPostings jobPostings={filteredJobPostings} onToggleFavourite={toggleFavourite} />
     </div>
   )
 }

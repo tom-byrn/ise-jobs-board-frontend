@@ -6,7 +6,7 @@ import Image from "next/image";
 interface JobSheetProps {
   job: JobPosting
   isFavourited: boolean
-  setIsFavourited: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsFavourited: (id: string) => void
 }
 
 export const JobPostingSheetContents = ({ job, isFavourited, setIsFavourited }: JobSheetProps) => {
@@ -49,7 +49,7 @@ export const JobPostingSheetContents = ({ job, isFavourited, setIsFavourited }: 
                     absolute right-4 cursor-pointer
                     flex-row items-center gap-x-2 rounded-sm p-2 text-xs font-bold text-red-500 outline outline-2 outline-red-500
                     `}
-                onClick={() => setIsFavourited(cur => !cur)}
+                onClick={() => setIsFavourited}
               >
                 <Heart className={`${isFavourited ? "fill-white" : "text-gray-400 group-hover:text-red-500"} h-4 w-4`} />
                 Favourite
