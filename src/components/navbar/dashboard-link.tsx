@@ -12,8 +12,6 @@ export async function DashboardLink() {
 
     const session = await supabase.auth.getSession()
 
-    const url = env.NEXT_PUBLIC_API_URL
-
     if (session.data.session) {
         userID = session.data.session.user.id
     }

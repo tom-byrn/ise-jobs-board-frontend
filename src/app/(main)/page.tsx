@@ -27,12 +27,12 @@ export default function Home() {
               Dashboard
             </FloatingLink>
 
-            <FloatingLink href="/cadidadates">
+            <FloatingLink href="/rp-dashboard">
               <Users size={18} className="min-h-5 min-w-5 text-sm transition-all duration-100 group-hover:scale-110" />
               Candidates
             </FloatingLink>
 
-            <FloatingLink href="/add-job">
+            <FloatingLink href="/rp-dashboard/new-job-posting">
               <BriefcaseBusiness size={18} className="min-h-5 min-w-5 text-sm transition-all duration-100 group-hover:scale-110" />
               Add Job
             </FloatingLink>
@@ -48,7 +48,7 @@ export default function Home() {
           </p>
 
           <div className="flex flex-row gap-x-3">
-            <FloatingLink href="job-postings">
+            <FloatingLink href="/job-postings">
               <LayoutList size={18} className="min-h-5 min-w-5 text-sm transition-all duration-100 group-hover:scale-110" />
               Job Postings
             </FloatingLink>
