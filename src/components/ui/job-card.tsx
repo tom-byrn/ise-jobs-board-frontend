@@ -1,6 +1,6 @@
 "use client"
 
-import { Heart, Users, Info, Link, ExternalLink } from "lucide-react"
+import { Heart, Users, Info, Link, ExternalLink, BriefcaseBusiness } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "./badge";
 import { Sheet, SheetTrigger } from "./sheet";
@@ -17,9 +17,9 @@ export function JobCard({ job }: JobCardProps) {
   const [isFavourited, setIsFavourited] = useState<boolean>(false)
 
   return (
-    <Card className="relative border border-gray-200 bg-black transition-shadow hover:shadow-lg dark:bg-white">
-      <CardContent className="p-6">
-        <div className="mb-4 flex items-start space-x-3">
+    <Card className="relative rounded-md border border-gray-200 bg-black transition-shadow hover:shadow-lg dark:bg-white">
+      <CardContent className="flex flex-col justify-between p-6 h-full">
+        <div className="relative mb-4 flex items-start space-x-3">
           <Image
             src={job.company.company_profile.avatar || "/placeholder.svg"}
             alt={`${job.company.name} logo`}
@@ -27,7 +27,7 @@ export function JobCard({ job }: JobCardProps) {
             width={40}
             height={40}
           />
-          <div className="flex-1">
+          <div className="max-w-[60%] flex-1">
             <a
               className="flex items-center gap-x-2 font-semibold text-white hover:underline dark:text-gray-900"
               href={`/company/` + job.company.id}
@@ -38,16 +38,22 @@ export function JobCard({ job }: JobCardProps) {
             <p className="text-sm text-white dark:text-gray-600">{job.job_title}</p>
           </div>
 
-          <Badge className="flex h-8 items-center space-x-1 bg-green-600 text-[0.7rem] hover:bg-green-600  dark:bg-green-500 hover:dark:bg-green-500">
-            <Users className="h-3 w-3" />
-            <span>{job.position_count} <span className="hidden sm:inline">positions</span></span>
-          </Badge>
+          <div className="absolute right-0 top-0 flex flex-col gap-y-2">
+            <Badge className="flex h-8 items-center space-x-1 bg-white text-black text-[0.7rem] hover:bg-white  dark:bg-black dark:hover:bg-black dark:text-white">
+              <BriefcaseBusiness className="h-3 w-3" />
+              <span>
+                <span className="hidden sm:inline">Residency</span> <span className="inline sm:hidden">R</span> {job.residency}
+              </span>
+            </Badge>
+
+            <Badge className="flex h-8 items-center space-x-1 bg-green-600 text-[0.7rem] hover:bg-green-600  dark:bg-green-500 hover:dark:bg-green-500">
+              <Users className="h-3 w-3" />
+              <span>{job.position_count} <span className="hidden sm:inline">positions</span></span>
+            </Badge>
+          </div>
         </div>
 
         <div className="mb-4 space-y-1">
-          <p className="text-sm text-white dark:text-gray-600">
-            <span className="font-medium">Residency:</span> {job.residency}
-          </p>
           <p className="text-sm text-white dark:text-gray-600">
             <span className="font-medium">Location:</span> {job.location}
           </p>
@@ -71,15 +77,13 @@ export function JobCard({ job }: JobCardProps) {
               <span>More Info</span>
             </SheetTrigger>
 
-            <JobPostingSheetContents job={job} />
+            <JobPostingSheetContents job={job} isFavourited={isFavourited} setIsFavourited={setIsFavourited} />
           </Sheet>
 
-          <button>
-            <Heart
-              className={`${isFavourited ? "fill-red-500 hover:text-red-700" : "text-gray-400 hover:text-red-500"} h-5 w-5 text-red-500`}
-              onClick={() => setIsFavourited((cur) => !cur)}
-            />
-          </button>
+          <Heart
+            className={`${isFavourited ? "fill-red-500 hover:text-red-700" : "text-gray-400 hover:text-red-500"} h-5 w-5 cursor-pointer text-red-500`}
+            onClick={() => setIsFavourited((cur) => !cur)}
+          />
         </div>
       </CardContent>
     </Card>

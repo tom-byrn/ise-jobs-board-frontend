@@ -31,9 +31,9 @@ const studentProfileSchema = z.object({
   qca: z.string().optional(),
   pronouns: z.string().optional(),
   description: z.string().optional(),
-  github_link: z.string().optional(),
-  linkedin_link: z.string().optional(),
-  personal_site_link: z.string().optional(),
+  github_link: z.string().url().optional(),
+  linkedin_link: z.string().url().optional(),
+  personal_site_link: z.string().url().optional(),
 })
 
 export function EditProfileForm({ currentValues }: { currentValues: StudentJoinedWithProfile }) {

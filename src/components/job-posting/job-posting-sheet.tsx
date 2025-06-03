@@ -1,13 +1,15 @@
 import { JobPosting } from "@/types/job-posting"
 import { SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
-import { BriefcaseBusiness, ExternalLink, HandCoins, Heart, House, MapPin, Pin, User, Users } from "lucide-react";
+import { BriefcaseBusiness, ExternalLink, HandCoins, Heart, House, MapPin, User, Users } from "lucide-react";
 import Image from "next/image";
 
 interface JobSheetProps {
   job: JobPosting
+  isFavourited: boolean
+  setIsFavourited: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const JobPostingSheetContents = ({ job }: JobSheetProps) => {
+export const JobPostingSheetContents = ({ job, isFavourited, setIsFavourited }: JobSheetProps) => {
   return (
     <SheetContent className="w-[9999px] max-w-full sm:!max-w-[600px]" side="right">
       <SheetHeader>
@@ -43,12 +45,13 @@ export const JobPostingSheetContents = ({ job }: JobSheetProps) => {
             <div>
               <button
                 className={`
-                    ${job.isFavourited ? "bg-red-500 text-white" : "bg-transparent outline-red-500"} group mt-2 flex max-w-fit
-                    absolute right-4
-                    flex-row items-center gap-x-2 rounded-sm p-2 text-xs font-bold text-red-500 outline outline-2
+                    ${isFavourited ? "bg-red-500 text-white" : "bg-transparent"} group mt-2 flex max-w-fit
+                    absolute right-4 cursor-pointer
+                    flex-row items-center gap-x-2 rounded-sm p-2 text-xs font-bold text-red-500 outline outline-2 outline-red-500
                     `}
+                onClick={() => setIsFavourited(cur => !cur)}
               >
-                <Heart className={`${job.isFavourited ? "fill-white" : "text-gray-400 group-hover:text-red-500"} h-4 w-4`} />
+                <Heart className={`${isFavourited ? "fill-white" : "text-gray-400 group-hover:text-red-500"} h-4 w-4`} />
                 Favourite
               </button>
             </div>
