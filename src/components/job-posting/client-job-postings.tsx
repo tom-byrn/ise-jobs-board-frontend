@@ -50,7 +50,7 @@ export default function ClientJobPostings({ initialJobPostings, error }: Props) 
 
   return (
     <div className="flex w-screen flex-col px-8 pt-16 md:pt-20">
-      <div className="my-4 flex w-fit items-center gap-x-8 bg-white p-2">
+      <div className="my-4 flex w-fit items-center gap-x-8 bg-white p-2 dark:bg-black">
         <div>
           <Label htmlFor="search">Search</Label>
           <Input
