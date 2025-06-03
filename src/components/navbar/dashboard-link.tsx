@@ -34,13 +34,23 @@ export async function DashboardLink() {
         //Get company from userID
         let companyId = await getCompanyIdFromUserId(userID)
         return (
-            <NavigationMenuItem>
-                <Link href={"/company/" + companyId} legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                        Your Company Profile
-                    </NavigationMenuLink>
-                </Link>
-            </NavigationMenuItem>
+            <>
+                <NavigationMenuItem>
+                    <Link href={"/rp-dashboard"} legacyBehavior passHref>
+                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                            RP Dashboard
+                        </NavigationMenuLink>
+                    </Link>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                    <Link href={"/company/" + companyId} legacyBehavior passHref>
+                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                            Your Company Profile
+                        </NavigationMenuLink>
+                    </Link>
+                </NavigationMenuItem>
+            </>
         )
     }
 

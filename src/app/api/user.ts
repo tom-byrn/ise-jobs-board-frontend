@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/server";
+import { createClient } from "@/lib/client";
 import { env } from "@/env";
 
 const url = env.NEXT_PUBLIC_API_URL
