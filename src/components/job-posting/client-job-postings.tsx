@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import JobPostings from "@/components/ui/JobPostings"
 import { JobPosting } from "@/types/job-posting"
 import { Input } from "../ui/input"
@@ -18,35 +18,25 @@ export default function ClientJobPostings({ initialJobPostings, error }: Props) 
     initialJobPostings.map(job => ({ ...job, isFavourited: false }))
   )
 
-  const [locations, setLocations] = useState<string[]>(Array.from(
-    new Set(jobPostings.map((job) => job.location))
-  ))
-
   const [selectedLocation, setSelectedLocation] = useState<string>("any")
   const [selectedResidency, setSelectedResidency] = useState<string>("any")
   const [searchQuery, setSearchQuery] = useState<string>("")
   const [minSalary, setMinSalary] = useState<number>(0)
 
-  useEffect(() => {
-    setJobPostings(
-      initialJobPostings.filter(job =>
-        job.company.name.toLowerCase().includes(searchQuery)
-        && (selectedLocation == "any" ? true : job.location === selectedLocation)
-        && (selectedResidency == "any" ? true : job.residency === selectedResidency)
-        && job.salary >= minSalary
-      )
-    )
-  }, [searchQuery, selectedLocation, minSalary, selectedResidency])
+  const locations = useMemo(() =>
+    Array.from(new Set(jobPostings.map(job => job.location))),
+    [jobPostings]
+  )
 
-  const toggleFavourite = (id: string) => {
-    setJobPostings(current =>
-      current.map(job =>
-        job.id === id
-          ? { ...job, isFavourited: !job.isFavourited }
-          : job
-      )
-    )
-  }
+  const filteredJobPostings = useMemo(() =>
+    jobPostings.filter(job =>
+      job.company.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      (selectedLocation === "any" || job.location === selectedLocation) &&
+      (selectedResidency === "any" || job.residency === selectedResidency) &&
+      job.salary >= minSalary
+    ),
+    [jobPostings, searchQuery, selectedLocation, selectedResidency, minSalary]
+  )
 
   return (
     <div className="flex w-screen flex-col px-8 pt-16 md:pt-20">
@@ -127,7 +117,7 @@ export default function ClientJobPostings({ initialJobPostings, error }: Props) 
         </div>
       </div>
 
-      <JobPostings jobPostings={jobPostings} />
+      <JobPostings jobPostings={filteredJobPostings} />
     </div>
   )
 }
