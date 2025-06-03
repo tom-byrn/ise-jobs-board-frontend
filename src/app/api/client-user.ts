@@ -1,9 +1,9 @@
-import { createClient } from "@/lib/server";
+import { createClient } from "@/lib/client";
 import { env } from "@/env";
 
 const url = env.NEXT_PUBLIC_API_URL
 
-export async function getRole() {
+export async function getRoleClient() {
     let role = "";
     let userID = "";
 
@@ -38,7 +38,7 @@ export async function getRole() {
     return null
 }
 
-export async function getUserId() {
+export async function getUserIdClient() {
     const supabase = await createClient();
     let userId: string
 
@@ -52,7 +52,7 @@ export async function getUserId() {
     return null //No user id found
 }
 
-export async function getCompanyIdFromUserId(
+export async function getCompanyIdFromUserIdClient(
   userId: string
 ): Promise<string | null> {
   const supabase = await createClient();

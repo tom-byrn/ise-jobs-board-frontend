@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { env } from '@/env';
 import { createClient } from '@/lib/client';
 import { Session } from '@supabase/supabase-js';
-import { getUserId, getCompanyIdFromUserId } from '@/app/api/user';
+import { getUserIdClient, getCompanyIdFromUserIdClient } from '@/app/api/client-user';
 import LoadingSpinner from '@/components/loading-spinner';
 
 export default function NewJobPostingPage() {
@@ -37,9 +37,9 @@ export default function NewJobPostingPage() {
         setSession(session);
       }
 
-      const userId = await getUserId();
+      const userId = await getUserIdClient();
       if (userId) {
-        const cid = await getCompanyIdFromUserId(userId);
+        const cid = await getCompanyIdFromUserIdClient(userId);
         if (cid) {
           setCompanyId(cid);
         } else {
