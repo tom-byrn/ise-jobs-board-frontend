@@ -64,38 +64,38 @@ export default function Home() {
       </div>
 
       {/* Algorithm Panel */}
-        <div className="flex flex-col justify-between w-full mb-10 bg-black p-6 text-white dark:bg-white dark:text-black shadow">
-          <h2 className="pb-3 text-3xl">Matching Algorithm</h2>
-          <p className="text-neutral-300 dark:text-neutral-700">
-            Run the matching algorithm for each of the residencies.
-          </p>
-          <div className="flex flex-wrap gap-3 pt-4">
-            <FloatingLink href="/add-student">
-              <GitCompare size={18} />
-              Residency 1
-            </FloatingLink>
-            <FloatingLink href="/students-dashboard">
-              <GitCompare size={18} />
-              Residency 2
-            </FloatingLink>
-            <FloatingLink href="/add-student">
-              <GitCompare size={18} />
-              Residency 3
-            </FloatingLink>
-            <FloatingLink href="/students-dashboard">
-              <GitCompare size={18} />
-              Residency 4
-            </FloatingLink>
-            <FloatingLink href="/students-dashboard">
-              <GitCompare size={18} />
-              Residency 5
-            </FloatingLink>
-          </div>
+      <div className="flex flex-col justify-between w-full mb-10 bg-black p-6 text-white dark:bg-white dark:text-black shadow">
+        <h2 className="pb-3 text-3xl">Manage Residency</h2>
+        <p className="text-neutral-300 dark:text-neutral-700">
+          Manage the progress of each residency.
+        </p>
+        <div className="flex flex-wrap gap-3 pt-4">
+          <FloatingLink href="/add-student">
+            <GitCompare size={18} />
+            Residency 1
+          </FloatingLink>
+          <FloatingLink href="/students-dashboard">
+            <GitCompare size={18} />
+            Residency 2
+          </FloatingLink>
+          <FloatingLink href="/add-student">
+            <GitCompare size={18} />
+            Residency 3
+          </FloatingLink>
+          <FloatingLink href="/students-dashboard">
+            <GitCompare size={18} />
+            Residency 4
+          </FloatingLink>
+          <FloatingLink href="/students-dashboard">
+            <GitCompare size={18} />
+            Residency 5
+          </FloatingLink>
         </div>
+      </div>
 
-        <div className="w-full">
-          <UpcomingDeadlines />
-        </div>
+      <div className="w-full">
+        <UpcomingDeadlines />
+      </div>
 
     </div>
   );
