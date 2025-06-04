@@ -3,14 +3,8 @@
 import * as React from "react"
 import { ColumnDef } from "@tanstack/react-table"
 import { DataTable } from "@/components/ui/data-table"
-
-export interface InterviewWithStudent {
-  id: number
-  student_id: string
-  job_posting_id: string
-  student: { id: string; name: string; year: number }
-  job_posting: { id: string; job_title: string }
-}
+import { InterviewWithStudent } from "@/app/api/utils"
+import Image from "next/image"
 
 const columns: ColumnDef<InterviewWithStudent>[] = [
   {
@@ -19,9 +13,20 @@ const columns: ColumnDef<InterviewWithStudent>[] = [
     cell: info => <span className="font-medium">{info.getValue<string>()}</span>,
   },
   {
-    header: "Year",
-    accessorFn: row => row.student.year,
-    enableSorting: false
+    header: "Company",
+    accessorKey: "job_posting.company",
+    cell: ({ row }) => (
+      <div className="flex flex-row items-center gap-x-2">
+        <Image
+          src={row.original.job_posting.company.company_profile.company_avatar ?? ""}
+          alt="Company logo image"
+          className="rounded-md"
+          width={32}
+          height={32}
+        />
+        {row.original.job_posting.company.company_name}
+      </div>
+    )
   },
   {
     header: "Posting",

@@ -231,8 +231,21 @@ export type InterviewWithStudent = {
   id: number
   student_id: string
   job_posting_id: string
-  student: { id: string; name: string; year: number }
-  job_posting: { id: string; job_title: string }
+  student: {
+    id: string;
+    name: string;
+    year: number
+  }
+  job_posting: {
+    id: string;
+    job_title: string
+    company: {
+      company_name: string;
+      company_profile: {
+        company_avatar: string;
+      }
+    }
+  }
 }
 
 export interface InterviewTableProps {
@@ -249,7 +262,7 @@ export async function fetchInterviews(
 
   if (!resp.ok) {
     const msg = await resp.text().catch(() => resp.statusText)
-    throw new Error(`Residency-match failed (${resp.status}): ${msg}`)
+    throw new Error(`Interview fetch failed (${resp.status}): ${msg}`)
   }
 
   const students = (await resp.json()) as InterviewWithStudent[]

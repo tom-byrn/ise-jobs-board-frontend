@@ -5,14 +5,6 @@ import { ColumnDef } from "@tanstack/react-table"
 import { DataTable } from "@/components/ui/data-table"
 import { FinalMatchRow } from "@/app/api/utils"
 
-export interface InterviewWithStudent {
-  id: number
-  student_id: string
-  job_posting_id: string
-  student: { id: string; name: string; year: number }
-  job_posting: { id: string; job_title: string }
-}
-
 const columns: ColumnDef<FinalMatchRow>[] = [
   {
     header: "Student",

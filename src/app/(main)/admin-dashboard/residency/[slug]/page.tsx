@@ -24,6 +24,8 @@ export default async function ResidencyManager({
 	const postings = await fetchJobPostingsByResidency(year)
 	const matches = await fetchFinalMatches(year)
 
+	console.log(interviews)
+
 	return (
 		<div className="flex w-full flex-col px-8 pt-12 md:pt-16">
 			<AnimatedHeroText text={`Residency ${residencySlug}`} emphasis={[10]} />
