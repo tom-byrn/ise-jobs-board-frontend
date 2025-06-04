@@ -30,13 +30,13 @@ export function JobCard({ job, isFavourited, onToggleFavourite }: JobCardProps) 
             height={40}
           />
           <div className="max-w-[60%] flex-1">
-            <a
+            <Link
               className="flex items-center gap-x-2 font-semibold text-white hover:underline dark:text-gray-900"
               href={`/company/` + job.company.id}
             >
               <span>{job.company.name}</span>
               <ExternalLink size={16} className="mb-1" />
-            </a>
+            </Link>
             <p className="text-sm text-white dark:text-gray-600">{job.job_title}</p>
           </div>
 

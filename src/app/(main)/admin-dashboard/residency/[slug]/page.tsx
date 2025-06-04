@@ -23,6 +23,7 @@ import { fetchInterviews, fetchStudentsWithProfiles } from "@/app/api/utils"
 import InterviewsTable from "./InterviewsTable"
 import JobPostingTable from "./job-posting-table"
 import { fetchJobPostingsByResidency } from "@/app/api/utils"
+import Link from "next/link"
 
 type StudentRow = {
   id: string
@@ -81,16 +82,16 @@ export default async function ResidencyManager({
           {/* Nav buttons */}
           <div className="flex gap-4">
             <Button asChild variant="outline">
-              <a href={`/admin-dashboard/residency/${residencySlug}/interviews`}>
+              <Link href={`/admin-dashboard/residency/${residencySlug}/interviews`}>
                 <Calendar className="mr-2 h-4 w-4" />
                 Interviews
-              </a>
+              </Link>
             </Button>
             <Button asChild variant="outline">
-              <a href={`/admin-dashboard/residency/${residencySlug}/matching`}>
+              <Link href={`/admin-dashboard/residency/${residencySlug}/matching`}>
                 <Users className=" h-4 w-4" />
                 Final Matches
-              </a>
+              </Link>
             </Button>
           </div>
 

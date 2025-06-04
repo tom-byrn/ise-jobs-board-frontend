@@ -1,6 +1,8 @@
+import Link from "next/link"
+
 export const WickedLink = ({ url, text, icon }: { url: string, text: string, icon: React.ReactNode }) => {
   return (
-    <a
+    <Link
       href={url}
       target="_blank"
       className={`
@@ -10,6 +12,6 @@ export const WickedLink = ({ url, text, icon }: { url: string, text: string, ico
 		`}
     >
       {icon} {text}
-    </a>
+    </Link>
   )
 }

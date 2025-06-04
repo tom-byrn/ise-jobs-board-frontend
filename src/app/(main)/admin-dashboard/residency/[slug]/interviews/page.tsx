@@ -6,6 +6,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { fetchInterviews } from "@/app/api/utils"
 import InterviewsTable from "../InterviewsTable"
+import Link from "next/link"
 
 const slugToYear: Record<string, string> = {
   "1": "1",
@@ -35,17 +36,17 @@ export default async function ResidencyInterviewsPage(
               asChild
               variant="outline"
             >
-              <a href={`/admin-dashboard/residency/${slug}`}>
+              <Link href={`/admin-dashboard/residency/${slug}`}>
                 <Users className="mr-2 h-4 w-4" />
                 Students
-              </a>
+              </Link>
             </Button>
 
             <Button asChild variant="outline">
-              <a href={`/admin-dashboard/residency/${slug}/matching`}>
+              <Link href={`/admin-dashboard/residency/${slug}/matching`}>
                 <Users className=" h-4 w-4" />
                 Final Matches
-              </a>
+              </Link>
             </Button>
           </div>
 

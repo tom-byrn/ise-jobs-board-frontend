@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/client";
-import { Button } from "../ui/button";
 import Image from "next/image";
 
 interface Candidate {

@@ -2,6 +2,7 @@ import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const niceLinkVariants = cva(
   "group relative inline-flex items-center border border-black dark:border-white focus:outline-none w-fit hover:cursor-pointer",
@@ -74,13 +75,13 @@ export interface NiceLinkProps
 const NiceLink = React.forwardRef<HTMLAnchorElement, NiceLinkProps>(
   ({ className, variant, size, href, ...props }, ref) => {
     return (
-      <a
+      <Link
         className={cn(niceLinkVariants({ variant, size, className }))}
         ref={ref}
-        href={href}
+        href={href ?? "bleh"}
       >
         <span className={cn(spanVariants({ variant, size, className }))} {...props} />
-      </a>
+      </Link>
     );
   },
 );

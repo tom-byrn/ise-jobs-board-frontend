@@ -2,6 +2,7 @@ import { JobPosting } from "@/types/job-posting"
 import { SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
 import { BriefcaseBusiness, ExternalLink, HandCoins, Heart, House, MapPin, User, Users } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface JobSheetProps {
   job: JobPosting
@@ -28,13 +29,13 @@ export const JobPostingSheetContents = ({ job, isFavourited, setIsFavourited }: 
               height={64}
             />
             <div>
-              <a
+              <Link
                 className="text-3xl font-bold flex items-center gap-x-2 hover:underline"
                 href={`/company/` + job.company.id}
               >
                 {job.company.name}
                 <ExternalLink size={20} className="mb-1" />
-              </a>
+              </Link>
               <h2 className="text-lg">{job.job_title}</h2>
             </div>
           </div>
