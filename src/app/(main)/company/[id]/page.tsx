@@ -71,7 +71,7 @@ function JobPostings({ jobPostings }: { jobPostings: JobPosting[] }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {jobPostings.map((job) => (
-        <JobCard key={job.id} job={job} />
+        <JobCard key={job.id} job={job} isFavourited={false} onToggleFavourite={null} />
       ))}
     </div>
   )
@@ -146,13 +146,13 @@ async function CompanyDetails({ id }: { id: string }) {
         </p>
       </div>
 
-      <div className="mx-12 mt-4 p-4 border-2 border-white bg-black">
+      <div className="mx-12 mt-4 p-4 border-2 border-black bg-white dark:border-white dark:bg-black">
         <h2 className="text-2xl font-bold mb-2">Job Postings</h2>
         <JobPostings jobPostings={jobPostings} />
       </div>
 
-      <div className="mx-12 mt-4 p-4 border-2 border-white bg-black">
-        <h2 className="text-2xl font-bold mb-4 text-white">Interview Candidates</h2>
+      <div className="mx-12 mt-4 p-4 border-2 border-black bg-white dark:border-white dark:bg-black">
+        <h2 className="text-2xl font-bold mb-4">Interview Candidates</h2>
         <CandidatesTable companyId={id} />
       </div>
     </div>
