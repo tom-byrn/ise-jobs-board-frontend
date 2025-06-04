@@ -2,7 +2,6 @@ import { createClient } from "@/lib/server";
 import { env } from "@/env";
 import { JobPosting } from "@/types/job-posting";
 import { getUserId } from "./user";
-
 export interface NewCompanyProfileDTO {
   subtitle: string
   avatar: string
@@ -198,7 +197,6 @@ type ResidencyMatch =
 
 const API_ROOT = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080/api/v1"
 
-/** POST /match-interviews/{year}  */
 export async function runInterviewMatch(
   year: number,
 ): Promise<InterviewMatch> {
@@ -227,4 +225,115 @@ export async function runResidencyMatch(
   }
 
   return resp.json()
+}
+
+export type InterviewWithStudent = {
+  id: number
+  student_id: string
+  job_posting_id: string
+  student: { id: string; name: string; year: number }
+  job_posting: { id: string; job_title: string }
+}
+
+interface InterviewTableProps {
+  students: InterviewWithStudent[]
+}
+
+export async function fetchInterviews(
+  year: string,
+): Promise<InterviewTableProps> {
+  const resp = await fetch(`${API_ROOT}/interviews/${year}`, {
+    method: "GET"
+  })
+
+
+  if (!resp.ok) {
+    const msg = await resp.text().catch(() => resp.statusText)
+    throw new Error(`Residency-match failed (${resp.status}): ${msg}`)
+  }
+
+  const students = (await resp.json()) as InterviewWithStudent[]
+  return { students }
+}
+
+export interface JobPostingRow {
+  id: string
+  job_title: string | null
+  salary: number | null
+  accommodation_support: boolean | null
+  description: string | null
+  contact_email: string | null
+  location: string | null
+  position_count: number | null
+  residency: string | null
+}
+
+export interface CompanyWithPostings {
+  id: string
+  name: string | null
+  job_posting: JobPostingRow[]
+}
+
+export async function fetchJobPostingsByResidency(
+  residency: string,
+): Promise<CompanyWithPostings[]> {
+  const res = await fetch(
+    `${API_ROOT}/job-posting/${residency}`,
+    {
+      method: "GET",
+      next: { revalidate: 0 },
+    },
+  )
+
+  if (!res.ok) {
+    const msg = await res.text().catch(() => res.statusText)
+    throw new Error(
+      `fetchJobPostingsByResidency failed (${res.status}): ${msg}`,
+    )
+  }
+
+  return res.json()
+}
+
+export interface FinalMatchRow {
+  id: string
+  student_id: string
+  job_posting_id: string
+
+  student: {
+    id: string
+    name: string | null
+    student_profile_id: string
+    year: number | null
+  }
+
+  job_posting: {
+    id: string
+    job_title: string | null
+    salary: number
+    accommodation_support: boolean
+    description: string
+    contact_email: string
+    location: string
+    position_count: number
+    residency: string
+  }
+}
+
+export async function fetchFinalMatches(
+  year: string,
+): Promise<FinalMatchRow[]> {
+  const res = await fetch(
+    `${API_ROOT}/final-match/${encodeURIComponent(year)}`,
+    {
+      method: "GET",
+      next: { revalidate: 0 },
+    },
+  )
+
+  if (!res.ok) {
+    const msg = await res.text().catch(() => res.statusText)
+    throw new Error(`fetchFinalMatches failed (${res.status}): ${msg}`)
+  }
+  return res.json()
 }

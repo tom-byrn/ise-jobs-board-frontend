@@ -9,6 +9,7 @@ import {
   TableCell
 } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
+import { CompanyWithPostings } from "@/app/api/utils"
 
 export interface StudentWithProfile {
   id: string
@@ -30,36 +31,35 @@ export interface StudentWithProfile {
   }]
 }
 
-export default function StudentsTable({ students }: { students: StudentWithProfile[] }) {
+export default function JobPostingTable({ postings }: { postings: CompanyWithPostings[] }) {
 
   return (
     < Table >
       <TableHeader>
         <TableRow>
-          <TableHead>Name</TableHead>
-          <TableHead>Email</TableHead>
-          <TableHead>QCA</TableHead>
-          <TableHead>Ranking Status</TableHead>
+          <TableHead>Company</TableHead>
+          <TableHead>Job Title</TableHead>
+          <TableHead>Contact Email</TableHead>
+          <TableHead>Positions</TableHead>
         </TableRow>
       </TableHeader>
 
       <TableBody>
-        {students.map((s) => (
-          <TableRow key={s.id}>
-            <TableCell className="font-medium">{s.name}</TableCell>
-            <TableCell className="text-gray-600">{s.accepted_student_emails[0]?.email ?? "null@gamil.com"}</TableCell>
-            <TableCell>{s.student_profile.qca}</TableCell>
+        {postings.map((j) => (
+          <TableRow key={j.id}>
+            <TableCell className="font-medium">{j.name}</TableCell>
+            <TableCell className="text-gray-600">{j.job_posting[0].job_title}</TableCell>
+            <TableCell>{j.job_posting[0].contact_email}</TableCell>
             <TableCell>
               <Badge
-                variant={s.year === 1 ? "default" : "secondary"}
               >
-                {"Active"}
+                {j.job_posting[0].position_count}
               </Badge>
             </TableCell>
           </TableRow>
         ))}
 
-        {students.length === 0 && (
+        {postings.length === 0 && (
           <TableRow>
             <TableCell colSpan={6} className="py-8 text-center">
               No students for this residency&nbsp;yet.

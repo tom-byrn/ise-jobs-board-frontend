@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/client";
 import { Button } from "../ui/button";
+import Image from "next/image";
 
 interface Candidate {
   student_id: string;
@@ -10,6 +11,7 @@ interface Candidate {
   email: string;
   job_posting_id: string;
   job_title: string;
+  avatar_url: string | null;
 }
 
 interface CandidatesTableProps {
@@ -24,7 +26,7 @@ export function CandidatesTable({ companyId }: CandidatesTableProps) {
   useEffect(() => {
     const fetchCandidates = async () => {
       try {
-        const supabase = await createClient();
+        const supabase = createClient();
         const {
           data: { session },
         } = await supabase.auth.getSession();
@@ -83,20 +85,24 @@ export function CandidatesTable({ companyId }: CandidatesTableProps) {
       <table className="w-full border-collapse">
         <thead>
           <tr className="border-b border-gray-600">
-            <th className="text-left p-3 font-semibold text-white">Student Name</th>
-            <th className="text-left p-3 font-semibold text-white">Email</th>
-            <th className="text-left p-3 font-semibold text-white">Job Position</th>
+            <th className="text-left p-3 font-semibold"></th>
+            <th className="text-left p-3 font-semibold">Student Name</th>
+            <th className="text-left p-3 font-semibold">Email</th>
+            <th className="text-left p-3 font-semibold">Job Position</th>
           </tr>
         </thead>
         <tbody>
           {candidates.map((candidate) => (
             <tr
               key={`${candidate.student_id}-${candidate.job_posting_id}`}
-              className="border-b border-gray-700 hover:bg-gray-800 transition-colors"
+              className="border-b border-gray-700 transition-colors"
             >
-              <td className="p-3 text-white">{candidate.student_name}</td>
-              <td className="p-3 text-white">{candidate.email}</td>
-              <td className="p-3 text-white">{candidate.job_title}</td>
+              <td className="p-3">
+                <Image src={candidate.avatar_url ?? ""} alt="user image" width={32} height={32} className="rounded-full" />
+              </td>
+              <td className="p-3">{candidate.student_name}</td>
+              <td className="p-3">{candidate.email}</td>
+              <td className="p-3">{candidate.job_title}</td>
             </tr>
           ))}
         </tbody>

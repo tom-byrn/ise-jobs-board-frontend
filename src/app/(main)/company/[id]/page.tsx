@@ -138,11 +138,22 @@ async function CompanyDetails({ id }: { id: string }) {
                 </h1>
             </div>
 
+<<<<<<< HEAD
             <div className="mt-16 flex w-fit flex-col bg-white px-12 py-2 dark:bg-black">
                 <span className="-mt-2 flex flex-row text-xl">
                     <h2 className="">{company.company_profile.subtitle}</h2>
                 </span>
             </div>
+=======
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {jobPostings.map((job) => (
+        <JobCard key={job.id} job={job} isFavourited={false} onToggleFavourite={null} />
+      ))}
+    </div>
+  )
+}
+>>>>>>> dbf90a969f8d88cde84957b906c81f6be8fdef87
 
             <div className="mx-12 mt-8 border-2 border-black bg-white p-4 dark:border-white dark:bg-black">
                 <h2 className="text-2xl font-bold">Overview</h2>
@@ -169,6 +180,53 @@ async function CompanyDetails({ id }: { id: string }) {
             </div>
         </div>
     );
+<<<<<<< HEAD
+=======
+  }
+
+  const company: CompanyJoinedWithProfile = await res.json();
+
+  return (
+    <div className="flex w-screen flex-col px-8 pt-16 md:px-16 md:pt-32">
+      <div className="relative">
+        <img
+          className="h-56 w-full"
+          src={company.company_profile.banner_image}
+        />
+        <img
+          className="absolute -bottom-12 left-12 max-h-32 max-w-32 outline outline-8 outline-white dark:outline-black"
+          src={company.company_profile.avatar}
+        />
+        <h1 className="absolute -bottom-10 left-[11.5rem] bg-white p-4 px-6 pt-10 text-6xl dark:bg-black md:text-7xl">{company.name}</h1>
+      </div>
+
+      <div className="mt-16 flex w-fit flex-col bg-white px-12 py-2 dark:bg-black">
+        <span className="-mt-2 flex flex-row text-xl">
+          <h2 className="">
+            {company.company_profile.subtitle}
+          </h2>
+        </span>
+      </div>
+
+      <div className="mx-12 mt-8 border-2 border-black bg-white p-4 dark:border-white dark:bg-black">
+        <h2 className="text-2xl font-bold">Overview</h2>
+        <p className="whitespace-pre-line font-sans text-sm md:text-base">
+          {company.company_profile.description}
+        </p>
+      </div>
+
+      <div className="mx-12 mt-4 p-4 border-2 border-black bg-white dark:border-white dark:bg-black">
+        <h2 className="text-2xl font-bold mb-2">Job Postings</h2>
+        <JobPostings jobPostings={jobPostings} />
+      </div>
+
+      <div className="mx-12 mt-4 p-4 border-2 border-black bg-white dark:border-white dark:bg-black">
+        <h2 className="text-2xl font-bold mb-4">Interview Candidates</h2>
+        <CandidatesTable companyId={id} />
+      </div>
+    </div>
+  );
+>>>>>>> dbf90a969f8d88cde84957b906c81f6be8fdef87
 }
 
 export default async function Page({
@@ -178,9 +236,19 @@ export default async function Page({
 }) {
     const { id } = await params;
 
+<<<<<<< HEAD
     return (
         <Suspense fallback={<FallbackPage />}>
             <CompanyDetails id={id} />
         </Suspense>
     );
+=======
+  const { id } = await params;
+
+  return (
+    <Suspense fallback={<FallbackPage />}>
+      <CompanyDetails id={id} />
+    </Suspense>
+  );
+>>>>>>> dbf90a969f8d88cde84957b906c81f6be8fdef87
 }
