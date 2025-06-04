@@ -26,6 +26,8 @@ import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { env } from '@/env';
 import { createBrowserClient } from '@supabase/ssr';
 import { Session } from '@supabase/supabase-js';
+import { getUserId } from '@/app/api/user';
+import { getUserIdClient } from '@/app/api/client-user';
 
 // Types
 interface JobPosting {
@@ -210,16 +212,15 @@ export default function JobRankingPage() {
 
     setSubmitting(true);
     try {
-      // Create ranking data - rank 1 is the top (first in array)
       const rankings = jobs.map((job, index) => ({
         job_posting_id: job.id,
-        rank: index + 1, // 1-based ranking
+        rank: index + 1, 
       }));
 
       console.log('Submitting rankings:', rankings);
 
-      // You'll need to implement this API endpoint
-      const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/submit-rankings`, {
+      const studentId = await getUserIdClient()
+      const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/pre-interview-rankings/${studentId}`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${session.access_token}`,
