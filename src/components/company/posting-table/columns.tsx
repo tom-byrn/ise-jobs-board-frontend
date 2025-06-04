@@ -100,7 +100,7 @@ export const columns: ColumnDef<JobPosting>[] = [
 							</DialogTrigger>
 							<DropdownMenuItem
 								onClick={() => deletePosting(posting.id, supabase, router)}
-								className="bg-red-100 text-red-700 hover:bg-red-200 hover:text-red-700 focus:bg-red-200 focus:text-red-700"
+								className="bg-red-100 text-red-700 hover:bg-red-200 hover:text-red-700 dark:bg-red-700/40 dark:text-red-500"
 							>
 								Delete Posting
 							</DropdownMenuItem>

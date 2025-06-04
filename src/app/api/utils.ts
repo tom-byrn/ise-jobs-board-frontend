@@ -68,9 +68,12 @@ export async function getJobPostingsByCompany(companyID: string): Promise<JobPos
   })
 
   if (!res.ok) {
+    console.log("SUS!")
     console.log("RES: ", res)
     throw new Error(`HTTP ${res.status}: ${res.statusText}`)
   }
+
+  console.log(res)
 
   return (await res.json()) as JobPosting[]
 }

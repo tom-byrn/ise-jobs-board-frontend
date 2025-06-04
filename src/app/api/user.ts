@@ -53,32 +53,32 @@ export async function getUserId() {
 }
 
 export async function getCompanyIdFromUserId(
-  userId: string
+    userId: string
 ): Promise<string | null> {
-  const supabase = await createClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    const supabase = await createClient();
+    const {
+        data: { session },
+    } = await supabase.auth.getSession();
 
-  const token = session?.access_token;
-  if (!token) {
-    throw new Error("No token found while trying to fetch company by userid")
-  }
+    const token = session?.access_token;
+    if (!token) {
+        throw new Error("No token found while trying to fetch company by userid")
+    }
 
-  const res = await fetch(`${url}/company-by-userid/${userId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+    const res = await fetch(`${url}/company-by-userid/${userId}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    });
 
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error("metadata fetch failed:" + res.status + text);
-  }
+    if (!res.ok) {
+        const text = await res.text();
+        throw new Error("metadata fetch failed:" + res.status + text);
+    }
 
-  const body = await res.json();
-  return (body.company_id as string) ?? null;
+    const body = await res.json();
+    return (body.company_id as string) ?? null;
 }
 
