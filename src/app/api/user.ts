@@ -49,7 +49,7 @@ export async function getUserId() {
         return userId
     }
 
-    return null //No user id found
+    return null
 }
 
 export async function getCompanyIdFromUserId(

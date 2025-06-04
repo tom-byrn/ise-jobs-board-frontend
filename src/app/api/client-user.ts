@@ -7,7 +7,7 @@ export async function getRoleClient() {
     let role = "";
     let userID = "";
 
-    const supabase = await createClient();
+    const supabase = createClient();
     const session = await supabase.auth.getSession();
 
     if (session.data.session) {
@@ -49,7 +49,7 @@ export async function getUserIdClient() {
         return userId
     }
 
-    return null //No user id found
+    return null
 }
 
 export async function getCompanyIdFromUserIdClient(
@@ -80,5 +80,33 @@ export async function getCompanyIdFromUserIdClient(
 
   const body = await res.json();
   return (body.company_id as string) ?? null;
+}
+
+
+export async function getStudentYearClient(studentId: string) {
+  const id = await getUserIdClient()
+  const supabase = await createClient()
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  
+  try{
+    const res = await fetch(`${url}/students/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type' : 'application/json',
+        'Authorization' : `Bearer ${session?.access_token}`
+      }
+    })
+    if (!res.ok) {
+    const text = await res.text();
+    throw new Error("metadata fetch failed:" + res.status + text);
+  }
+
+  const body = await res.json();
+  return (body.year as number) ?? null;
+  } catch {
+    throw new Error("Error fetching student year")
+  }
 }
 
