@@ -20,7 +20,7 @@ import { DashboardLink } from "./dashboard-link";
 export function PcNavbar() {
   return (
     <div className="max-w-screen fixed z-50 hidden w-screen flex-col md:flex">
-      <div className="flex py-1 flex-row items-center bg-gradient-to-r from-green-400 to-green-600 text-center text-white">
+      <div className="flex py-1 text-sm flex-row items-center bg-gradient-to-r from-green-400 to-green-600 text-center text-white">
         <div className="mx-auto">
           <span className="font-bold text-green-800">Upcoming Deadline!</span> Submit your R1 rankings by June 6th.
         </div>
