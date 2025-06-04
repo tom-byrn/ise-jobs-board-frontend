@@ -1,12 +1,13 @@
 "use client"
 
-import { Heart, Users, Info, Link, ExternalLink, BriefcaseBusiness } from "lucide-react"
+import { Heart, Users, Info, ExternalLink, BriefcaseBusiness } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "./badge";
 import { Sheet, SheetTrigger } from "./sheet";
 import { JobPosting } from "@/types/job-posting";
 import { JobPostingSheetContents } from "../job-posting/job-posting-sheet";
 import Image from "next/image";
+import Link from "next/link";
 
 interface JobCardProps {
   job: JobPosting

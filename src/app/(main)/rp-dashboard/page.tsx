@@ -13,7 +13,8 @@ import {
   GitCompare,
   Users2,
   CirclePlus,
-  SquarePen
+  SquarePen,
+  PlusCircle
 } from "lucide-react";
 import { AdminCalendar } from "@/components/admin/admin-calendar";
 import UpcomingDeadlines from "@/components/admin/upcoming-deadlines";
@@ -89,13 +90,16 @@ export default async function RPDashboard() {
         </div>
 
         <div className="flex flex-col gap-y-4 bg-black p-4 dark:bg-white lg:col-span-2">
-          <h2 className="text-2xl font-bold text-white dark:text-black">Job Table</h2>
-          <Link
-            href={"/rp-dashboard/new-job-posting"}
-            className="max-w-fit bg-white p-2 text-sm text-black dark:bg-black dark:text-white"
-          >
-            Create New
-          </Link>
+          <div className="flex flex-row justify-between">
+            <h2 className="text-2xl font-bold text-white dark:text-black">Job Table</h2>
+            <Link
+              href={"/rp-dashboard/new-job-posting"}
+              className="max-w-fit flex flex-row items-center gap-x-1 bg-white p-2 text-sm text-black dark:bg-black dark:text-white"
+            >
+              <PlusCircle size={16} />
+              Create New
+            </Link>
+          </div>
           <JobPostingsDataTable columns={columns} data={jobPostings} />
         </div>
       </div>
