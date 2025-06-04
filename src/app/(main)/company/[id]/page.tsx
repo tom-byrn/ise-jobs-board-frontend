@@ -4,6 +4,7 @@ import { JobPostingsDataTable } from "@/components/company/posting-table/data-ta
 import LoadingSpinner from "@/components/loading-spinner";
 import { Button } from "@/components/ui/button";
 import { JobCard } from "@/components/ui/job-card";
+import { CandidatesTable } from "@/components/company/candidates-table";
 import { createClient } from "@/lib/server";
 import { CompanyJoinedWithProfile } from "@/types/company";
 import { JobPosting } from "@/types/job-posting";
@@ -148,6 +149,11 @@ async function CompanyDetails({ id }: { id: string }) {
       <div className="mx-12 mt-4 p-4 border-2 border-white bg-black">
         <h2 className="text-2xl font-bold mb-2">Job Postings</h2>
         <JobPostings jobPostings={jobPostings} />
+      </div>
+
+      <div className="mx-12 mt-4 p-4 border-2 border-white bg-black">
+        <h2 className="text-2xl font-bold mb-4 text-white">Interview Candidates</h2>
+        <CandidatesTable companyId={id} />
       </div>
     </div>
   );
