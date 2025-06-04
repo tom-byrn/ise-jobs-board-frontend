@@ -25,6 +25,8 @@ import {
 import { Badge } from "@/components/ui/badge"
 import AnimatedHeroText from "@/components/animated-hero"
 import StudentsTable from "./student-table"
+import { fetchStudentsWithProfiles } from "@/app/api/utils"
+
 // -------------------------------------------------------------------
 // 1) Mock helpers
 // -------------------------------------------------------------------
@@ -75,7 +77,6 @@ const mockStudents: Record<string, StudentRow[]> = {
     },
   ],
 
-  /* ── Residency 4 (Year 3) ── */
   "4": [
     {
       id: "s4",
@@ -111,9 +112,6 @@ const mockStudents: Record<string, StudentRow[]> = {
   ],
 }
 
-// -------------------------------------------------------------------
-// 2) Component
-// -------------------------------------------------------------------
 
 export default async function ResidencyManager({
   params,
@@ -121,7 +119,31 @@ export default async function ResidencyManager({
   params: Promise<{ slug: string }>
 }) {
   const { slug: residencySlug } = await params
-  const students = mockStudents[residencySlug] ?? []
+  let year: string = "0";
+
+  switch (residencySlug) {
+    case "1":
+      year = "1"
+      break;
+
+    case "2":
+      year = "1"
+      break;
+    case "3":
+      year = "2"
+      break;
+    case "4":
+      year = "3"
+      break;
+    case "5":
+      year = "4"
+      break;
+    default:
+      throw new Error(`Unknown slug`)
+  }
+
+  const students = await fetchStudentsWithProfiles(year)
+  console.log("students array", students)
 
   return (
     <div className="flex w-full flex-col px-8 pt-12 md:pt-16">
@@ -172,12 +194,3 @@ export default async function ResidencyManager({
   )
 }
 
-/* -------------------------------------------------------------------
-   QUICK SWITCH
-
-   1. While prototyping:
-      export default ResidencyManagerMock
-
-   2. Once the real API page is ready:
-      export { default } from "./page"   // (or whatever your real file is)
-------------------------------------------------------------------- */

@@ -16,6 +16,8 @@ interface JobCardProps {
 
 export function JobCard({ job, isFavourited, onToggleFavourite }: JobCardProps) {
 
+  console.log(job)
+
   return (
     <Card className="relative rounded-md border border-gray-200 bg-black transition-shadow hover:shadow-lg dark:bg-white">
       <CardContent className="flex flex-col justify-between p-6 h-full">

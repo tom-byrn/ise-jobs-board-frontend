@@ -10,17 +10,27 @@ import {
 } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 
-type StudentRow = {
+export interface StudentWithProfile {
   id: string
   name: string
-  email: string
-  gpa: number
-  status: "Active" | "Pending"
-  interviewScore: number
-  preferences: string[]
+  year: number
+  student_profile: {
+    id: string
+    qca: string | null
+    pronouns: string | null
+    description: string | null
+    avatar_url: string | null
+    cv_url: string | null
+    github_link: string | null
+    linkedin_link: string | null
+    personal_site_link: string | null
+  }
+  accepted_student_emails: [{
+    email: string
+  }]
 }
 
-export default function StudentsTable({ students }: { students: StudentRow[] }) {
+export default function StudentsTable({ students }: { students: StudentWithProfile[] }) {
 
   return (
     < Table >
@@ -28,10 +38,8 @@ export default function StudentsTable({ students }: { students: StudentRow[] }) 
         <TableRow>
           <TableHead>Name</TableHead>
           <TableHead>Email</TableHead>
-          <TableHead>GPA</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Interview&nbsp;Score</TableHead>
-          <TableHead>Top&nbsp;Preferences</TableHead>
+          <TableHead>QCA</TableHead>
+          <TableHead>Ranking Status</TableHead>
         </TableRow>
       </TableHeader>
 
@@ -39,24 +47,14 @@ export default function StudentsTable({ students }: { students: StudentRow[] }) 
         {students.map((s) => (
           <TableRow key={s.id}>
             <TableCell className="font-medium">{s.name}</TableCell>
-            <TableCell className="text-gray-600">{s.email}</TableCell>
-            <TableCell>{s.gpa.toFixed(2)}</TableCell>
+            <TableCell className="text-gray-600">{s.accepted_student_emails[0]?.email ?? "null@gamil.com"}</TableCell>
+            <TableCell>{s.student_profile.qca}</TableCell>
             <TableCell>
               <Badge
-                variant={s.status === "Active" ? "default" : "secondary"}
+                variant={s.year === 1 ? "default" : "secondary"}
               >
-                {s.status}
+                {"Active"}
               </Badge>
-            </TableCell>
-            <TableCell>{s.interviewScore}</TableCell>
-            <TableCell>
-              <div className="flex flex-wrap gap-1">
-                {s.preferences.slice(0, 2).map((p) => (
-                  <Badge key={p} variant="outline" className="text-xs">
-                    {p}
-                  </Badge>
-                ))}
-              </div>
             </TableCell>
           </TableRow>
         ))}

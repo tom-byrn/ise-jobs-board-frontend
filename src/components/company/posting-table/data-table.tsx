@@ -33,13 +33,13 @@ export function JobPostingsDataTable<TData, TValue>({
 
 	return (
 		<div className="border">
-			<Table>
+			<Table className="text-white dark:text-black">
 				<TableHeader>
 					{table.getHeaderGroups().map((headerGroup) => (
-						<TableRow key={headerGroup.id}>
+						<TableRow key={headerGroup.id} className="hover:bg-black/10">
 							{headerGroup.headers.map((header) => {
 								return (
-									<TableHead key={header.id} className="border-x-[1px] border-x-neutral-200">
+									<TableHead key={header.id} className="border-x-[1px] dark:text-black border-x-neutral-200 dark:border-x-neutral-600">
 										{header.isPlaceholder
 											? null
 											: flexRender(
@@ -56,11 +56,12 @@ export function JobPostingsDataTable<TData, TValue>({
 					{table.getRowModel().rows?.length ? (
 						table.getRowModel().rows.map((row) => (
 							<TableRow
+								className="hover:bg-black/10"
 								key={row.id}
 								data-state={row.getIsSelected() && "selected"}
 							>
 								{row.getVisibleCells().map((cell) => (
-									<TableCell key={cell.id} className="border-x-[1px] border-r-neutral-200">
+									<TableCell key={cell.id} className="border-x-[1px] border-r-neutral-200 dark:border-r-neutral-600">
 										{flexRender(cell.column.columnDef.cell, cell.getContext())}
 									</TableCell>
 								))}

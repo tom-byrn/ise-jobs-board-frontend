@@ -118,16 +118,6 @@ async function CompanyDetails({ id }: { id: string }) {
 
   return (
     <div className="flex w-screen flex-col px-8 pt-16 md:px-16 md:pt-32">
-      <div className="mx-12 flex flex-col gap-y-4 mt-8 border-2 border-black bg-white p-4 dark:border-white dark:bg-black">
-        <h2 className="text-2xl font-bold">Job Table</h2>
-        <Link
-          href={"/rp-dashboard/new-job-posting"}
-          className="p-2 bg-black max-w-fit text-sm text-white dark:bg-white dark:text-black"
-        >
-          Create New
-        </Link>
-        <JobPostingsDataTable columns={columns} data={jobPostings} />
-      </div>
       <div className="relative">
         <img
           className="h-56 w-full"
@@ -155,13 +145,10 @@ async function CompanyDetails({ id }: { id: string }) {
         </p>
       </div>
 
-      <div className="mx-12 mt-8 border-2 border-black bg-white p-4 dark:border-white dark:bg-black">
-        <h2 className="text-2xl font-bold">Job Postings</h2>
-        <div className="px-8 py-4">
-          <JobPostings jobPostings={jobPostings} />
-        </div>
+      <div className="mx-12 mt-4 p-4 border-2 border-white bg-black">
+        <h2 className="text-2xl font-bold mb-2">Job Postings</h2>
+        <JobPostings jobPostings={jobPostings} />
       </div>
-
     </div>
   );
 }
