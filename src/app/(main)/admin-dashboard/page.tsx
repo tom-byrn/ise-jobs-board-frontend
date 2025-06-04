@@ -1,18 +1,10 @@
 import AnimatedHeroText from "@/components/animated-hero";
 import { FloatingLink } from "@/components/home/floating-link";
 import {
-  BriefcaseBusiness,
   LayoutDashboard,
-  LayoutList,
-  ListOrdered,
-  UserPen,
-  Users,
-  MailPlus,
   UserPlus,
-  BellRing,
   GitCompare
 } from "lucide-react";
-import { AdminCalendar } from "@/components/admin/admin-calendar";
 import UpcomingDeadlines from "@/components/admin/upcoming-deadlines";
 
 
@@ -26,7 +18,6 @@ export default function Home() {
       </h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-10 mb-10">
-        {/* Residencies Panel */}
         <div className="flex flex-col justify-between w-full bg-black p-6 text-white dark:bg-white dark:text-black shadow">
           <h2 className="pb-3 text-3xl">Residencies</h2>
           <p className="text-neutral-300 dark:text-neutral-700">
@@ -44,7 +35,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Students Panel */}
         <div className="flex flex-col justify-between w-full bg-black p-6 text-white dark:bg-white dark:text-black shadow">
           <h2 className="pb-3 text-3xl">Students</h2>
           <p className="text-neutral-300 dark:text-neutral-700">
@@ -63,30 +53,29 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Algorithm Panel */}
       <div className="flex flex-col justify-between w-full mb-10 bg-black p-6 text-white dark:bg-white dark:text-black shadow">
         <h2 className="pb-3 text-3xl">Manage Residency</h2>
         <p className="text-neutral-300 dark:text-neutral-700">
           Manage the progress of each residency.
         </p>
         <div className="flex flex-wrap gap-3 pt-4">
-          <FloatingLink href="/add-student">
+          <FloatingLink href="/admin-dashboard/residency/1">
             <GitCompare size={18} />
             Residency 1
           </FloatingLink>
-          <FloatingLink href="/students-dashboard">
+          <FloatingLink href="/admin-dashboard/residency/2">
             <GitCompare size={18} />
             Residency 2
           </FloatingLink>
-          <FloatingLink href="/add-student">
+          <FloatingLink href="/admin-dashboard/residency/3">
             <GitCompare size={18} />
             Residency 3
           </FloatingLink>
-          <FloatingLink href="/students-dashboard">
+          <FloatingLink href="/admin-dashboard/residency/4">
             <GitCompare size={18} />
             Residency 4
           </FloatingLink>
-          <FloatingLink href="/students-dashboard">
+          <FloatingLink href="/admin-dashboard/residency/5">
             <GitCompare size={18} />
             Residency 5
           </FloatingLink>

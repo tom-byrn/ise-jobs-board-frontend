@@ -3,6 +3,7 @@
 import * as React from "react"
 import { ColumnDef } from "@tanstack/react-table"
 import { DataTable } from "@/components/ui/data-table"
+import { FinalMatchRow } from "@/app/api/utils"
 
 export interface InterviewWithStudent {
   id: number
@@ -12,27 +13,27 @@ export interface InterviewWithStudent {
   job_posting: { id: string; job_title: string }
 }
 
-const columns: ColumnDef<InterviewWithStudent>[] = [
+const columns: ColumnDef<FinalMatchRow>[] = [
   {
     header: "Student",
-    accessorFn: row => row.student.name,          // ✅ nested value
+    accessorFn: row => row.student.name,
     cell: info => <span className="font-medium">{info.getValue<string>()}</span>,
   },
   {
-    header: "Year",
-    accessorFn: row => row.student.year,          // ✅ nested value
+    header: "Job Title",
+    accessorFn: row => row.job_posting.job_title,
     enableSorting: false,
   },
   {
-    header: "Posting",
-    accessorFn: row => row.job_posting.job_title, // ✅ nested value
+    header: "Residency",
+    accessorFn: row => row.job_posting.residency,
   },
   {
-    header: "Interview ID",
-    accessorKey: "id",                            // top-level — accessorKey OK
+    header: "Residency Email",
+    accessorFn: row => row.job_posting.contact_email,
   },
 ]
 
-export default function InterviewsTable({ data }: { data: InterviewWithStudent[] }) {
+export default function FinalMatchTable({ data }: { data: FinalMatchRow[] }) {
   return <DataTable columns={columns} data={data} />
 }

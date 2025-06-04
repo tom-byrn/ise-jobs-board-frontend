@@ -1,11 +1,9 @@
-
-
 import AnimatedHeroText from "@/components/animated-hero"
 import { Play, Zap, Users, Calendar } from "lucide-react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { fetchInterviews } from "@/app/api/utils"
-import InterviewsTable from "../InterviewsTable"
+import InterviewsTable from "../../../../../../components/admin/residency/tables/interviews-table"
 import Link from "next/link"
 
 const slugToYear: Record<string, string> = {

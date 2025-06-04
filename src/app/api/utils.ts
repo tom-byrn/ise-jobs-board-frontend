@@ -195,7 +195,7 @@ type ResidencyMatch =
     hires: { id: string; name: string }[]
   }>
 
-const API_ROOT = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080/api/v1"
+const API_ROOT = env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080/api/v1"
 
 export async function runInterviewMatch(
   year: number,
@@ -235,7 +235,7 @@ export type InterviewWithStudent = {
   job_posting: { id: string; job_title: string }
 }
 
-interface InterviewTableProps {
+export interface InterviewTableProps {
   students: InterviewWithStudent[]
 }
 

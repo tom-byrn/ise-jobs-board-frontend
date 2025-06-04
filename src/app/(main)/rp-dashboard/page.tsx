@@ -1,25 +1,13 @@
 import AnimatedHeroText from "@/components/animated-hero";
 import { FloatingLink } from "@/components/home/floating-link";
 import {
-  BriefcaseBusiness,
   LayoutDashboard,
-  LayoutList,
-  ListOrdered,
-  UserPen,
-  Users,
-  MailPlus,
-  UserPlus,
-  BellRing,
-  GitCompare,
   Users2,
   CirclePlus,
   SquarePen,
   PlusCircle
 } from "lucide-react";
-import { AdminCalendar } from "@/components/admin/admin-calendar";
-import UpcomingDeadlines from "@/components/admin/upcoming-deadlines";
 import { getCompanyIdFromUserId, getUserId } from "@/app/api/user";
-import JobPostings from "@/components/ui/JobPostings";
 import { getJobPostingsByCompany } from "@/app/api/utils";
 import Link from "next/link";
 import { JobPostingsDataTable } from "@/components/company/posting-table/data-table";
