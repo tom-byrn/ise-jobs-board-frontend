@@ -1,7 +1,8 @@
 "use client"
 
-import { Play, Zap } from "lucide-react"
+import { Play, Zap, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useState } from "react"
 
 interface ActionButtonsProps {
 	onResidencyMatch: () => Promise<void>
@@ -12,20 +13,55 @@ export function ActionButtons({
 	onResidencyMatch,
 	onInterviewMatch
 }: ActionButtonsProps) {
+	const [isInterviewLoading, setIsInterviewLoading] = useState(false)
+	const [isResidencyLoading, setIsResidencyLoading] = useState(false)
+
+	const handleInterviewMatch = async () => {
+		setIsInterviewLoading(true)
+		try {
+			await onInterviewMatch()
+		} catch (error) {
+			console.error("Interview match failed:", error)
+		} finally {
+			setIsInterviewLoading(false)
+		}
+	}
+
+	const handleResidencyMatch = async () => {
+		setIsResidencyLoading(true)
+		try {
+			await onResidencyMatch()
+		} catch (error) {
+			console.error("Residency match failed:", error)
+		} finally {
+			setIsResidencyLoading(false)
+		}
+	}
+
 	return (
 		<div className="flex gap-3">
 			<Button
 				variant="default"
-				onClick={() => onResidencyMatch()}
+				onClick={handleInterviewMatch}
+				disabled={isInterviewLoading || isResidencyLoading}
 			>
-				<Play className="mr-2 h-4 w-4" />
+				{isInterviewLoading ? (
+					<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+				) : (
+					<Play className="mr-2 h-4 w-4" />
+				)}
 				Run Interview Assignment
 			</Button>
 			<Button
 				variant="secondary"
-				onClick={() => onInterviewMatch()}
+				onClick={handleResidencyMatch}
+				disabled={isResidencyLoading || isInterviewLoading}
 			>
-				<Zap className="mr-2 h-4 w-4" />
+				{isResidencyLoading ? (
+					<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+				) : (
+					<Zap className="mr-2 h-4 w-4" />
+				)}
 				Run Final Matching
 			</Button>
 		</div>
