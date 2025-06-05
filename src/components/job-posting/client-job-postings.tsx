@@ -59,10 +59,10 @@ export default function ClientJobPostings({ initialJobPostings, error }: Props) 
   const filteredJobPostings = useMemo(() =>
     jobPostings.filter(job =>
       job.company.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
-        (selectedLocation === "any" || job.location === selectedLocation) &&
-        (selectedResidency === "any" || job.residency === selectedResidency) &&
-        job.salary >= minSalary &&
-        wantsFavourites ? (job.isFavourited) : true
+      (selectedLocation === "any" || job.location === selectedLocation) &&
+      (selectedResidency === "any" || job.residency === selectedResidency) &&
+      job.salary >= minSalary &&
+      (wantsFavourites ? (job.isFavourited) : true)
     ),
     [jobPostings, searchQuery, selectedLocation, selectedResidency, minSalary, wantsFavourites]
   )
