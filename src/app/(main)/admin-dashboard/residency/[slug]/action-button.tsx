@@ -3,6 +3,7 @@
 import { Play, Zap, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 interface ActionButtonsProps {
 	onResidencyMatch: () => Promise<void>
@@ -16,6 +17,8 @@ export function ActionButtons({
 	const [isInterviewLoading, setIsInterviewLoading] = useState(false)
 	const [isResidencyLoading, setIsResidencyLoading] = useState(false)
 
+	const router = useRouter()
+
 	const handleInterviewMatch = async () => {
 		setIsInterviewLoading(true)
 		try {
@@ -24,6 +27,7 @@ export function ActionButtons({
 			console.error("Interview match failed:", error)
 		} finally {
 			setIsInterviewLoading(false)
+			router.refresh()
 		}
 	}
 
@@ -35,6 +39,7 @@ export function ActionButtons({
 			console.error("Residency match failed:", error)
 		} finally {
 			setIsResidencyLoading(false)
+			router.refresh()
 		}
 	}
 
