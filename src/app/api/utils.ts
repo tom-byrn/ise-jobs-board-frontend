@@ -198,9 +198,10 @@ type ResidencyMatch =
 const API_ROOT = env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080/api/v1"
 
 export async function runInterviewMatch(
-  year: number,
+  year: string,
+  residency: string
 ): Promise<InterviewMatch> {
-  const resp = await fetch(`${API_ROOT}/match-interviews/${year}`, {
+  const resp = await fetch(`${API_ROOT}/match-interviews/${year}/${residency}`, {
     method: "POST",
   })
 
@@ -213,9 +214,10 @@ export async function runInterviewMatch(
 }
 
 export async function runResidencyMatch(
-  year: number,
+  year: string,
+  residency: string
 ): Promise<ResidencyMatch> {
-  const resp = await fetch(`${API_ROOT}/match-residency/${year}`, {
+  const resp = await fetch(`${API_ROOT}/match-residency/${year}/${residency}`, {
     method: "POST",
   })
 

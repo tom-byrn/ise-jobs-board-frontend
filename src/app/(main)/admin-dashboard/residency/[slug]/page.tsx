@@ -8,48 +8,60 @@ import { MatchingTabContents } from "@/components/admin/residency/tabs/matching-
 import InterviewsTabContents from "@/components/admin/residency/tabs/interviews-tab-contents"
 
 export default async function ResidencyManager({
-	params,
+  params,
 }: {
-	params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>
 }) {
-	const { slug: residencySlug } = await params
-	let year: string = residencySlug
+  const { slug: residencySlug } = await params
+  let year: string = residencySlug
 
-	if (!(["1", "2", "3", "4", "5"].includes(year))) {
-		throw new Error(`Unknown slug`)
-	}
+  if (!(["1", "2", "3", "4", "5"].includes(year))) {
+    throw new Error(`Unknown slug`)
+  }
 
-	const students = await fetchStudentsWithProfiles(year)
-	const interviews = await fetchInterviews(year)
-	const postings = await fetchJobPostingsByResidency(year)
-	const matches = await fetchFinalMatches(year)
+  switch (residencySlug) {
+    case "1":
+    case "2":
+      year = "1"
+    case "3":
+      year = "2"
+    case "4":
+      year = "3"
+    case "5":
+      year = "4"
+  }
 
-	console.log(interviews)
+  const students = await fetchStudentsWithProfiles(year)
+  const interviews = await fetchInterviews(year)
+  const postings = await fetchJobPostingsByResidency(year)
+  const matches = await fetchFinalMatches(year)
 
-	return (
-		<div className="flex w-full flex-col px-8 pt-12 md:pt-16">
-			<AnimatedHeroText text={`Residency ${residencySlug}`} emphasis={[10]} />
+  console.log(interviews)
 
-			<Tabs defaultValue="students" className="w-full mt-8">
-				<TabsList>
-					<TabsTrigger value="students" className="flex gap-x-2 items-center"><Users size={16} /> Students</TabsTrigger>
-					<TabsTrigger value="interviews" className="flex gap-x-2 items-center"><Cigarette size={16} /> Interviews</TabsTrigger>
-					<TabsTrigger value="matching" className="flex gap-x-2 items-center"><ArrowLeftRight size={16} /> Matching</TabsTrigger>
-				</TabsList>
+  return (
+    <div className="flex w-full flex-col px-8 pt-12 md:pt-16">
+      <AnimatedHeroText text={`Residency ${residencySlug}`} emphasis={[10]} />
 
-				<TabsContent value="students">
-					<StudentsTabContents students={students} postings={postings} />
-				</TabsContent>
+      <Tabs defaultValue="students" className="w-full mt-8">
+        <TabsList>
+          <TabsTrigger value="students" className="flex gap-x-2 items-center"><Users size={16} /> Students</TabsTrigger>
+          <TabsTrigger value="interviews" className="flex gap-x-2 items-center"><Cigarette size={16} /> Interviews</TabsTrigger>
+          <TabsTrigger value="matching" className="flex gap-x-2 items-center"><ArrowLeftRight size={16} /> Matching</TabsTrigger>
+        </TabsList>
 
-				<TabsContent value="interviews">
-					<InterviewsTabContents interviews={interviews} />
-				</TabsContent>
+        <TabsContent value="students">
+          <StudentsTabContents students={students} postings={postings} />
+        </TabsContent>
 
-				<TabsContent value="matching">
-					<MatchingTabContents matches={matches} />
-				</TabsContent>
-			</Tabs>
-		</div>
-	)
+        <TabsContent value="interviews">
+          <InterviewsTabContents interviews={interviews} />
+        </TabsContent>
+
+        <TabsContent value="matching">
+          <MatchingTabContents matches={matches} />
+        </TabsContent>
+      </Tabs>
+    </div>
+  )
 }
 
