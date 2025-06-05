@@ -1,34 +1,48 @@
-import { Play, Zap } from "lucide-react"
 import {
   Card,
+  CardContent,
   CardHeader,
   CardTitle,
-  CardContent,
 } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { CompanyWithPostings, StudentWithProfile } from "@/app/api/utils"
+import { runResidencyMatch, runInterviewMatch } from "@/app/api/utils"
+import { ActionButtons } from "@/app/(main)/admin-dashboard/residency/[slug]/action-button"
 import StudentsTable from "../tables/student-table"
 import JobPostingTable from "../tables/job-posting-table"
 
-export function StudentsTabContents({ students, postings }: { students: StudentWithProfile[], postings: CompanyWithPostings[] }) {
+export async function StudentsTabContents({
+  students,
+  postings,
+  year,
+  residency
+}: {
+  students: StudentWithProfile[],
+  postings: CompanyWithPostings[],
+  year: string,
+  residency: string
+}) {
+
+  async function handleResidencyMatch() {
+    "use server"
+    await runResidencyMatch(year, residency)
+  }
+
+  async function handleInterviewMatch() {
+    "use server"
+    await runInterviewMatch(year, residency)
+  }
+
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-2xl">Students</CardTitle>
-          <div className="flex gap-3">
-            <Button variant="default">
-              <Play className="mr-2 h-4 w-4" />
-              Run Selection
-            </Button>
-            <Button variant="secondary">
-              <Zap className="mr-2 h-4 w-4" />
-              Run Match
-            </Button>
-          </div>
+          <ActionButtons
+            onResidencyMatch={handleResidencyMatch}
+            onInterviewMatch={handleInterviewMatch}
+          />
         </div>
       </CardHeader>
-
       <CardContent>
         <div className="rounded-md border">
           <StudentsTable students={students} />
