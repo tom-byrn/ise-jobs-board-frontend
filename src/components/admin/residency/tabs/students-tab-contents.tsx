@@ -10,7 +10,7 @@ import { CompanyWithPostings, StudentWithProfile } from "@/app/api/utils"
 import StudentsTable from "../tables/student-table"
 import JobPostingTable from "../tables/job-posting-table"
 
-export function StudentsTabContents({ students, postings }: { students: StudentWithProfile[], postings: CompanyWithPostings[] }) {
+export function StudentsTabContents({ students, postings, year }: { students: StudentWithProfile[], postings: CompanyWithPostings[], year: string }) {
   return (
     <Card>
       <CardHeader>

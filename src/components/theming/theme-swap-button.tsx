@@ -27,7 +27,7 @@ export function ThemeSwapButton() {
     <Button suppressHydrationWarning variant="outline" size="icon" onClick={() => swapTheme(theme ?? "", setTheme)}>
       {
         theme == "dark" ?
-          (<Moon suppressHydrationWarning />) : (<Sun suppressHydrationWarning />)
+          (<Moon suppressHydrationWarning data-testid="moon-icon" />) : (<Sun suppressHydrationWarning data-testid="sun-icon" />)
       }
     </Button>
   );
