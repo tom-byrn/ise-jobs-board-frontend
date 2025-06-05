@@ -29,9 +29,9 @@ import { createBrowserClient } from '@supabase/ssr';
 import { Session } from '@supabase/supabase-js';
 import { getUserId } from '@/app/api/user';
 import { getStudentYearClient, getUserIdClient } from '@/app/api/client-user';
-import { Euro, GripVertical } from 'lucide-react';
+import { Euro, EuroIcon, GripVertical, House, MapPin, Users } from 'lucide-react';
+import { createClient } from '@/lib/client';
 
-// Types
 interface JobPosting {
   id: string;
   job_title: string;
@@ -53,11 +53,10 @@ interface SortableJobItemProps {
   rank: number;
 }
 
-// Helper function to get accessible residencies based on year
 function getAccessibleResidencies(year: number): (number | string)[] {
   switch (year) {
     case 1:
-      return [1, '1', 2, '2']; // Handle both number and string formats
+      return [1, '1', 2, '2', '1+2']; // Handle both number and string formats in case db changes
     case 2:
       return [3, '3'];
     case 3:
@@ -69,14 +68,13 @@ function getAccessibleResidencies(year: number): (number | string)[] {
   }
 }
 
-// Helper function to group residencies for display
 function getResidencyGroups(year: number): { label: string; residencies: (number | string)[] }[] {
   switch (year) {
     case 1:
       return [
         { label: 'Residency 1', residencies: [1, '1'] },
         { label: 'Residency 2', residencies: [2, '2'] },
-        { label: 'Residency 1+2', residencies: [1, '1', 2, '2'] }
+        { label: 'Residency 1+2', residencies: ['1+2'] }
       ];
     case 2:
       return [{ label: 'Residency 3', residencies: [3, '3'] }];
@@ -89,7 +87,6 @@ function getResidencyGroups(year: number): { label: string; residencies: (number
   }
 }
 
-// Drag handle component
 function DragHandle() {
   return (
     <div className="flex flex-col gap-1 p-2 cursor-grab active:cursor-grabbing">
@@ -144,11 +141,11 @@ function SortableJobItem({ job, rank }: SortableJobItemProps) {
           <h3 className="font-semibold text-lg text-gray-800">{job.job_title}</h3>
           <p className="text-gray-600">{job.company?.name}</p>
           <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
-            <span>€{job.salary?.toLocaleString()}</span>
-            <span>⚲ {job.location}</span>
-            <span># {job.position_count} position{job.position_count !== 1 ? 's' : ''}</span>
             <span>Residency {job.residency}</span>
-            {job.accommodation_support && <span>🏠︎ Housing</span>}
+            <span><EuroIcon size={14} className='inline items-center justify-center mb-0.5' />{job.salary?.toLocaleString()}</span>
+            <span><MapPin size={14} className='inline items-center justify-center mb-0.5' /> {job.location}</span>
+            <span><Users size={14} className='inline items-center justify-center mb-0.5' /> {job.position_count} position{job.position_count !== 1 ? 's' : ''}</span>
+            {job.accommodation_support && <span><House size={14} className='inline items-center justify-center mb-0.5' /> Housing</span>}
           </div>
         </div>
 
@@ -181,11 +178,7 @@ export default function JobRankingPage() {
   useEffect(() => {
     async function fetchJobsAndAuth() {
       try {
-        // Get auth session
-        const supabase = createBrowserClient(
-          env.NEXT_PUBLIC_SUPABASE_URL!,
-          env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-        );
+        const supabase = createClient()
         
         const { data: { session }, error: authError } = await supabase.auth.getSession();
         if (authError) {
@@ -354,9 +347,6 @@ export default function JobRankingPage() {
         <p className="text-black dark:text-white mb-2">
           Drag and drop to rank the job postings in order of your preference for each residency.
         </p>
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          Year {year} student - You have access to the following residencies:
-        </p>
       </div>
 
       {residencyGroups.map(group => {
@@ -372,7 +362,7 @@ export default function JobRankingPage() {
             </div>
 
             {jobs.length === 0 ? (
-              <div className="text-center py-8 bg-gray-50 dark:bg-gray-800 rounded">
+              <div className="text-center py-8 bg-gray-50 dark:bg-gray-800">
                 <p className="text-gray-600 dark:text-gray-400">
                   No job postings available for {group.label}.
                 </p>
@@ -405,7 +395,7 @@ export default function JobRankingPage() {
                   <button
                     onClick={() => handleSubmit(group.label)}
                     disabled={submitting}
-                    className="bg-green-600 text-white px-6 py-2 font-semibold hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed rounded"
+                    className="bg-green-600 text-white px-6 py-2 font-semibold hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {submitting ? 'Submitting...' : `Submit ${group.label} Rankings`}
                   </button>
@@ -419,7 +409,7 @@ export default function JobRankingPage() {
       <div className="mt-8 flex justify-center">
         <button
           onClick={() => router.back()}
-          className="bg-gray-600 text-white px-8 py-3 font-semibold hover:bg-gray-700 rounded"
+          className="bg-gray-600 text-white px-8 py-3 font-semibold hover:bg-gray-700"
         >
           Back
         </button>

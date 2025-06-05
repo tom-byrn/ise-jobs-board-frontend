@@ -93,7 +93,7 @@ function SortableCandidateItem({ candidate, rank }: SortableCandidateItemProps) 
           {rank}
         </div>
         
-        <div className="flex-shrink-0 w-12 h-12 bg-gray-200 mr-4 rounded-full flex items-center justify-center">
+        <div className="flex-shrink-0 w-12 h-12 bg-gray-200 mr-4 flex items-center justify-center">
           <User className="w-6 h-6 text-gray-600" />
         </div>
 
@@ -202,14 +202,6 @@ export default function RankCandidates({ companyId }: RankCandidatesProps) {
     }
   }, [companyId]);
 
-  // Placeholder for auth token - implement this based on your auth system
-  async function getAuthToken(): Promise<string | null> {
-    // This should return your JWT token
-    // You might get it from Supabase session, localStorage, cookies, etc.
-    // For now, returning null - you'll need to implement this
-    return null;
-  }
-
   function handleDragEnd(jobPostingId: string) {
     return (event: DragEndEvent) => {
       const { active, over } = event;
@@ -237,13 +229,19 @@ export default function RankCandidates({ companyId }: RankCandidatesProps) {
         student_id: candidate.student_id,
         job_posting_id: jobPostingId,
         rank: index + 1,
-        type: 'partner' // Based on your PostInterviewRankingDTO
+        type: 'partner' //The partner is ranking the students in this case
       }));
 
       console.log(`Submitting rankings for ${jobTitle}:`, rankings);
 
-      const token = await getAuthToken();
-      const response = await fetch(`/api/post-interview-rankings`, {
+      const supabase = createClient()
+      const {
+          data: { session },
+          error
+      } = await supabase.auth.getSession()        
+      const token = session?.access_token
+
+      const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/post-interview-rankings`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -269,7 +267,7 @@ export default function RankCandidates({ companyId }: RankCandidatesProps) {
     return (
       <main className="pt-24 px-6 max-w-4xl mx-auto">
         <div className="flex items-center justify-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black"></div>
+          <span>Loading...</span>
         </div>
       </main>
     );
@@ -283,7 +281,7 @@ export default function RankCandidates({ companyId }: RankCandidatesProps) {
           <p className="text-gray-600 mb-4">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            className="bg-green-600 text-white px-4 py-2 hover:bg-green-700"
           >
             Retry
           </button>
@@ -302,7 +300,7 @@ export default function RankCandidates({ companyId }: RankCandidatesProps) {
       </div>
 
       {jobPostings.length === 0 ? (
-        <div className="text-center py-12 bg-gray-50 dark:bg-gray-800 rounded">
+        <div className="text-center py-12 bg-gray-50 dark:bg-gray-800">
           <p className="text-gray-600 dark:text-gray-400">
             No job postings found for this company.
           </p>
@@ -319,16 +317,16 @@ export default function RankCandidates({ companyId }: RankCandidatesProps) {
                 </h2>
                 <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-4">
                   <span>€{jobPosting.salary?.toLocaleString()}</span>
-                  <span>📍 {jobPosting.location}</span>
-                  <span>👥 {jobPosting.position_count} position{jobPosting.position_count !== 1 ? 's' : ''}</span>
-                  <span>🏥 Residency {jobPosting.residency}</span>
+                  <span>⚲ {jobPosting.location}</span>
+                  <span># {jobPosting.position_count} position{jobPosting.position_count !== 1 ? 's' : ''}</span>
+                  <span>Residency {jobPosting.residency}</span>
                   {jobPosting.accommodation_support && <span>🏠 Housing</span>}
                 </div>
                 <div className="border-b border-gray-300 dark:border-gray-600 mb-4"></div>
               </div>
 
               {candidates.length === 0 ? (
-                <div className="text-center py-8 bg-gray-50 dark:bg-gray-800 rounded mb-6">
+                <div className="text-center py-8 bg-gray-50 dark:bg-gray-800 mb-6">
                   <p className="text-gray-600 dark:text-gray-400">
                     No candidates found for this job posting.
                   </p>
@@ -361,7 +359,7 @@ export default function RankCandidates({ companyId }: RankCandidatesProps) {
                     <button
                       onClick={() => handleSubmit(jobPosting.id, jobPosting.job_title)}
                       disabled={submitting}
-                      className="bg-green-600 text-white px-6 py-2 font-semibold hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed rounded"
+                      className="bg-green-600 text-white px-6 py-2 font-semibold hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {submitting ? 'Submitting...' : `Submit Rankings for ${jobPosting.job_title}`}
                     </button>
@@ -376,7 +374,7 @@ export default function RankCandidates({ companyId }: RankCandidatesProps) {
       <div className="mt-8 flex justify-center">
         <button
           onClick={() => router.back()}
-          className="bg-gray-600 text-white px-8 py-3 font-semibold hover:bg-gray-700 rounded"
+          className="bg-gray-600 text-white px-8 py-3 font-semibold hover:bg-gray-700"
         >
           Back
         </button>
