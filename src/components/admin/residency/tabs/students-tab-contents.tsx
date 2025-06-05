@@ -11,18 +11,23 @@ import StudentsTable from "../tables/student-table"
 import JobPostingTable from "../tables/job-posting-table"
 import { runResidencyMatch, runInterviewMatch } from "@/app/api/utils"
 
-export function StudentsTabContents({ students, postings, year }: { students: StudentWithProfile[], postings: CompanyWithPostings[], year: string }) {
+export async function StudentsTabContents({ students, postings, year, residency }: { students: StudentWithProfile[], postings: CompanyWithPostings[], year: string, residency: string }) {
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-2xl">Students</CardTitle>
           <div className="flex gap-3">
-            <Button variant="default">
+            <Button variant="default"
+              onClick={async () => await runResidencyMatch(year, residency)}
+            >
               <Play className="mr-2 h-4 w-4" />
               Run Selection
             </Button>
-            <Button variant="secondary">
+            <Button
+              variant="secondary"
+              onClick={async () => await runInterviewMatch(year, residency)}
+            >
               <Zap className="mr-2 h-4 w-4" />
               Run Match
             </Button>

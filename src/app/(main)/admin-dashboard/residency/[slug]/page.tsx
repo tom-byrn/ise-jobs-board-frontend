@@ -51,7 +51,7 @@ export default async function ResidencyManager({
         </TabsList>
 
         <TabsContent value="students">
-          <StudentsTabContents students={students} postings={postings} />
+          <StudentsTabContents students={students} postings={postings} year={year} />
         </TabsContent>
 
         <TabsContent value="interviews">
