@@ -7,6 +7,7 @@ import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import { Select, SelectContent, SelectTrigger, SelectValue } from "../ui/select"
 import { SelectItem } from "@radix-ui/react-select"
+import { Checkbox } from "../ui/checkbox"
 
 interface Props {
   initialJobPostings: JobPosting[]
@@ -19,6 +20,8 @@ export default function ClientJobPostings({ initialJobPostings, error }: Props) 
   const [jobPostings, setJobPostings] = useState<JobPosting[]>(
     initialJobPostings.map(job => ({ ...job, isFavourited: false }))
   )
+
+  const [wantsFavourites, setWantsFavourites] = useState<boolean>()
 
   useEffect(() => {
     const savedFaves = JSON.parse(localStorage.getItem(FAVOURITES_KEY) || "[]")
@@ -43,7 +46,6 @@ export default function ClientJobPostings({ initialJobPostings, error }: Props) 
     )
   }
 
-
   const [selectedLocation, setSelectedLocation] = useState<string>("any")
   const [selectedResidency, setSelectedResidency] = useState<string>("any")
   const [searchQuery, setSearchQuery] = useState<string>("")
@@ -57,11 +59,12 @@ export default function ClientJobPostings({ initialJobPostings, error }: Props) 
   const filteredJobPostings = useMemo(() =>
     jobPostings.filter(job =>
       job.company.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
-      (selectedLocation === "any" || job.location === selectedLocation) &&
-      (selectedResidency === "any" || job.residency === selectedResidency) &&
-      job.salary >= minSalary
+        (selectedLocation === "any" || job.location === selectedLocation) &&
+        (selectedResidency === "any" || job.residency === selectedResidency) &&
+        job.salary >= minSalary &&
+        wantsFavourites ? (job.isFavourited) : true
     ),
-    [jobPostings, searchQuery, selectedLocation, selectedResidency, minSalary]
+    [jobPostings, searchQuery, selectedLocation, selectedResidency, minSalary, wantsFavourites]
   )
 
   return (
@@ -139,6 +142,14 @@ export default function ClientJobPostings({ initialJobPostings, error }: Props) 
             id="salary"
             type="number"
             onChangeCapture={e => setMinSalary(Number(e.currentTarget.value))}
+          />
+        </div>
+
+        <div className="flex flex-row items-center gap-x-2">
+          <Label htmlFor="fav">Only Favourites?</Label>
+          <Checkbox
+            checked={wantsFavourites}
+            onCheckedChange={() => setWantsFavourites(!wantsFavourites)}
           />
         </div>
       </div>

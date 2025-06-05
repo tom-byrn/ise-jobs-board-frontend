@@ -24,7 +24,7 @@ export function JobCard({ job, isFavourited, onToggleFavourite }: JobCardProps) 
       <CardContent className="flex flex-col justify-between p-6 h-full">
         <div className="relative mb-4 flex items-start space-x-3">
           <Image
-            src={job.company.company_profile.avatar || "/placeholder.svg"}
+            src={job.company.company_profile.avatar ?? "/placeholder.svg"}
             alt={`${job.company.name} logo`}
             className="h-10 w-10 rounded-lg object-cover"
             width={40}

@@ -22,7 +22,7 @@ export const JobPostingSheetContents = ({ job, isFavourited, setIsFavourited }: 
         <div className="w-full">
           <div className="flex flex-roww-full items-start space-x-2">
             <Image
-              src={job.company.company_profile.avatar || "/placeholder.svg"}
+              src={job.company.company_profile.avatar ?? "/placeholder.svg"}
               alt={`${job.company.name} logo`}
               className="w-16 h-16 rounded-lg object-cover"
               width={64}

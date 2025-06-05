@@ -148,22 +148,22 @@ async function StudentDetails({ id }: { id: string }) {
           <div className="mt-3 flex flex-col gap-x-4 gap-y-2 sm:flex-row">
             <WickedLink
               text="CV.pdf"
-              url={student.student_profile.cv_url}
+              url={student.student_profile.cv_url ?? ""}
               icon={<FileText size={20} />}
             />
             <WickedLink
               text="GitHub"
-              url={student.student_profile.github_link}
+              url={student.student_profile.github_link ?? ""}
               icon={<Github size={20} />}
             />
             <WickedLink
               text="LinkedIn"
-              url={student.student_profile.linkedin_link}
+              url={student.student_profile.linkedin_link ?? ""}
               icon={<Linkedin size={20} />}
             />
             <WickedLink
               text="Personal Site"
-              url={student.student_profile.personal_site_link}
+              url={student.student_profile.personal_site_link ?? ""}
               icon={<Globe size={20} />}
             />
           </div>

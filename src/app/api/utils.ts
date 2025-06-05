@@ -217,6 +217,8 @@ export async function runResidencyMatch(
   year: string,
   residency: string
 ): Promise<ResidencyMatch> {
+  console.log(`${API_ROOT}/match-residency/${year}/${residency}`)
+
   const resp = await fetch(`${API_ROOT}/match-residency/${year}/${residency}`, {
     method: "POST",
   })

@@ -22,22 +22,27 @@ export default async function ResidencyManager({
   switch (residencySlug) {
     case "1":
       year = "1"
+      break;
     case "2":
       year = "1"
+      break
     case "3":
       year = "2"
+      break
     case "4":
       year = "3"
+      break
     case "5":
       year = "4"
+      break
   }
+
+  console.log(year)
 
   const students = await fetchStudentsWithProfiles(year)
   const interviews = await fetchInterviews(year)
   const postings = await fetchJobPostingsByResidency(year)
   const matches = await fetchFinalMatches(year)
-
-  console.log(interviews)
 
   return (
     <div className="flex w-full flex-col px-8 pt-12 md:pt-16">
@@ -51,7 +56,7 @@ export default async function ResidencyManager({
         </TabsList>
 
         <TabsContent value="students">
-          <StudentsTabContents students={students} postings={postings} year={year} />
+          <StudentsTabContents students={students} postings={postings} year={year} residency={residencySlug} />
         </TabsContent>
 
         <TabsContent value="interviews">

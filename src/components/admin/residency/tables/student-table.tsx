@@ -9,6 +9,7 @@ import {
   TableCell
 } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
+import Link from "next/link"
 
 export interface StudentWithProfile {
   id: string
@@ -46,8 +47,15 @@ export default function StudentsTable({ students }: { students: StudentWithProfi
       <TableBody>
         {students.map((s) => (
           <TableRow key={s.id}>
-            <TableCell className="font-medium">{s.name}</TableCell>
-            <TableCell className="text-gray-600">{s.accepted_student_emails[0]?.email ?? "null@gamil.com"}</TableCell>
+            <TableCell className="font-medium">
+              <Link
+                href={`/student/${s.id}`}
+                className="hover:underline"
+              >
+                {s.name}
+              </Link>
+            </TableCell>
+            <TableCell className="text-gray-600">{s.accepted_student_emails[0]?.email ?? "24xxxxx@studentmail.ul.ie"}</TableCell>
             <TableCell>{s.student_profile.qca}</TableCell>
             <TableCell>
               <Badge
