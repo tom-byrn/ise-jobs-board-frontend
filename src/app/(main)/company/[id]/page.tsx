@@ -155,11 +155,6 @@ async function CompanyDetails({ id }: { id: string }) {
                 <h2 className="text-2xl font-bold mb-2">Job Postings</h2>
                 <JobPostings jobPostings={jobPostings} />
             </div>
-
-            <div className="mx-12 mt-4 p-4 border-2 border-black bg-white dark:border-white dark:bg-black">
-                <h2 className="text-2xl font-bold mb-4">Interview Candidates</h2>
-                <CandidatesTable companyId={id} />
-            </div>
         </div>
     );
 }
