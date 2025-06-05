@@ -21,6 +21,7 @@ export default async function ResidencyManager({
 
   switch (residencySlug) {
     case "1":
+      year = "1"
     case "2":
       year = "1"
     case "3":
